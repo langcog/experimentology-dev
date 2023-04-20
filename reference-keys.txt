@@ -148,9 +148,7 @@ tab:meta-dataset
 fig:meta-forest
 fig:meta-densities
 fig:meta-v-ipd
-fig:meta-funnel-unbiased
 fig:meta-classic-funnel
-fig:meta-funnel-biased
 experiments
 observational-studies-dont-reveal-causality
 describing-causal-relationships
