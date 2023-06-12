@@ -1,14 +1,14 @@
 {
-  "_chunk-078aa1fb.js": {
-    "file": "assets/chunks/chunk-078aa1fb.js"
+  "_chunk-7bd171af.js": {
+    "file": "assets/chunks/chunk-7bd171af.js"
   },
   "node_modules/vite-plugin-ssr/dist/esm/client/entry.js": {
     "dynamicImports": [
       "src/index.page.client.jsx"
     ],
-    "file": "assets/entries/entry-server-routing.588f1c02.js",
+    "file": "assets/entries/entry-server-routing.21024ed5.js",
     "imports": [
-      "_chunk-078aa1fb.js"
+      "_chunk-7bd171af.js"
     ],
     "isEntry": true,
     "src": "node_modules/vite-plugin-ssr/dist/esm/client/entry.js"
@@ -17,9 +17,9 @@
     "dynamicImports": [
       "src/index.page.client.jsx"
     ],
-    "file": "assets/entries/entry-client-routing.9287174c.js",
+    "file": "assets/entries/entry-client-routing.fdd466a5.js",
     "imports": [
-      "_chunk-078aa1fb.js"
+      "_chunk-7bd171af.js"
     ],
     "isEntry": true,
     "src": "node_modules/vite-plugin-ssr/dist/esm/client/router/entry.js"
@@ -29,7 +29,7 @@
     "src": "src/SourceSansPro-Regular.ttf"
   },
   "src/index.page.client.css": {
-    "file": "assets/static/index.page.client.51f615d5.css",
+    "file": "assets/static/index.page.client.5ad503ce.css",
     "src": "src/index.page.client.css"
   },
   "src/index.page.client.jsx": {
@@ -37,9 +37,9 @@
       "assets/static/SourceSansPro-Regular.71d10a86.ttf"
     ],
     "css": [
-      "assets/static/index.page.client.51f615d5.css"
+      "assets/static/index.page.client.5ad503ce.css"
     ],
-    "file": "assets/entries/src_index.page.client.8b33797c.js",
+    "file": "assets/entries/src_index.page.client.79e072fd.js",
     "isDynamicEntry": true,
     "isEntry": true,
     "src": "src/index.page.client.jsx"
