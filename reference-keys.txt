@@ -1,3 +1,4 @@
+fig:unnamed-chunk-2
 fig:experiments-money1
 fig:experiments-money2
 fig:experiments-money3

@@ -4,16 +4,29 @@ subtitle: "An Open Science Approach to Experimental Psychology Methods"
 author: "Michael C. Frank, Mika Braginsky, Julie Cachia, Nicholas Coles, Tom Hardwicke, Robert Hawkins, Maya Mathur, and Rondeline Williams"
 
 site: bookdown::bookdown_site
-documentclass: book
-classoption: twoside,symmetric
+documentclass: tufte-book
+classoption:
+  - twoside   # headers different on even/odd pages
+  # - symmetric # puts sidenotes on outside of page -- TBD
+  - justified # text alignment
+  - notoc     # suppress tufte toc (it's buggy)
+mainfont: ETbb
+sansfont: Source Sans Pro
+always_allow_html: yes
 
-bibliography: experimentology.bib
-csl: apa.csl
+section-bibs-bibliography: experimentology.bib
+reference-section-title: References
+csl-refs: yes
 link-citations: yes
 ---
 
 
-# {.unlisted .unnumbered}
+
+# Preface {.unnumbered}
+
+```{=latex}
+\chaptermark{Preface} % unnumbered chapter titles don't get set as chaptermarks
+```
 
 How do we create generalizable theories of human behavior? Experiments provide us a tool for measuring causal effects, which provide the basis for building theories. If we design our experiments appropriately, we can even begin to estimate generalizable relationships between different psychological constructs. But how do you do an experiment?
 
@@ -36,8 +49,13 @@ The centerpiece of our course is a replication project, reflecting a teaching mo
 
 At the end of the course, we reap the harvest of projects. The project presentations are a wonderful demonstration of both how much the students can accomplish in a quarter and also how tricky it can be to reproduce (redo calculations in the original data) and replicate (recover similar results in new data) the published literature. Often our replication rate for the course hovers just above 50%, an outcome that can be disturbing or distressing for students who assume that the published literature reports the absolute truth.
 
-<label for="tufte-mn-" class="margin-toggle">&#8853;</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote"><span style="display: block;">This book has fun stuff going on in the margins!
-<img src="images/dog.jpeg"/></span></span>
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="images/dog.jpeg" alt="This book has fun stuff going on in the margins!" width="\linewidth"  />
+<!--
+<p class="caption marginnote">-->(\#fig:unnamed-chunk-2)This book has fun stuff going on in the margins!<!--</p>-->
+<!--</div>--></span></p>
 
 This book is an attempt to distill some of the lessons of the course (and the last ten years of course projects) into a textbook. We'll tell the story of the major shifts in psychology that have come about in the last ten years, including both the "replication crisis" [@osc2015 et seq.] and the positive methodological reforms that have resulted from it. Using this story as motivation, we will highlight the importance of transparency during all aspects of the experimental process from planning to dissemination of materials, data, and code. 
 
@@ -102,7 +120,7 @@ Where appropriate, we provide **code boxes** that show the specific `R` code to 
 
 ## Onward! {-}
 
-Thanks for joining us for Experimentology! Whether you are casually browsing, doing readings for a course, or using the book as a reference in your own experimental work, we hope you find it useful. Throughout, we have tried to practice what we preach in terms of reproducibility, and so the full source code for the book is available at [http://github.com/langcog/experimentology](http://github.com/langcog/experimentology); we encourage you to browse, comment, and log issues or suggestions. 
+Thanks for joining us for Experimentology! Whether you are casually browsing, doing readings for a course, or using the book as a reference in your own experimental work, we hope you find it useful. Throughout, we have tried to practice what we preach in terms of reproducibility, and so the full source code for the book is available at [https://github.com/langcog/experimentology](https://github.com/langcog/experimentology); we encourage you to browse, comment, and log issues or suggestions. 
 
 <!-- ## Integrating this book into an experimental methods course {-} -->
 
@@ -117,7 +135,7 @@ Thanks for joining us for Experimentology! Whether you are casually browsing, do
 
 # Experiments {#experiments}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Define what an experiment is
 * Contrast observational and experimental studies using causal graphs
 * Analyze the role of randomization in experiments 
@@ -193,7 +211,7 @@ Let's think back to our observational study of money and happiness. One big caus
 
 If we were talking about experiments baking cakes, it's easy to see how we could hold all of the ingredients constant and just vary one thing, like baking temperature. Doing so would allow us to make an experimental test of the effect of baking temperature. But how we can "hold something constant" when we're talking about people? People aren't cakes; no two people are alike and even if you try to "hold the ingredients constant" they don't come out the same! If we take two people and give one of them money, we are often comparing two *different* people, not two instances of the same person with everything held constant. It wouldn't work to *make* the first person have more or fewer friends so they match the second person -- that's not holding anything constant, instead it's another (big, difficult, and potentially unethical) intervention that might itself cause lots of effects on happiness. 
 
-You may be wondering: why don’t we just ask people how many friends they have and use this information to split them into equal groups? You could do that, but this only allows you to control for the confounds you know of. For example, you may split people equally based on their number of friends but not their education attainment. If educational attainment impacts both money and happiness, you run back into issues with confounds. You may then try to split people by both their number of friends and education. But perhaps there’s another confound you’ve missed: sleep quality! Similarly, it also doesn't work to select people who have the same number of friends -- that only holds the friends variable constant and not everything *else* that's different between the two people. So what do we do instead?^[Many researchers who have seen regression models used in the social sciences assume that "controlling for lots of stuff" is a good way to improve causal inference. Not so! In fact, inappropriately controlling for a variable in the absenece of a clear causal justification can actually make your effect estimate *more* biased [@wysocki2022].]
+You may be wondering: why don’t we just ask people how many friends they have and use this information to split them into equal groups? You could do that, but this only allows you to control for the confounds you know of. For example, you may split people equally based on their number of friends but not their education attainment. If educational attainment impacts both money and happiness, you run back into issues with confounds. You may then try to split people by both their number of friends and education. But perhaps there’s another confound you’ve missed: sleep quality! Similarly, it also doesn't work to select people who have the same number of friends -- that only holds the friends variable constant and not everything *else* that's different between the two people. So what do we do instead?^[Many researchers who have seen regression models used in the social sciences assume that "controlling for lots of stuff" is a good way to improve causal inference. Not so! In fact, inappropriately controlling for a variable in the absence of a clear causal justification can actually make your effect estimate *more* biased [@wysocki2022].]
 
 ### Randomization saves the day
 
@@ -211,17 +229,14 @@ That's our simple experimental design: we randomly assign some people to a money
 Randomization is a powerful tool, but there is a caveat: it doesn’t work every time. *On average*, randomization will ensure that your money and no-money groups will be equal with respect to confounds like number of friends, education attainment, and sleep quality. But just as you can flip a coin and sometimes get heads 9 out of 10 times, sometimes you use randomization and still get more highly-educated people in one condition than the other. When you randomize, you guarantee that on average all confounds are controlled and hence these do not bias your estimate.  
 
 
-::: {.box .depth}
-(TITLE) Unhappy randomization?
-
+::: {.box data-box="depth" data-title="Unhappy randomization?"}
 As we've been discussing, random assignment removes confounding by ensuring that -- on average -- groups are equivalent with respect to all of their characteristics. Equivalence for any *particular* random assignment is more likely the larger your sample is, however. Any individual experiment may be affected by **unhappy randomization**, when a particular confound is unbalanced between groups by chance. 
 
 Unhappy randomization is much more common in small experiments than larger ones. To see why, we use a technique called **simulation**. In simulations, we invent data randomly following a set of assumptions: we make up a group of participants and generate their characteristics and their condition assignments. By varying the assumptions we use, we can investigate how particular choices might change the structure of the data. 
 
 To look at unhappy randomization, we created many simulated versions of our money-happiness experiment, in which an experimental group receives money and the control group receives none, and then happiness is measured for both groups. We assume that each participant has a set number of friends, and that the more friends they have, the happier they are. So when we randomly assign them to experimental and control groups, we run the risk of unhappy randomization -- sometimes one group will have substantially more friends than the other. 
 
-<div class="figure">
-<p class="caption">(\#fig:experiments-randomization)Simulated data from our money-happiness experiment. Each dot represents the measured happiness effect (vertical position) for an experiment with a set number of participants in each group (horizontal position). Dot color shows how uneven friendship is between the groups. The dashed line shows the true effect.</p><img src="experimentology_files/figure-html/experiments-randomization-1.png" alt="Simulated data from our money-happiness experiment. Each dot represents the measured happiness effect (vertical position) for an experiment with a set number of participants in each group (horizontal position). Dot color shows how uneven friendship is between the groups. The dashed line shows the true effect." width="\linewidth"  /></div>
+<!-- -->
 
 Figure \@ref(fig:experiments-randomization) shows the results of this simulation. Each dot is an experiment, representing one estimate of the happiness effect (how much happiness is gained for the amount of money given to the experimental group). For very small experiments (e.g., with 1 or 3 participants per group), dots are very far from the dashed line showing the true effect -- meaning these estimates are extremely noisy! And the reason is unhappy randomization. The upper and lower points are those in which one group had far more friends than the other.
 
@@ -230,6 +245,9 @@ There are three things to notice about this simulation, however. First, the nois
 Finally, although the small experiments are individually very noisy, the *average effect* across all of the small experiments is still very close to the true effect. This last point illustrates what we mean when we say that randomized experiments remove confounds. Even though friendship is still an important factor determining happiness in our simulation, the average effect across experiments is unbiased.
 
 :::
+
+<div class="figure">
+<p class="caption">(\#fig:experiments-randomization)Simulated data from our money-happiness experiment. Each dot represents the measured happiness effect (vertical position) for an experiment with a set number of participants in each group (horizontal position). Dot color shows how uneven friendship is between the groups. The dashed line shows the true effect.</p><img src="experimentology_files/figure-html/experiments-randomization-1.png" alt="Simulated data from our money-happiness experiment. Each dot represents the measured happiness effect (vertical position) for an experiment with a set number of participants in each group (horizontal position). Dot color shows how uneven friendship is between the groups. The dashed line shows the true effect." width="\linewidth"  /></div>
 
 In sum, randomization is a remarkably simple and effective way of holding everything constant besides a manipulated variable. In doing so, randomization allows experimental psychologists to make unbiased estimates of causal relationships. Importantly, randomization works both when you do have control of every aspect of the experiment -- like when you are baking a cake -- and even when you don't -- like when you are doing experiments with people. 
 
@@ -261,7 +279,7 @@ In this chapter, we defined an experiment as a combination of a manipulation and
 
 Throughout the chapter, we relied on a seemingly simple causal hypothesis: does money increase happiness. But this apparent simplicity masks some big questions: what do we mean when we say "money"? Do we mean all money? What counts as being happy and how do we measure it? When we say "increases in happiness" do we mean that there is a *linear* increase? Things are going to get only more complex when we go beyond this simple hypothesis to try and build a theory that explains how social, cognitive, and physiological processes come together to shape people's happiness. In the next chapter, we'll discuss the process of building such theories. 
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. Imagine that you run a survey and find that people who spend more time playing violent video games tend to be more aggressive (i.e., that there is a positive correlation between violent video games and aggression). Following Figure \@ref(fig:experiments-money2), list three reasons why these variables may be correlated.
 
 2. Suppose you wanted to run an experiment testing whether playing violent video games causes increases in aggression. What would be your manipulation and what would be your measure? How would you deal with potential confounding by variables like age?
@@ -269,11 +287,10 @@ Throughout the chapter, we relied on a seemingly simple causal hypothesis: does 
 3. Consider an experiment designed to test people's food preferences. The experimenter randomly assigns 30 U.S. preschoolers to be served either asparagus or chicken tenders and then asks them how much they enjoyed their meal. Overall, children enjoyed the meat more; the experimenter writes a paper claiming that humans prefer meat over vegetables. List some constraints on the generalizability of this study. In light of these constraints, is this study (or some modification) worth doing at all? 
 ::: 
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * A basic introduction to causal inference from a social science perspective: Huntington-Klein, N. (2022). *The Effect: An Introduction to Research Design and Causality.* Chapman & Hall. Available free online at [https://theeffectbook.net]().
 
 * A slightly more advanced treatment, focusing primarily on econometrics: Cunningham, S. (2021). *Causal Inference: The Mixtape.* Yale Press. Available free online at [http://mixtape.scunning.com]().
-
 :::
 
 <!--chapter:end:001-experiments.Rmd-->
@@ -281,7 +298,7 @@ Throughout the chapter, we relied on a seemingly simple causal hypothesis: does 
 
 # Theories {#theories}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Define theories and their components
 * Contrast different philosophical views on scientific theories
 * Analyze features of an experiment that can lead to strong tests of theory
@@ -294,13 +311,20 @@ What is a theory? We'll argue here that we should think of psychological theorie
 
 We begin this chapter by talking about the specific enterprise of constructing psychological theories. We'll then discuss how theories make contact with experiments, reviewing a bit of the philosophy of science. We end by using some of these ideas to discuss how specific features of experiments can make them better or worse tests of a theory. As we'll do in most chapters in the book, we'll begin with a case study.
 
-::: {.box .case_study}
-(TITLE) A universal law of generalization?
 
+::: {.box data-box="case_study" data-title="A universal law of generalization?"}
 How do you take what you know and apply it to a new situation? One answer is that you use the same answer that has worked in similar situations. To do this kind of extrapolation, however, you need a notion of similarity. Early learning theorists tried to measure similarity in experiments with both human and non-human animals. For example, they might condition an association between a stimulus -- say a projected circle of light of a particular size -- and a food reward. After the animal learned this association, they would test generalization by showing circles of different sizes and measuring the strength of the animal's expectation for a reward. These experiments yielded generalization curves: the more similar the stimulus, the more the animals would give the same response, signaling generalization. 
 
 @shepard1987 was interested in unifying the results of these different experiments. The first step in this process was establishing a **stimulus space**. He used a procedure called "multidimensional scaling" to infer how close each stimulus was to each other on the basis of how strong the generalization between the two of them was. When he plotted the strength of the generalization by the distance between stimuli within this space (their similarity), he found the incredibly consistent pattern shown by the dots (the data) in Figure \@ref(fig:theory-shepard). 
 
+<!-- -->
+
+Working backwards from this pattern, Shepard mathematically derived the exponential form of the curves shown in Figure \@ref(fig:theory-shepard). He argued that this described a "universal law" that governed the relationship between similarity and generalization for almost any stimulus, whether it was the size of circles, the color of patches of light, or the similarity between speech sounds. Later work has even extended this same framework to highly abstract dimensions such as the relationships between numbers of different types [e.g., being even, being powers of 2, etc.; @tenenbaum2000]. 
+
+The pattern shown in Shepard's work is an example of **inductive theory building**. In the vocabulary we're developing, Shepard ran (or obtained the data from) **randomized experiments** in which the **manipulation** was stimulus dimension (e.g., circle size) and the **measure** was an explicit similarity judgment (e.g., how similar is this circle to that one). Then the theory that Shepard proposed linked two **constructs** -- entities whose relationships the theory specifies: 1) similarity between stimuli and 2) generalization strength. 
+
+Shepard wrote in the conclusion of his 1987 paper, "Possibly, behind the diverse behaviors of humans and animals, as behind the various motions of planets and stars, we may discern the operation of universal laws." While Shepard's dream is an ambitious one, it defines an ideal for psychological theorizing. 
+:::
 
 <p><span class="marginnote shownote">
 <!--
@@ -309,13 +333,6 @@ How do you take what you know and apply it to a new situation? One answer is tha
 <!--
 <p class="caption marginnote">-->(\#fig:theory-shepard)Figure 1 from Shepard (1987). Generalization gradients for twelve diffent kinds of stimuli.<!--</p>-->
 <!--</div>--></span></p>
-
-Working backwards from this pattern, Shepard mathematically derived the exponential form of the curves shown in Figure \@ref(fig:theory-shepard). He argued that this described a "universal law" that governed the relationship between similarity and generalization for almost any stimulus, whether it was the size of circles, the color of patches of light, or the similarity between speech sounds. Later work has even extended this same framework to highly abstract dimensions such as the relationships between numbers of different types [e.g., being even, being powers of 2, etc.; @tenenbaum2000]. 
-
-The pattern shown in Shepard's work is an example of **inductive theory building**. In the vocabulary we're developing, Shepard ran (or obtained the data from) **randomized experiments** in which the **manipulation** was stimulus dimension (e.g., circle size) and the **measure** was an explicit similarity judgment (e.g., how similar is this circle to that one). Then the theory that Shepard proposed linked two **constructs** -- entities whose relationships the theory specifies: 1) similarity between stimuli and 2) generalization strength. 
-
-Shepard wrote in the conclusion of his 1987 paper, "Possibly, behind the diverse behaviors of humans and animals, as behind the various motions of planets and stars, we may discern the operation of universal laws." While Shepard's dream is an ambitious one, it defines an ideal for psychological theorizing. 
-:::
 
 
 ## What makes a psychological theory?
@@ -381,7 +398,7 @@ Frameworks are often incredibly important. Ideas like Bronfenbrenner's have insp
 
 There's a continuum between precisely specified theories and broad frameworks. Some theories propose interconnected constructs but don't specify the relationships between them, or don't specify how those constructs should be operationalized. So when you read a paper that says it proposes a "theory," it's a good idea to to ask whether it describes specific relations between operationalized constructs. If it doesn't that, it may be more of a framework than a theory.
 
-::: {.box .ethical_considerations}
+::: {.box data-box="ethical_considerations"}
 Strong theory development isn't just about knowledge for knowledge's sake -- it has implications for the technologies and policies built off the theories.
 
 One case study comes from Edward Clarke's infamous theory regarding the deleterious effects of education for women [@clarke1884]. Clarke posited that (1) cognitive and reproductive processes relied on the same fixed pool of energy, (2) relative to men, women's reproductive processes required more energy, and that (3) expending too much energy on cognitive tasks like education depleted women of the energy needed to maintain a healthy reproductive system. Based on case studies, Clarke suggested that education was causing women to become ill, experience fertility issues, and birth weaker offspring. He thus concluded that "boys must study and work in a boy's way, and girls in a girl's way" (p. 18).
@@ -401,9 +418,9 @@ An alternative perspective comes from the Bayesian tradition that we'll learn mo
 
 ## Theories and data -- a holistic viewpoint
 
-A second point that makes Popper's falsificationism a bad match for working scientists is the observation that no individual hypothesis (a part of a theory) can be falsified independently. Instead, the reasoning about whether a hypothesis relies on a large series of what are called **auxiliary hypotheses** that are necessary to link the observation to the theory [@lakatos1976]. In our running example, if giving someone money didn't change their happiness, maybe we wouldn't immediately throw out our M->H theory. Instead, the fault might be in any one of our auxiliary assumptions, like our measurement of happiness, or our choice of how much money to give or when to give it. The idea that individual parts of a theory can't be falsified independently is sometimes called **holism**.
+A second point that makes Popper's falsificationism a bad match for working scientists is the observation that no individual hypothesis (a part of a theory) can be falsified independently. Instead, a large series of what are called **auxiliary hypotheses** are usally necessary to link an observation to a theory [@lakatos1976]. In our running example, if giving someone money didn't change their happiness, maybe we wouldn't immediately throw out our M->H theory. Instead, the fault might be in any one of our auxiliary assumptions, like our measurement of happiness, or our choice of how much money to give or when to give it. The idea that individual parts of a theory can't be falsified independently is sometimes called **holism**.
 
-One consequence of holism is that the relationship between data and theory isn't always straightforward. An unexpected observation may cause us to give up on a main hypothesis in our theory -- but it will often cause us to question our auxiliary assumptions instead (e.g., how we operationalize our constructs). Thus, before abandoning our theory of money causing happiness, we might want to try several happiness questionnaires! 
+One consequence of holism is that the relationship between data and theory isn't always straightforward. An unexpected observation may not cause us to give up on a main hypothesis in our theory -- but it will often cause us to question our auxiliary assumptions instead (e.g., how we operationalize our constructs). Thus, before abandoning our theory of money causing happiness, we might want to try several happiness questionnaires! 
 
 The broader idea of holism is supported by historical and sociological studies of how science progresses, especially in the work of @kuhn1962. Examining  historical evidence, Kuhn found that scientific revolutions looked *nothing* like the falsification of a theoretical statement via an incontrovertible observation. Instead, Kuhn described scientists as mostly working within **paradigms**: sets of questions, assumptions, methods, phenomena, and explanatory hypotheses. 
 
@@ -474,18 +491,17 @@ In this chapter, we characterized psychological theories as a set of causal rela
 We've presented theories as static entities that are presented, tested, confirmed, and falsified. That's a simplification that doesn't take into account the ways that theories -- especially with formal models as their instantiation -- can be flexibly adjusted to accommodate new data [@navarro2019]. Most modern psychological theories are more like a combination of core principles, auxiliary assumptions, and supporting empirical assumptions that is constantly and slowly shifting. A productive "research program" is one where the core principles are being adjusted to describe a larger base of observations [@lakatos1976]. This idea sounds right to us. The best theories are always being enlarged and refined in response to new data. 
 
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. Identify an influential theory in your field or sub-field. Can you draw the "nomological network" for it? What are the key constructs and how are the measured? Are the links between constructs well-specified? Or does this description of a theory not fit?
 2. Can you think of an experiment that falsified a theory in your area of psychology? To what extent is falsification possible for the kinds of theories that you are interested in studying? 
 :::
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * A fabulous introduction to issues in the philosophy of science can be found in: Godfrey-Smith, P. (2009). Theory and reality. University of Chicago Press.
 
 * Bayesian modeling has been very influential in cognitive science and neuroscience. A good introduction in cognitive science: Lee, M. D. & Wagenmakers, E. J. (2013). *Bayesian Cognitive Modeling: A Practical Course*. Cambridge University Press. Much of the book is available free online at [https://faculty.sites.uci.edu/mdlee/bgm/](). 
 
-* A recent introduction to Bayesian modeling with a neuroscience focus: Ma, W. J., Kording, K. P., & Goldreich, D. (2022). *Bayesian models of perception and action: An introduction*. MIT Press. Free online at [http://www.cns.nyu.edu/malab/bayesianbook.html](). 
-
+* A recent introduction to Bayesian modeling with a neuroscience focus: Ma, W. J., Kording, K. P., & Goldreich, D. (2022). *Bayesian models of perception and action: An introduction*. MIT Press. Free online at [http://www.cns.nyu.edu/malab/bayesianbook.html]().
 :::
 
 <!--chapter:end:002-theories.Rmd-->
@@ -493,7 +509,7 @@ We've presented theories as static entities that are presented, tested, confirme
 
 # Replication {#replication}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Define and distinguish reproducibility and replicability
 * Review the meta-scientific literature on replication and the causes of replication failures
 * Reason about the relation of replication to theory building
@@ -522,12 +538,23 @@ In this chapter, we'll primarily discuss reproducibility and replicability; disc
 
 We'll then discuss some of the proposed sources of problems in replicability -- especially **analytic flexibility** and **publication bias**. We end by taking up the issue of how reproducibility and replicability relate to theory building in psychology. To summarize, our view is that reproducibility and replicability are critical foundations for theory building -- they are *necessary* but not *sufficient* for good theories. 
 
-::: {.box .case_study}
-(TITLE) The Open Science Collaboration
 
-Around 2011, we were teaching our Experimental Methods course for the first time, based on a course model that we had worked on with Rebecca Saxe [@frank2012]. The idea was to have a replication-based course that introduced students to the nuts and bolts of research.^[One of the current author team was a student in the course that year!] A guy named Brian Nosek was on sabbatical nearby, and over coffee we learned that he was starting up an ambitious project to replicate a large sample of studies from top psychology journals in 2008.
+::: {.box data-box="case_study" data-title="The Open Science Collaboration"}
+Around 2011, we were teaching our Experimental Methods course for the first time, based on a course model that we had worked on with Rebecca Saxe [@frank2012]. The idea was to have a replication-based course that introduced students to the nuts and bolts of research.
+<!-- ^[One of the current author team was a student in the course that year!] -->
+A guy named Brian Nosek was on sabbatical nearby, and over coffee we learned that he was starting up an ambitious project to replicate a large sample of studies from top psychology journals in 2008.
 
 That year in the course, we chose replication projects from the sample that Nosek had told us about. Four of these projects were perfomed very well and were nominated by the course TAs for inclusion in the broader project. A few years later, when the final group of 100 replication studies was completed, we got a look at the results, shown in Figure \@ref(fig:replication-osc-2015). 
+
+<!-- -->
+
+The resulting meta-science paper, which we and others refer to as the "replication project in psychology" (RPP), made a substantial impression on both psychologists and the broader community, defining both a field of psychology meta-science studies and providing a template for many-author  collaborative projects [@osc2015]. But the most striking thing was the result: disappointingly, by several different criteria, only around a third of studies showed the same finding as the original. The others yielded smaller effects that were no significant in the replication sample. This study provided the first large-scale evidence that there were systematic issues with replicability in the psychology literature.
+
+RPP's results -- and their interpretation -- were controversial, however, and much ink was spilled on what these data showed. In particular, critics pointed to different degrees of fidelity between the original studies and the replications; insufficient levels of statistical power in the replications; non-representative sampling of the literature; and difficulties identifying specific statistical outcomes for replication success [@gilbert2016;@anderson2016]. In our view, many of these critiques have merit, and you can't simply interpret the results of RPP as an unbiased estimate of the replicability of results in the literature, contra the title.
+<!-- ^[Confusingly, the title of the paper is "Estimating the reproducibility of psychological science", not "the replicability of psychological science". This substitution of terms caused terminological confusion for several years; it seems like at this point people have decided it's just a mistake.] -->
+
+And yet, RPP's results are still important and compelling, and they undeniably changed the direction of the field of psychology. Many good studies are like this -- they have critical flaws but they lead the way towards other followups that often have greater precision and fewer issues. For several of us personally, working on this project was also transformative in that it showed us the power of collaborative work -- together we could do a study that no one of us had any hope of completing on our own, and potentially make a difference in our field.
+:::
 
 <p><span class="marginnote shownote">
 <!--
@@ -536,12 +563,6 @@ That year in the course, we chose replication projects from the sample that Nose
 <!--
 <p class="caption marginnote">-->(\#fig:replication-osc-2015)Results from the Open Science Collaboration (2015). Each point represents one of the studies in the sample, with the horizontal position giving the original effect size and the vertical position giving the replication effect size. Dot size shows estimated statistical power. The dotted line represents a perfect replication.<!--</p>-->
 <!--</div>--></span></p>
-The resulting meta-science paper, which we and others refer to as the "replication project in psychology" (RPP), made a substantial impression on both psychologists and the broader community, defining both a field of psychology meta-science studies and providing a template for many-author  collaborative projects [@osc2015]. But the most striking thing was the result: disappointingly, by several different criteria, only around a third of studies showed the same finding as the original. The others yielded smaller effects that were no significant in the replication sample. This study provided the first large-scale evidence that there were systematic issues with replicability in the psychology literature.
-
-RPP's results -- and their interpretation -- were controversial, however, and much ink was spilled on what these data showed. In particular, critics pointed to different degrees of fidelity between the original studies and the replications; insufficient levels of statistical power in the replications; non-representative sampling of the literature; and difficulties identifying specific statistical outcomes for replication success [@gilbert2016;@anderson2016]. In our view, many of these critiques have merit, and you can't simply interpret the results of RPP as an unbiased estimate of the replicability of results in the literature, contra the title.^[Confusingly, the title of the paper is "Estimating the reproducibility of psychological science", not "the replicability of psychological science". This substitution of terms caused terminological confusion for several years; it seems like at this point people have decided it's just a mistake.]
-
-And yet, RPP's results are still important and compelling, and they undeniably changed the direction of the field of psychology. Many good studies are like this -- they have critical flaws but they lead the way towards other followups that often have greater precision and fewer issues. For several of us personally, working on this project was also transformative in that it showed us the power of collaborative work -- together we could do a study that no one of us had any hope of completing on our own, and potentially make a difference in our field.
-:::
 
 ## Reproducibility
 
@@ -598,19 +619,13 @@ A lot is at stake in this discussion. If Dr. Frog publishes a finding with US un
 
 One influential one is the distinction between **direct replications**^[These also get called **exact replications** sometimes. We think this term is misleading because similarity between two different experiments is always going to be on a gradient, and where you cut this continuum is always going to be a theory-laden decision. One person's "exact" is another's "inexact."] and **conceptual replications** [@zwaan2018]. Direct replications are those that attempt to reproduce all of the salient features of the prior study, up to whatever invariances the experimenters believe are present (e.g., color of the paint, gender of the experimenter, etc.). In contrast, conceptual replications are typically paradigms that attempt to test the same hypothesis via different operationalizations of the manipulation and/or the measure. We follow Zwaan et al. (2018) in thinking that labeling this second type of experiment as "replications" is a little misleading. Rather, they're alternative tests of the same part of your theory -- such tests can be extremely valuable, but they serve a different goal than replication.
 
-::: {.box .accident_report}
-(TITLE) "Small Telescopes" 
 
-We've been discussing the question of invariance with respect to procedure and sample, but we haven't really discussed invariance with respect to the studies' statistical results. To what extent can we consider two statistical results to be "the same"? Several obvious metrics, including those used by RPP, have important limitations [@simonsohn2015]. For example, if one finding is statistically significant and the other isn't, they still could have effect sizes that are actually quite close to one another, in part because one might have a larger sample size than the other.^[This is one reason we are not very fond of binary inferences about statistical inference, as you'll see in Chapter \@ref(inference).] Or you could have two significant findings that nevertheless have very different effect sizes. 
+::: {.box data-box="accident_report" data-title="``Small Telescopes''"}
+We've been discussing the question of invariance with respect to procedure and sample, but we haven't really discussed invariance with respect to the studies' statistical results. To what extent can we consider two statistical results to be "the same"? Several obvious metrics, including those used by RPP, have important limitations [@simonsohn2015]. For example, if one finding is statistically significant and the other isn't, they still could have effect sizes that are actually quite close to one another, in part because one might have a larger sample size than the other.
+<!-- ^[This is one reason we are not very fond of binary inferences about statistical inference, as you'll see in Chapter \@ref(inference).] -->
+Or you could have two significant findings that nevertheless have very different effect sizes. 
 
-<p><span class="marginnote shownote">
-<!--
-<div class="figure">-->
-<img src="images/replication/telescopes.png" alt="The original finding by Schwarz \&amp; Clore (1983) and two replications with much larger samples. All three estimates include a 95\% confidence interval, but these are very small for the two replication studies. From Simonsohn (2015)." width="\linewidth"  />
-<!--
-<p class="caption marginnote">-->(\#fig:replication-telescopes)The original finding by Schwarz \& Clore (1983) and two replications with much larger samples. All three estimates include a 95\% confidence interval, but these are very small for the two replication studies. From Simonsohn (2015).<!--</p>-->
-<!--</div>--></span></p>
-
+<!-- -->
 
 In a classic study, @schwarz1983 reported that participants (N=28) rated their life satisfaction as higher on sunny days than rainy days, suggesting that they mis-attributed temporary happiness about the weather to longer-term life satisfaction. However, when two more recent studies examined very large samples of survey responses, they yielded estimates of the effect that were much smaller. In one survey, the effect was significant but extremely small; in the other it was essentially zero (Figure \@ref(fig:replication-telescopes)). Using statistical significance as the metric of replication success, you might be tempted to say that the first of these was a successful replication and the second was a failed replication. 
 
@@ -619,6 +634,13 @@ Simonsohn points out that this doesn't make sense, using the vivid analogy of th
 Following Simonsohn's example, numerous metrics for replication success have been proposed [@mathur2020]. The best of these move away from the idea that there is a binary test of whether an individual replication was successful and towards a comparison of the two effects and whether they appear consistent with the same theory. @gelman2018 suggests the "time reversal" heuristic -- rather than thinking of a replication as a success or a failure, consider the alternative world in which the replication study had been performed first and the original study followed it. What would we say then? If we leave behind the idea that the original study has precedence, it makes much more sense to consider the sum total of the evidence across the two. Do they agree or disagree? Taken together, do they support the presence of the effect, or do they present a strong case that it's present only under certain conditions? Using this kind of a test, it seems pretty clear that the weather mis-attribution effect is, at best, a tiny factor in people's overall judgments of their life satisfaction.
 :::
 
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="images/replication/telescopes.png" alt="The original finding by Schwarz \&amp; Clore (1983) and two replications with much larger samples. All three estimates include a 95\% confidence interval, but these are very small for the two replication studies. From Simonsohn (2015)." width="\linewidth"  />
+<!--
+<p class="caption marginnote">-->(\#fig:replication-telescopes)The original finding by Schwarz \& Clore (1983) and two replications with much larger samples. All three estimates include a 95\% confidence interval, but these are very small for the two replication studies. From Simonsohn (2015).<!--</p>-->
+<!--</div>--></span></p>
 
 ### The meta-science of replication
 
@@ -636,24 +658,18 @@ On the other hand, they have substantial limitations as well. With relatively fe
 
 Some have called the narrative that emerges from the sum of these meta-science studies the "replication crisis." We think of it as a major tempering of expectations with respect to the published literature. Your naive expectation might reasonably be that you could read a typical journal article, select an experiment from it, and replicate that experiment in your own research. The upshot of this literature is that you might well be disappointed. 
 
-::: {.box .ethical_considerations}
-(TITLE) Consequences for the study, consequences for the person
 
+::: {.box data-box="ethical_considerations" data-title="Consequences for the study, consequences for the person"}
 "Power posing" is the idea that adopting a more open and expansive physical posture might also change your confidence. @carney2010 reported a striking study of this phenomenon, in which 42 participants were told they were taking part in a study of physiological recording. They then held two poses, each for a minute. In one condition, the poses were expansive (e.g., legs out, hands on head); in another condition, the poses were contractive (e.g., arms and legs crossed). Participants in the expansive pose condition showed increases in testosterone and decreases in salivary cortisol (a stress marker), they took a greater number of risk in a gambling task, and they reported that they were more "in charge" in a survey. This result suggested that a two-minute manipulation could lead to striking physiological and psychological changes -- in turn leading to power posing becoming firmly enshrined as part of the set of recommended strategies in business and elsewhere. The original publication contributed to the rise of the researchers' careers, including becoming a principal piece of evidence in a hugely-popular TED talk by Amy Cuddy, one of the authors.
 
 This result is likely not definitive, however. A replication study with a larger number of participants (N=200) failed to find evidence for physiological effects, even as it did find some effects on participants' own beliefs [@ranehill2015]. And a review of the published literature suggested that many findings appeared to be the result of some sort of publication bias, as far too many of them had *p*-values very close to the .05 threshold [@simmons2017]. In light of this evidence, the first author of the replication study made a public statement that she [does not believe that "power pose" effects are real](https://faculty.haas.berkeley.edu/dana_carney/pdf_my%20position%20on%20power%20poses.pdf).
 
-<p><span class="marginnote shownote">
-<!--
-<div class="figure">-->
-<img src="images/replication/powerpose.png" alt="Google trends time series for &quot;power pose&quot; from 2004-2021." width="\linewidth"  />
-<!--
-<p class="caption marginnote">-->(\#fig:replication-powerpose)Google trends time series for "power pose" from 2004-2021.<!--</p>-->
-<!--</div>--></span></p>
+<!-- -->
 
 From the scientific perspective, it's very tempting to take this example as a case in which the scientific ecosystem corrects itself. Although many people continue to cite the original power posing work, we suspect the issues are well-known throughout the social psychology community, and overall interest by the lay public has gone down (see Figure \@ref(fig:replication-powerpose)). But this narrative masks the very real human impacts of the self-correction process, which can raise ethical questions about the best way to address issues in the scientific record. 
 
-The process of debate and discussion around individual findings can be bruising and complicated. In the case of power posing, Cuddy herself was tightly associated with the findings and many critiques of the findings became critiques of the individual. Several commentators used Cuddy's name as a stand-in for low-quality psychological results, likely because of her prominence and perhaps because of her gender and age as well. These comments were harmful to Cuddy personally and her career more generally.^[For further reading, see ["When the Revolution Came for Amy Cuddy"](https://www.nytimes.com/2017/10/18/magazine/when-the-revolution-came-for-amy-cuddy.html).]
+The process of debate and discussion around individual findings can be bruising and complicated. In the case of power posing, Cuddy herself was tightly associated with the findings and many critiques of the findings became critiques of the individual. Several commentators used Cuddy's name as a stand-in for low-quality psychological results, likely because of her prominence and perhaps because of her gender and age as well. These comments were harmful to Cuddy personally and her career more generally.
+<!-- ^[For further reading, see ["When the Revolution Came for Amy Cuddy"](https://www.nytimes.com/2017/10/18/magazine/when-the-revolution-came-for-amy-cuddy.html).] -->
 
 Scientists should critique, reproduce, and replicate results -- these are all critical parts of the progress of normal science. But it's important to do this in a way that's sensitive to the people involved. Here are a few guidelines for courteous and ethical conduct: 
 
@@ -665,28 +681,31 @@ Scientists should critique, reproduce, and replicate results -- these are all cr
 As we will argue in the next chapter, we have an ethical duty as scientists to promote good science and critique low quality science. But we also have a duty to our colleagues and communities to be good to one another.
 :::
 
+<p><span class="marginnote shownote">
+<!--
+<div class="figure">-->
+<img src="images/replication/powerpose.png" alt="Google trends time series for ``power pose'' from 2004-2021." width="\linewidth"  />
+<!--
+<p class="caption marginnote">-->(\#fig:replication-powerpose)Google trends time series for ``power pose'' from 2004-2021.<!--</p>-->
+<!--</div>--></span></p>
+
 ## Causes of replication failure
 
 The general argument of this chapter is that everything is not all right in experimental psychology, and hence that we need to change our methodological practices to avoid negative outcomes like irreproducible papers and unreplicable results. Towards that goal, we have been presenting meta-scientific evidence on reproducibility and replicability. But this evidence has been controversial, to say the least! Do large-scale replication studies like RPP -- or for that matter, smaller-scale individual replications of effects like "power posing" -- really lead to the conclusion that our methods require changes? Or are there reasons why a lower replication rate is actually consistent with a cumulative, positive vision of psychology?^[One line of argument addresses this question through the dynamics of scientific change. There are many versions, but one is given by @wilson2020. The idea is that progress in psychology consists of a two-step process by which candidate ideas are "screened" for publication by virtue of small, noisy experiments and then "confirmed" by large-scale replications. On this kind of view, it's business as usual to find that many randomly-selected findings don't hold up in large-scale replications and so we shouldn't be distressed by results like those of RPP. The key to progress is to finding a small set that *do* hold up, which will lead to new areas of inquiry. We're not sure this is view is either a good description of current practice or a good normative goal for scientific progress, but we won't focus on that critique here. Instead, since book is written for experimenters-in-training, we assume that *you* do not want your experiment to be a false positive from a noisy screening procedure!]
 
-::: {.box .depth}
-(TITLE) Context, moderators, and expertise
 
+::: {.box data-box="depth" data-title="Context, moderators, and expertise"}
 There are many explanations for failed replications. But the wonderful thing about the idea of meta-science is that these explanations can be tested empirically!
 
 Let's start with the idea that specific experimental operationalizations of a theory might be "context sensitive," especially in subfields, like social psychology, whose theories inherently refer to environmental context [@van-bavel2016]. This critique was made in an especially pointed way in the case of some studies in RPP, where the original experimental materials were tailored to one cultural context but then were deployed in another context [@gilbert2016]. 
 
 Context sensitivity seems like a great explanation because in some sense, it *must* be right. If the context of an experiment includes the vast network of learned associations, practices, and beliefs that we all hold, then there's no question that an experiment's materials tap into this context to one degree or another. For example, if your experiment relies on the association between *doctor* and *nurse* concepts, you would expect this experiment to fail in antiquated English-language connotations where, for example, *nurse* meant something more like *nanny* [@ramscar2016]. 
 
-On the other hand, as an explanation of specific replication failures, context sensitivity has not fared very well when assessed empirically. The "Many Labs" projects were a series of replication projects in which *multiple* labs independently attempted to replicate several original studies. (In contrast, in RPP and similar studies, a single replication was conducted for each original study.) Some of the Many Labs projects assessed variation in replication success across different labs. In ManyLabs 2, @klein2018b replicated 28 findings, distributed across 125 different samples and more than 15,000 participants.^[The top-line replication rate was 54%, consistent with the other evidence we've presented.] ManyLabs 2 found almost no support for the context sensitivity hypothesis as an explanation of replication failure. In general, when effects failed to replicate, they did so when conducted in person as well as when conducted online, and these failures were consistent across many cultures and labs. The size of effects in successful replications were modulated a bit by contextual factors, but heterogeneity in general was not high. 
+On the other hand, as an explanation of specific replication failures, context sensitivity has not fared very well when assessed empirically. The "Many Labs" projects were a series of replication projects in which *multiple* labs independently attempted to replicate several original studies. (In contrast, in RPP and similar studies, a single replication was conducted for each original study.) Some of the Many Labs projects assessed variation in replication success across different labs. In ManyLabs 2, @klein2018b replicated 28 findings, distributed across 125 different samples and more than 15,000 participants.
+<!-- ^[The top-line replication rate was 54%, consistent with the other evidence we've presented.] -->
+ManyLabs 2 found almost no support for the context sensitivity hypothesis as an explanation of replication failure. In general, when effects failed to replicate, they did so when conducted in person as well as when conducted online, and these failures were consistent across many cultures and labs. The size of effects in successful replications were modulated a bit by contextual factors, but heterogeneity in general was not high. 
 
-On the other hand, a review of several Many Labs-style replication projects indicated, on re-analysis, that population effects differed across replication labs by $d=0.21$, even when the replication protocols were very similar to one another [@olsson2020heterogeneity, @errington2021investigating]. Again, this is not a lot of heterogeneity, but it is not negligible given that that many replications estimate effect sizes that are around $d=0.20$ as well [@osc2015]. So context sensitivity is almost certainly present -- and we'll return to the broader issues of generalizability, context, and invariance in the next section -- but so far we have not identified specific forms of context sensitivity that reliably affect replication success. 
-
-<div class="figure">
-<p class="caption">(\#fig:replication-lf)Stimuli from Lewis and Frank (2016).</p><img src="images/replication/lewis-stims.png" alt="Stimuli from Lewis and Frank (2016)." width="\linewidth"  /></div>
-
-<div class="figure">
-<p class="caption">(\#fig:replication-lf2)Forest plot showing effect sizes and confidence intervals for all of the studies in the paper as well as the two original studies being replicated and the meta-analytic effect (red diamond).</p><img src="images/replication/lewis-data.png" alt="Forest plot showing effect sizes and confidence intervals for all of the studies in the paper as well as the two original studies being replicated and the meta-analytic effect (red diamond)." width="\linewidth"  /></div>
+On the other hand, a review of several Many Labs-style replication projects indicated, on re-analysis, that population effects differed across replication labs by $d=0.21$, even when the replication protocols were very similar to one another [@olsson2020heterogeneity; @errington2021investigating]. Again, this is not a lot of heterogeneity, but it is not negligible given that that many replications estimate effect sizes that are around $d=0.20$ as well [@osc2015]. So context sensitivity is almost certainly present -- and we'll return to the broader issues of generalizability, context, and invariance in the next section -- but so far we have not identified specific forms of context sensitivity that reliably affect replication success. 
 
 The observation that direct replications can have non-negligible heterogeneity, and yet we haven't been able to identify contextual moderators, suggests the possible presence of "hidden moderators". That is, when faced with a successful original study and a failed replication, we should look for differences that moderate the effect. We've had several experiences that corroborate this. For example, in @lewis2016, we were unsuccessful in replicating a simple categorization experiment (with a point estimate of $d=0.17$ compared to the original study's reported $d=1.49$). We then made a series of iterative changes to the stimuli and instructions, eventually resulting in a larger (and statistically significant) effect of $d=0.71$-- though still much smaller than the original. Figures \@ref(fig:replication-lf) and \@ref(fig:replication-lf2) shows the stimuli and the resulting effect sizes. Critically, however, each change that we made to the procedure yielded a very small change in the effect -- and the linear impression given by the changes across experiments is likely an artifact, given that, among other things, Experiments 4 and 5 were identical to one another. In sum, the aggregation of several small methodological moderators here led to a substantially increased replication effect size ($d=0.17$ vs. $d=0.71$), but each moderator alone led to only a small increase in effect size. 
 
@@ -695,22 +714,29 @@ Experimenter expertise is a final explanation for replication failure that is of
 Context, moderators, and expertise seem like reasonable explanations for individual replication failures. Certainly, we should expect them to be explanatory! But for these hypotheses to be operationalized in such a way that they carry weight in our evaluation of the meta-scientific evidence, they must be evaluated empirically rather than accepted uncritically. When such evaluations have been carried out, they have failed to support a large role for these factors. 
 :::
 
+<div class="figure">
+<p class="caption">(\#fig:replication-lf)Stimuli from Lewis and Frank (2016).</p><img src="images/replication/lewis-stims.png" alt="Stimuli from Lewis and Frank (2016)." width="\linewidth"  /></div>
+
+<div class="figure">
+<p class="caption">(\#fig:replication-lf2)Forest plot showing effect sizes and confidence intervals for all of the studies in the paper as well as the two original studies being replicated and the meta-analytic effect (red diamond).</p><img src="images/replication/lewis-data.png" alt="Forest plot showing effect sizes and confidence intervals for all of the studies in the paper as well as the two original studies being replicated and the meta-analytic effect (red diamond)." width="\linewidth"  /></div>
+
+
 In RPP and subsequent meta-science studies, original studies with lower $p$-values, larger effect sizes, and larger sample sizes were more likely to replicate successfully [@yang2020]. From a theoretical perspective, this result is to be expected, because the $p$-value literally captures the probability of the data (or any "more extreme") under the null hypothesis of no effect. So a lower $p$-value should indicate a lower probability of a spurious result.^[In Chapter \@ref(inference) we will have a lot more to say about $p < .05$ but for now we'll mostly just treat it as a particular research outcome.] In some sense, the fundamental question about the replication meta-science literature is why the $p$-values *aren't* better predictors of replicability! For example, @camerer2018 computes an expected number of successful replications on the basis of the effects and sample sizes -- and their proportion of successful replications is substantially lower than that number.^[This calculation, as with most other metrics of replication success, assumes that the underlying population effect is exactly the same for the replication and the original. This is a limitation because, as we describe, there could be unmeasured moderators that could produce genuine substantive differences between the two estimates. Such heterogeneity is not uncommon, even if it is relatively small, in multi-site replications in which heterogeneity can be directly estimated [@ebersole2020, olsson2020heterogeneity]. As such, the metrics will typically underestimate replication success when there is heterogeneity within pairs [@mathur2020].]
 
 One explanation is that the statistical evidence that is presented in papers often dramatically overstates the true evidence from a study. That's because of two pervasive and critical issues: **analytic flexibility** (also known as **p-hacking** or **questionable research practices**) and **publication bias**.^[These terms basically mean the same thing and are not used very precisely in the literature. p-hacking is an informal term that sounds like you are doing something bad. Questionable research practices is a more formal-sounding term that is in principle vague enough to encompass many ethical failings but in practice gets used to talk about p-hacking. And analytic flexibility (or "undisclosed analytic flexibility"), the clunky term we mostly favor, describes the actual practice of trying many different things and then pretending you didn't. Critically, undisclosed analytic flexibility describes a state of affairs not a (questionable) intent, so that's why we like it a bit better.] 
 
 Publication bias refers our relative preference for experiments that "work" than those that do not, where "work" is typically defined as yielding a significant result at $p<.05$. Because of this interest, it is typically easier to publish such results. This situation leads to biases in the literature. Intuitively, this bias will lead to a literature filled with papers where $p<.05$. Negative findings will then remain unpublished, living in the proverbial "file drawer" [@rosenthal1979].^[One estimate is that 96% of (non-preregistered) papers report positive findings [@scheel2021]! We'll have a lot more to say about publication bias in Chapters \@ref(prereg) and \@ref(meta)!] In a literature with a high degree of publication bias, many findings will be spurious because experimenters got lucky and published the study that "worked" even if that success was due to chance variation. In this situation, these spurious findings will not be replicable and so the overall rate of replicability in the literature will be lowered. 
 
-The mathematics of the publication bias scenario strikes some observers as implausible: most psychologists don't run dozens of studies and report only one out of each group [@nelson2018]. Instead, a more common scenario is to conduct many different analyses and then report the most successful, creating some of the same effects as publication bias -- a promotion of spurious variation -- without a file drawer full of failed studies. 
+The mathematics of the publication bias scenario strikes some observers as implausible: most psychologists don't run dozens of studies and report only one out of each group [@nelson2018]. Instead, a more common scenario is to conduct many different analyses and then report the most successful, creating some of the same effects as publication bias -- a promotion of spurious variation -- without a file drawer full of failed studies.
 
-::: {.box .accident_report}
-(TITLE) When I'm 64?
 
+::: {.box data-box="accident_report" data-title="When I'm 64?"}
 The way they tell it, Joseph Simmons, Leif Nelson, and Uri Simonsohn wrote their paper on "false positive psychology" as an attempt at catharsis [@simmons2018]. They were fed up with work that they felt exploited flexibility in data analysis to produce findings blessed with *p* < .05 but likely did not reflect replicable effects. They called this practice **p-hacking**: trying different things to get your *p*-value to be below .05. 
 
 Their paper reported on a simple experiment: they played participants either the Beatles song, "when I'm 64," or a control song and then asked them to report their date of birth [@simmons2011]. This manipulation resulted in a significant one and a half year rejuvenation effect. Listening to the Beatles seemed to have made their participants younger!
 
-This result is impossible, of course. But the authors produced a statistically significant difference between the groups that, by definition, was a **false positive** -- a case where the statistical test led them to believe there was a difference between groups despite no difference existing. In essence, they did so by trying many possible analyses and "cherry-picking" the one that produced a positive result. This practice of course invalidates the inference that the statistical test is supposed to help you make.^[We discuss this and related problems in much more depth in Chapters \@ref(inference) and \@ref(prereg).]
+This result is impossible, of course. But the authors produced a statistically significant difference between the groups that, by definition, was a **false positive** -- a case where the statistical test led them to believe there was a difference between groups despite no difference existing. In essence, they did so by trying many possible analyses and "cherry-picking" the one that produced a positive result. This practice of course invalidates the inference that the statistical test is supposed to help you make.
+<!-- ^[We discuss this and related problems in much more depth in Chapters \@ref(inference) and \@ref(prereg).] -->
 
 Several of the practices they followed included:
 
@@ -752,7 +778,7 @@ Analyses such as this one can provide a guide to our allocation of scientific ef
 
 ### Open science
 
-The **open science movement** is a response -- really a set of responses -- to the challenges of reproducibility and replicability. The open science (and now the broader **open scholarship**) movement is a broad umbrella (Figure @\ref(fig:replication-umbrella)), but we take open science to be a set of beliefs, research practices, results, and policies that are organized around the central roles of transparency and verifiability in scientific practice.^[Another part of the open science umbrella involves a democratization of the scientific process through efforts to open access to science. This process involves both removal of barriers to access to the scientific literature but also efforts to remove barriers to scientific training -- especially to groups historically underrepresented in the sciences. The hope is that these processes increase both the set of people and the range of perspectives contributing to the scientific project. We view these changes as no less critical than the transparency aspects of the open science movement, though more indirectly related to the current discussion of reproducibility and replicability.] The core of this movement is the idea of "nullius in verba" (the motto of the British Royal Society), which roughly means "take no one's word for it."^[At least that's a reasonable paraphrase, but there's some interesting discussion about what this quote from Horace really means in a letter by @gould1991.] 
+The **open science movement** is a response -- really a set of responses -- to the challenges of reproducibility and replicability. The open science (and now the broader **open scholarship**) movement is a broad umbrella (Figure \@ref(fig:replication-umbrella)), but we take open science to be a set of beliefs, research practices, results, and policies that are organized around the central roles of transparency and verifiability in scientific practice.^[Another part of the open science umbrella involves a democratization of the scientific process through efforts to open access to science. This process involves both removal of barriers to access to the scientific literature but also efforts to remove barriers to scientific training -- especially to groups historically underrepresented in the sciences. The hope is that these processes increase both the set of people and the range of perspectives contributing to the scientific project. We view these changes as no less critical than the transparency aspects of the open science movement, though more indirectly related to the current discussion of reproducibility and replicability.] The core of this movement is the idea of "nullius in verba" (the motto of the British Royal Society), which roughly means "take no one's word for it."^[At least that's a reasonable paraphrase, but there's some interesting discussion about what this quote from Horace really means in a letter by @gould1991.] 
 
 
 <p><span class="marginnote shownote">
@@ -785,7 +811,7 @@ On the other hand, for @kuhn1962, the term "crisis" had a special meaning: it is
 
 In this sense, the replication crisis narrative isn't mutually exclusive with other crisis narratives, including the "generalizability crisis" [@yarkoni2020] and the "theory crisis" [@oberauer2019]. All of these are symptoms of discontent with standard ways of doing business. We share this discontent!  We are writing this book to encourage further changes in experimental methods and practices to improve reproducibility and replicability outcomes -- many of them driven by the broader set of ideas referred to as "open science." These changes may not lead to a paradigm shift in the Kuhnian sense, but we hope that they lead to eventual improvements. In that sense, we tend to side with those who have named the "replication crisis" a "credibility revolution" [@vazire2018]. 
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. How would you design a measure of the context sensitivity of an experiment? Think of a measure you could apply *post hoc* to a description of an experiment (e.g., from reading a paper) so that you could take a group of experiments and annotate how context-sensitive they are on some scale.
 
 2. Take the measure you designed above. How would you test that this measure really captured context sensitivity in a way that was not circular? What would be an "objective measure" of context sensitivity?
@@ -793,8 +819,7 @@ In this sense, the replication crisis narrative isn't mutually exclusive with ot
 3. What proportion of reproducibility failures do you think are due to questionable practices by experimenters vs. just plain errors? How would you test your hypothesis?
 :::
 
-
-::: {.box .readings}
+::: {.box data-box="readings"}
 * Still a very readable and entertaining introduction to the idea of p-hacking: Simmons, J. P., Nelson, L. D., & Simonsohn, U. (2011). False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant. Psychological Science, 22(11), 1359-1366. [https://doi.org/10.1177/0956797611417632]()
 
 * A recent review of issues of replication in psychology: Nosek, B. et al. (2022). Replicability, Robustness, and Reproducibility in Psychological Science. Annual Review of Psychology, 73, 719-748. [https://doi.org/10.1146/annurev-psych-020821-114157]()
@@ -805,7 +830,7 @@ In this sense, the replication crisis narrative isn't mutually exclusive with ot
 
 # Ethics {#ethics}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Distinguish between consequentialist, deontological, and virtue ethics frameworks
 * Identify key ethical issues in performing experimental research
 * Discuss ethical responsibilities in analysis and reporting of research
@@ -816,14 +841,15 @@ The fundamental thesis of this book is that experiments are the way to estimate 
 
 Experimental research raises a host of ethical issues that deserve consideration. What can and can't we do to participants in an experiment, and what considerations do we owe to them by virtue of their decision to participate? To facilitate our discussion of these issues, we start by briefly introducing the standard philosophical frameworks for ethical analysis. We then use those to discuss problems of experimental ethics, first from the perspective of participants and then second from the perspective of the scientific ecosystem more broadly.^[We have placed this chapter near the beginning of our book because we think it's critical to start the conversation about your ethical responsibilities as an experimentalist and researcher even before you start planning a study. We'll come back to the ethical frameworks we describe here in Chapter \@ref(collection), which deals specifically with participant recruitment and the informed consent process. We'll also try to think about ethical issues when we discuss topics like allowable types of manipulation (Chapter \@ref(design)), data sharing and privacy (Chapter \@ref(management)), and publication ethics (Chapter \@ref(writing)).]
 
-:::{.box .case_study}
-(TITLE) Shock treatment
 
+::: {.box data-box="case_study" data-title="Shock treatment"}
 A decade after surviving prisoners were liberated from the last concentration camp, Adolf Eichmann, one of the Holocaust's primary masterminds, was tried for his instrumental role in the mass genocide [@baade1961]. While reflecting on his rationale for forcibly removing, torturing, and eventually murdering millions of Jews, an unrepentant Eichmann claimed that he was "merely a cog in the machinery that carried out the directives of the German Reich" and therefore was not directly responsible [@kilham1974]. This startling admission gave a young researcher an interesting idea: "Could it be that Eichmann and his million accomplices in the Holocaust were just following orders? Could we call them all accomplices?" [@milgram1974]. 
 
-Stanley Milgram aimed to make a direct test of whether people would comply under the direction of an authority figure no matter how uncomfortable or harmful the outcome. He invited participants into the laboratory to serve as a teacher for an activity [@milgram1963]. Participants were told that they were to administer electric shocks of increasing voltage to another participant, the student, in a nearby room whenever the student provided an incorrect response. In reality, the student was a confederate who was in on the experiment and only pretended to be in pain when they received the shocks. Participants were encouraged to continue administering shocks despite clearly audible pleas from the student to stop the electric shocks. In one of Milgram's studies, nearly 65% of participants administered the maximum voltage to the student. This deeply unsettling result has become, as @ross2011 says, "part of our society’s shared intellectual legacy," informing our scientific and popular conversation in myriad different ways. 
+Stanley Milgram aimed to make a direct test of whether people would comply under the direction of an authority figure no matter how uncomfortable or harmful the outcome. He invited participants into the laboratory to serve as a teacher for an activity [@milgram1963]. Participants were told that they were to administer electric shocks of increasing voltage to another participant, the student, in a nearby room whenever the student provided an incorrect response. In reality, the student was an actor who was in on the experiment and only pretended to be in pain when they received the shocks. Participants were encouraged to continue administering shocks despite clearly audible pleas from the student to stop the electric shocks. In one of Milgram's studies, nearly 65% of participants administered the maximum voltage to the student. This deeply unsettling result has become, as @ross2011 says, "part of our society’s shared intellectual legacy," informing our scientific and popular conversation in myriad different ways. 
 
-Milgram's study blatantly violates modern ethical norms around the conduct of research. Among other violations, the procedure involved **coercion** that violated participants' right to withdraw from the experiment. This coercion appeared to have negative consequences: Milgram noted that a number of his participants displayed anxiety symptoms and nervousness.^[To be fair, Milgram also conducted a followup survey in which participants expressed gratitude for participating and did not note long-term negative effects [@milgram1974].] This observation was distressing and led to calls for this sort of research to be declared unethical [e.g., @baumrind1964]. The ethical issues surrounding  Milgram's study are complex, and some are relatively specific to the particulars of his study and moment [@miller2009]. But the controversy around the study was an important part of convincing the scientific community to adopt stricter policies that protect study participants from unnecessary harm.
+Milgram's study blatantly violates modern ethical norms around the conduct of research. Among other violations, the procedure involved **coercion** that violated participants' right to withdraw from the experiment. This coercion appeared to have negative consequences: Milgram noted that a number of his participants displayed anxiety symptoms and nervousness.
+<!-- ^[To be fair, Milgram also conducted a followup survey in which participants expressed gratitude for participating and did not note long-term negative effects [@milgram1974].] -->
+This observation was distressing and led to calls for this sort of research to be declared unethical [e.g., @baumrind1964]. The ethical issues surrounding  Milgram's study are complex, and some are relatively specific to the particulars of his study and moment [@miller2009]. But the controversy around the study was an important part of convincing the scientific community to adopt stricter policies that protect study participants from unnecessary harm.
 :::
 
 ## Ethical frameworks
@@ -856,9 +882,8 @@ Deontology emphasizes the importance of taking ethically permissible actions, re
  
 Analyzed from the perspective of these principles, Milgram's study raises several flags. First,  Milgram's study reduced participants autonomy by making it difficult to voluntarily end their involvement (participants were told up to four times to continue administering shocks even after they expressed clear opposition). Further, Milgram's study may have induced unnecessary harm by failing to screen participants for existing mental health issues before beginning the session. 
 
-::: {.box .depth}
-(TITLE) Was Milgram justified? 
 
+::: {.box data-box="depth" data-title="Was Milgram justified?"}
 Was the harm done in Milgram's experiment justifiable given that it informed our understanding of obedience and conformity? We can't say for sure. What we can say is that in the 10 years following the publication of Milgram's study, the number of papers on (any kind of) obedience increased and the nature of these papers expanded from a focus on religious conformity to a broader interest in social conformity, suggesting that Milgram changed the direction of this research area. Additionally, in a followup that Milgram conducted, he reported that 84% of participants in the original study said they were happy to have been involved [@milgram1974].
 
 Many scholars believe there was no ethical way to conduct Milgram's experiment while also protecting the integrity of the research goals, but some have tried. One study recreated a portion of the original experiment, with some critical changes [@burger2007]. Before enrolling in the study, participants completed both a phone screening for mental health concerns, addiction, or extreme trauma, and a formal interview with a licensed clinical psychologist, who identified signs of depression or anxiety. Those who passed these assessments were invited into the lab for a Milgram-type learning study. Experimenters clearly explained that participation was voluntary and the decision to participate could be reversed at any point, either by the participant themselves or by a trained clinical psychologist who was present for the duration of the session. Additionally, shock administration never exceeded 150 volts (compared to 450 volts in the original study), and experimenters debriefed participants extensively following the end of the session. One year later, no participants expressed any indication of stress or trauma associated with their involvement in the study. 
@@ -892,9 +917,8 @@ When a group of researchers have a research question they are interested in purs
  
 4. Participants are recruited **equitably** and without **coercion**. Before IRBs became standard, researchers often coercively recruited marginalized and vulnerable populations to test their research questions, rather than making participation in research studies voluntary and providing equitable access to the opportunity to participate. 
 
-::: {.box .accident_report}
-(TITLE) The Tuskegee Syphilis Study 
 
+::: {.box data-box="accident_report" data-title="The Tuskegee Syphilis Study"}
 In 1929, The United States Public Health Service (USPHS) was perplexed by the effects of a particular disease in Macon County, Alabama, an area with an overwhelmingly Black population [@brandt1978]. Syphilis is a sexually transmitted bacterial infection that can either be in a visible and active stage or in a latent stage. At the time of the study's inception, roughly 36% of Tuskegee's adult population had developed some form of syphilis, one of the highest infection rates in America [@white2006]. 
 
 The USPHS recruited 400 Black males from 25--60 years of age with latent syphilis and 200 Black males without the infection to serve as a control group to participate in what would become one of the most exploitative research studies ever done on American soil [@brandt1978]. The USPHS sought the help of the Macon County Board of Health to recruit participants with the promise that they would provide treatment for community members with syphilis. The researchers sought poor, illiterate Blacks and, instead of telling them that they were being recruited for a research study, merely informed them that they would be treated for "bad blood". 
@@ -916,7 +940,7 @@ Imagine that you were approached about participating in a research study at your
 
 Participants need to understand the risks and benefits of participation in an experiment before they give consent. To do otherwise compromises their autonomy (a key deontological principle). In the case of this hypothetical experiment, a new and unexpected invasive component of an experiment is coercive: participants would have to choose to forfeit their expected compensation to opt out. They also might feel that they have been deceived by the experimenter. 
 
-In human subjects research, **deception** is a specific technical term that refers to cases when (1) experimenters withhold any information about its goals or intentions, (2) experimenters hide their true identity (such as when using a confederate), (3) some aspects of the research are under- or overstated to conceal information, or (4) participants receive any false or misleading information. The use of deception requires special consideration from a human subjects perspective [@kelman2017;@baumrind1985]!
+In human subjects research, **deception** is a specific technical term that refers to cases when (1) experimenters withhold any information about its goals or intentions, (2) experimenters hide their true identity (such as when using actors), (3) some aspects of the research are under- or overstated to conceal information, or (4) participants receive any false or misleading information. The use of deception requires special consideration from a human subjects perspective [@kelman2017;@baumrind1985]!
 
 Even assuming they are disclosed properly without coercion or deception, the risks and benefits of a study must be assessed from the perspective of the participant, not the experimenter. By doing so, we allow participants to make an informed choice. In the case of the blood sample, the risks to the participant were not disclosed, and the benefits were stated in terms of the research project (and the experimenter). Neither of these allow the participant to weigh the decision based on their own values. 
 
@@ -924,9 +948,7 @@ The benefits of participation in research can either be direct or indirect, and 
 
 ## Ethical responsibilities in analysis and reporting of research 
 
-:::{.box .accident_report}
-(TITLE) What data?
-
+::: {.box data-box="accident_report" data-title="What data?"}
 Dutch social psychologist Diederick Stapel contributed to more than 200 articles on social comparison, stereotype threat, and discrimination, many published in the most prestigious journals. Stapel reported that affirming positive personal qualities buffered against dangerous social comparison, that product advertisements related to a person's attractiveness changed their sense of self, and that exposure to intelligent in-group members boosted a person's performance on future tasks [@stapel2012; @trampe2011; @gordijn2012]. These findings were fresh and noteworthy at the time of publication, and Stapel's papers were cited thousands of times. The only problem? Stapel's data were made up.
 
 When Stapel first began fabricating data, he admitted to making small tweaks to a few points [@stapel2012b]. Changing a single number here and there would turn a flat study into an impressive one. Having achieved comfortable success (and having aroused little suspicion from journal editors and others in the scientific community), Stapel eventually began creating entire data sets and passing them off as his own. Several colleagues began to grow skeptical of his overwhelming success, however, and brought their concerns to the Psychology Department at Tilburg University. By the time the investigation of his work concluded, 58 of Stapel's papers were **retracted**, meaning that the publishing journal withdrew the paper(s) after discovering that its contents were erroneous or invalid.
@@ -940,7 +962,7 @@ Researchers also have an obligation not to suppress findings based on their own 
 
 Importantly, researchers don't have an obligation to publish *everything* they do. Publishing in the peer-reviewed literature is difficult and time-consuming. There are plenty of reasons not to publish an experimental finding! For example, there's no reason to publish a result if you believe it is uninformative because of a small sample or a confound in the experimental design. You also aren't committing an ethical violation if you decide to quit your job in research and so you don't publish a study from your dissertation.^[Of course, if your dissertation contains the cure to a common and fatal disease, maybe the situation is different...] The primary ethical issue arises when you use the *result* of a study -- and how it relates to your own beliefs or to a threshold like $p<.05$ -- to decide whether to publish it or not. 
 
-As we'll discuss again and again in this book, the preparation of research reports must also be done with care and attention to detail (see \@ref(writing for details). Sloppiness in writing up results can lead to imprecise or over-broad claims; and if that sloppiness extends to the reporting of analyses and data, it may lead to irreproducibility as well. 
+As we'll discuss again and again in this book, the preparation of research reports must also be done with care and attention to detail (see Chapter \@ref(writing)). Sloppiness in writing up results can lead to imprecise or over-broad claims; and if that sloppiness extends to the reporting of analyses and data, it may lead to irreproducibility as well. 
 
 Further, professional ethics dictate that published contributions to the literature be original. In general, the text of a paper must not be **plagiarized** (copied) from the text of other reports whether by you or by another author without attribution. Copying from others outside of a direct, attributed quotation is obviously an ethical violation because it leads to credit for text being given to you rather than the true author. But self-plagiarism within the text of journal articles is also not acceptable -- it is a violation to receive credit multiple times for the same product.^[Though standards may differ from field to field, our sense is that the rule on self-plagiarism applies primarily to journal papers. Barring any specific policy of the funder or journal, it is acceptable to use text from a grant proposal that you wrote verbatim in a journal paper. It is also typically acceptable to use text from your own conference abstract submission in a journal paper.] 
 
@@ -970,15 +992,14 @@ In this chapter, we discussed three ethical frameworks and evaluated how they ca
 
 We have also addressed our responsibility to the scientific community, both in how we report our data and how we distribute it. We hope that we have convinced you that, aside from identifiable participant information, data should generally be widely accessible because it keeps science honest generates ideas for future research. Good research is ethical, and the best scientists are thinking about their impact from start to finish.
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. The COVID-19 pandemic led to an immense amount of "rapid response" research in psychology that aimed to discover -- and influence -- the way people reasoned about contagion, vaccines, masking, and other aspects of the public health situation.  What are the specific ethical concerns that researchers should be aware of for this type of research? Are there reasons for more caution in this kind of research than in other "run of the mill" research?
 2. Think of an argument against open science practices based on the material here and in Chapter \@ref(replication). How would the three different ethical frameworks we discussed treat this issue?
 :::
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * The Belmont Report has shaped US research ethics policy from its publication to the present day. It's also short and quite readable: [https://www.hhs.gov/ohrp/regulations-and-policy/belmont-report/index.html]().
 :::
-
 
 <!--chapter:end:004-ethics.Rmd-->
 
@@ -987,7 +1008,7 @@ We have also addressed our responsibility to the scientific community, both in h
 
 # Estimation {#estimation}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 - Estimate the causal effect of an experiment
 - Discuss differences between frequentist and Bayesian estimation
 - Reason about standardized effect sizes and their strengths and weaknesses 
@@ -997,14 +1018,16 @@ In the first section of this book, our goal was to set up some of the theoretica
 
 In this next section of the book -- treating statistical topics -- we will integrate these ideas with an analytic toolkit for **estimating** effects, **quantifying the size and precision** of these estimates (this chapter), making **inferences** about the evidence for such effects (Chapter \@ref(inference)), and making **models** for estimation and inference in more complex settings (Chapter \@ref(models)). Although this book is not a statistics text, we hope that these chapters provide some practical foundations for beginning the statistical analysis of your experimental data.
 
-::: {.box .case_study}
-(TITLE) The Lady Tasting Tea
 
-The birth of modern statistical inference came from a single, epochal act of mansplaining.^[An important piece of context for the work of Ronald Fisher, Karl Pearson, and other early pioneers of statistical inference is that they were all strong proponents of eugenics. Fisher was the founding Chairman of the Cambridge Eugenics Society. Pearson was perhaps even worse, an avowed Social Darwinist who believed fervently in Eugenic legislation. These views are repugnant.] Sir Ronald Fisher was apparently at a party when a lady declared that she could tell the difference when tea was added to milk vs. milk to tea. Rather than taking her at her word, Fisher devised an experimental and data analysis procedure to test her claim.
+::: {.box data-box="case_study" data-title="The Lady Tasting Tea"}
+The birth of modern statistical inference came from a single, epochal act of mansplaining.
+<!-- ^[An important piece of context for the work of Ronald Fisher, Karl Pearson, and other early pioneers of statistical inference is that they were all strong proponents of eugenics. Fisher was the founding Chairman of the Cambridge Eugenics Society. Pearson was perhaps even worse, an avowed Social Darwinist who believed fervently in Eugenic legislation. These views are repugnant.] -->
+Sir Ronald Fisher was apparently at a party when a lady declared that she could tell the difference when tea was added to milk vs. milk to tea. Rather than taking her at her word, Fisher devised an experimental and data analysis procedure to test her claim.
 
 The basic schema of the experiment was that the lady would have to judge a set of new cups of tea and sort them into milk-first vs. tea-first sets. Her data would then be analyzed to determine whether her level of correct choice exceeded that expected by chance. While this process now sounds like a quotidian experiment that might be done on a cooking reality show, it seems unremarkable only because it literally established the way science was done for the next century.
 
-One important and unusual element of the experiment was its treatment of potential design confounds such which cup of tea was prepared first, which cup of tea was presented first, or the material that the cups were made out of. Prior experimental practice would have been to try to equate all of the cups as closely as possible, decreasing the influence of confounds. Fisher recognized that this strategy was insufficient. Only by randomizing all other aspects of the experiment could he make strong causal inferences about the treatment (milk then tea vs. tea then milk). We discussed the causal power of random assignment in Chapter \@ref(experiments) -- this experiment is a key touchstone in the popularization of randomized experiments!^[Randomized experiments were not invented by Fisher. Perhaps the earliest example of a (somewhat) randomized experiment was a trial of scurvy treatments in the 1700s [@dunn1997]. @peirce1884 also report a strikingly modern use of randomized stimulus presentation (via shuffling cards). Nevertheless, Fisher's statistical work popularized randomized experiments throughout the sciences, in part by integrating them with a set of analytic methods.]
+One important and unusual element of the experiment was its treatment of potential design confounds such which cup of tea was prepared first, which cup of tea was presented first, or the material that the cups were made out of. Prior experimental practice would have been to try to equate all of the cups as closely as possible, decreasing the influence of confounds. Fisher recognized that this strategy was insufficient. Only by randomizing all other aspects of the experiment could he make strong causal inferences about the treatment (milk then tea vs. tea then milk). We discussed the causal power of random assignment in Chapter \@ref(experiments) -- this experiment is a key touchstone in the popularization of randomized experiments!
+<!-- ^[Randomized experiments were not invented by Fisher. Perhaps the earliest example of a (somewhat) randomized experiment was a trial of scurvy treatments in the 1700s [@dunn1997]. @peirce1884 also report a strikingly modern use of randomized stimulus presentation (via shuffling cards). Nevertheless, Fisher's statistical work popularized randomized experiments throughout the sciences, in part by integrating them with a set of analytic methods.] -->
 :::
 
 
@@ -1069,7 +1092,7 @@ The second parameter of the normal distribution is the standard deviation. The s
 
 
 
-<!-- ::: {.box .code} -->
+<!-- ::: {.box data-box="code"} -->
 <!-- In this chapter and the subsequent statistics and visualization chapters of the book, we'll try to facilitate understanding and using these concepts in practice by giving the R code we use in our examples in these code boxes. We'll assume that you have some knowledge of base R and the Tidyverse -- go ahead and take a look at Appendix \@ref(tidyverse) if you haven't already.  -->
 
 <!-- Since we're going to be working with lots of data from the tea tasting example, we wrote a function called `make_tea_data` that creates a `tibble` with some (made up) data from our modern tea-tasting experiment.  -->
@@ -1118,6 +1141,7 @@ These kind of expectations are most useful when we have a very small amount of d
 How do we quantify this tradeoff between our prior expectations and our current observations? We can do this via **Bayesian estimation** of $\widehat{\theta}_{\textrm{M}}$. Bayesian estimation provides a principled framework for integrating prior beliefs and data. These estimation techniques can be very helpful in cases where data are sparse or prior beliefs are strong.
 
 In Bayesian estimation, we observe some data $d$, consisting of the set of correct and incorrect responses in the experiment. Now we can use **Bayes' rule**, a tool from basic probability theory, to estimate this number (Figure \@ref(fig:estimation-bayes)). Each part of this equation has a name, and it's worth becoming familiar with them. The thing we want to compute ($p(\theta_{\textrm{M}} |\text{data})$) is called the **posterior probability** -- it tell us what we should believe about the population parameter on tea quality, given the data we observed.^[We're making the posterior <span style='color: purple;'>purple</span> to indicate the combination of likelihood (<span style='color: red;'>red</span>) and prior (<span style='color: blue;'>blue</span>).]
+<!-- TODO: colormatch text to figure -->
 
 The first part of the numerator is $p(\text{data}|\theta_{\textrm{M}})$, the probability of the data we observed given our hypothesis about the participant's ability. This part is called the **likelihood**.^[Speaking informally, "likelihood" is just a synonym for probability, but this is a technical meaning for the term, which can get a bit confusing.] This term tells us about the relationship between our hypothesis and the data we observed -- so if we think the tea is of high quality (say $\theta_{\textrm{M}} = 6.5$) then the probability of a bunch of low accuracy observations will be fairly low.
 
@@ -1241,25 +1265,24 @@ In contrast, we recommend using standardized effect sizes for cases where the me
 
 In this chapter, we introduced the idea of estimating both individual measurements and treatment effects from observed data. These ideas are simple but they lay the foundations for drawing inferences, where we move from estimates within a particular sample to inferences about the population. Further, we set up the distinction between Bayesian and frequentist approaches, which we will expand in the next chapter since these traditions provide different inferential tools.
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. In this chapter you learned about estimation, and in this book more generally, we try to model "estimation talk" -- describing the goal of an experiment as providing a maximally precise estimate of a causal effect. Psychology as a field has often been criticized for focusing too much on inference and too little on estimation. Find an article in the journal Psychological Science that reports on an experiment or series of experiments and read the abstract. Does it mention an estimate of any particular quantity? If it does not, do you think this is a weakness of the abstract?
 
 2. Try the same exercise with a paper in the New England Journal of Medicine or Journal of the American Medical Association. Find a paper and check if there is a mention of any specific quantity being estimated. (We suspect there will be!) Consider this contrast between the medical article and the psychology article. What do you make of this difference between fields? 
 :::
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * A great narrative introduction to the history and practice of statistics: Salsburg, D. (2001). *The lady tasting tea: How statistics revolutionized science in the twentieth century*. Macmillan.
 
 * An open source statistics textbook that follows a similar approach as Chapters \@ref(estimation) -- \@ref(models): Poldrack, R. (2022). *Statistical thinking for the 21st century*. Available free online at [https://statsthinking21.org]().
 :::
-
 
 <!--chapter:end:005-estimation.Rmd-->
 
 
 # Inference {#inference}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 -   Discuss the purpose of statistical inference
 -   Define *p*-values and Bayes Factors
 -   Consider common fallacies about inference (especially for *p*-values)
@@ -1317,7 +1340,7 @@ To characterize the uncertainty in an estimate, it helps to picture what is call
 
 
 
-::: {.box .code}
+::: {.box data-box="code"}
 In this chapter and the subsequent statistics and visualization chapters of the book, we'll try to facilitate understanding and using these concepts in practice by giving the R code we use in constructing our examples in these code boxes. We'll assume that you have some knowledge of base R and the Tidyverse -- go ahead and take a look at Appendix \@ref(tidyverse) if you haven't already. Although our figures are all drawn by hand, they are based on actual simulation results!
 
 Since we're going to be working with lots of data from the tea tasting example, we wrote a function called `make_tea_data` that creates a `tibble` with some (made up) data from our modern tea-tasting experiment. You can find the function at [this link](https://raw.githubusercontent.com/langcog/experimentology/main/helper/tea_helper.R) if you want to follow along.
@@ -1376,7 +1399,7 @@ Now imagine we also did thousands of repetitions of the experiment with $n=200$ 
 <!--</div>--></span></p>
 
 
-::: {.box .code}
+::: {.box data-box="code"}
 To do this simulation, we're using a special tidyverse function from the `purrr` library: `map`. `map` is an extremely powerful function that allows us to run another function (in this case, the `make_tea_data` function that we introduced last chapter) many times with different inputs. Here we create a tibble made up of a set of 1000 runs of the `make_tea_data` function.
 
 
@@ -1425,7 +1448,7 @@ For example, say we are flipping a coin and we want to estimate the probability 
 <p class="caption marginnote">-->(\#fig:inference-coin-ns)Sampling distribution for 2, 8, 32, and 128 flips.<!--</p>-->
 <!--</div>--></span></p>
 
-::: {.box .code}
+::: {.box data-box="code"}
 For this simulation, we use the `map` function. We set up a tibble with the different values we want to to try (which we call `n_flips`). Then we make use of the `map` function to run `rbinom` (random binomial samples) for each value of `n_flips`.
 
 One trick we make use of here is that `rbinom` takes an extra argument that says how many of these random values you want to generate. Here we generate `nsamps = 1000` samples, giving us 1000 independent replicates at each `n`. But returning an array of 1000 values for a single value of `n_flips` results in something odd: the value for each element of `flips` is an array. To deal with that, we use the `unnest` function, which expands the array back into a normal tibble.
@@ -1468,7 +1491,7 @@ Let's apply Fisher's standard. If our observation has less than a 5% probability
 <p class="caption marginnote">-->(\#fig:inference-null-model)One example of the distribution of treatment effects under the null model (with N=9 per group). The red regions indicate the part of the distribution in  which less than 5\% of observations should fall.<!--</p>-->
 <!--</div>--></span></p>
 
-::: {.box .code}
+::: {.box data-box="code"}
 To simulate our null model, we can do the same kind of thing we did before, just specifying to our `make_tea_data` function that the true difference in effects is zero!
 
 
@@ -1502,7 +1525,7 @@ As we saw before, the larger the sample size, the smaller the standard error. Th
 <!--
 <p class="caption marginnote">-->(\#fig:inference-null-model2)Example distribution of treatment effects under the null model for a larger experiment.<!--</p>-->
 <!--</div>--></span></p>
-:::{.box .code}
+::: {.box data-box="code"}
 
 We can do a more systematic simulation of the null regions for different sample sizes by simply adding a parameter to our simulation. 
 
@@ -1641,7 +1664,7 @@ In practice, the thing that is both tricky and good about Bayes Factors is that 
 <!--                                paired = FALSE) -->
 <!-- ``` -->
 
-::: {.box .code}
+::: {.box data-box="code"}
 Bayes Factors are delightfully easy to compute using the `BayesFactor` R package. All we do is feed in the two sets of ratings to the `ttestBF` function!
 
 
@@ -1662,7 +1685,7 @@ Next we can use a simple statistical test, a $t$-test, to compute $p$-values for
 
 
 
-::: {.box .code}
+::: {.box data-box="code"}
 The standard `t.test` function is built into R via the default `stats` package. Here we simply make sure to specify the variety of test we want by using the flags `paired = FALSE` and `var.equal = TRUE` (denoting the assumption of equal variances). 
 
 
@@ -1776,9 +1799,9 @@ The main problem with $p$-values from a scientific perspective is that researche
 <p><span class="marginnote shownote">
 <!--
 <div class="figure">-->
-<img src="images/inference/power-alpha.png" alt="Standard decision matrix for NHST. null." width="\linewidth"  />
+<img src="images/inference/power-alpha.png" alt="Standard decision matrix for NHST." width="\linewidth"  />
 <!--
-<p class="caption marginnote">-->(\#fig:inference-power-alpha)Standard decision matrix for NHST. null.<!--</p>-->
+<p class="caption marginnote">-->(\#fig:inference-power-alpha)Standard decision matrix for NHST.<!--</p>-->
 <!--</div>--></span></p>
 
 One way to "patch" NHST is to introduce a decision-theoretic view, shown in Figure \@ref(fig:inference-power-alpha).^[A little bit of useful history here is given in @cohen1990.] On this view, called the Neyman-Pearson view, there is a real $H_1$, albeit one that is not specified. Then the true state of the world could be that $H_0$ is true or $H_1$ is true. The $p<.05$ criterion is the threshold at which we are willing to reject the null, and so this constitutes our **false positive** rate $\alpha$. But we also need to define a **false negative** rate, which is conventionally called $\beta$ (You may have seen the notation "$\beta$" used for regression coefficients, which we'll see again in Chapter \@ref(models). Those are not to be confused with false negative rates.) 
@@ -1787,8 +1810,7 @@ Setting these rates is a decision problem: If you are too conservative in your c
 
 As we saw in Figure \@ref(fig:inference-null-model), the greater the sample, the better your chance of rejecting the null for any given non-null effect. But these chances will depend also on the effect size you are using. This formulation gives rise to the idea of classical power analysis, which we cover in Chapter \@ref(sampling). Most folks who defend binary inference using $p$-values are interested in using the Neyman-Pearson approach. In our view, this approach has its place (it's especially useful for power analysis) but it still suffers from the substantial issues that plague all binary inference techniques, especially those that use $p$-values. 
 
-::: {.box .depth}
-(TITLE) Nonparametric resampling under the null
+::: {.box data-box="depth" data-title="Nonparametric resampling under the null"}
 
 Hypothesis testing requires knowing the null distribution. In the examples above, it was easy to use statistical theory to work out the null distribution using knowledge of the binomial or normal distribution. But sometimes we don't know what the null distribution would look like. What if the ratings data from our tea-tasting experiment was very skewed, such that there were many low ratings and a few very high ratings (as in Figure \@ref(fig:inference-skewed))?  
 
@@ -1899,8 +1921,7 @@ It would obviously be a major mistake to run 20 null experiments and then report
 
 <!-- P goes to 0 as data goes to infinity. -->
 
-::: {.box .accident_report}
-(TITLE) Do extraordinary claims require extraordinary evidence?
+::: {.box data-box="accident_report" data-title="Do extraordinary claims require extraordinary evidence?"}
 
 In a blockbuster paper that inadvertently kicked off the replication crisis, @bem2011 presented nine experiments showing evidence for precognition -- that is, sensing the future. In the first of these experiments, Bem showed each of a group of 100 undergraduates 36 two-alternative forced choice trials in which they had to guess which of two locations on a screen would reveal a picture immediately before the picture was revealed. By chance, participants should choose the correct side 50% of the time of course. Bem found that, specifically for erotic pictures, participants' guesses were 53.1% correct. This rate of guessing was unexpected under the null hypothesis of chance guessing ($p = .01$). Eight other studies with a total of more than 1,000 participants yielded apparently supportive evidence, with participants appearing to show a variety of psychological effects even before the stimuli were shown! On this basis, should we conclude that precognition exists?
 
@@ -1973,7 +1994,7 @@ Confidence intervals are like betting on the inferences drawn from your sample. 
 <!--</div>--></span></p>
 
 
-::: {.box .code}
+::: {.box data-box="code"}
 Computing confidence intervals analytically is pretty easy. Here we first compute the standard error for the difference between conditions. The only tricky bit here is that we need to compute a pooled standard deviation.
 
 
@@ -2066,13 +2087,13 @@ Despite the reasons to be worried about $p$-values, for many practicing scientis
 As a group, some of us are more Bayesian than frequentist, while others are more frequentist than Bayesian -- but all of us recognize the need to move flexibly between statistical paradigms. Furthermore, a lot of the time we're not so worried about which paradigm we're using. The paradigms are at their most divergent when making binary inferences, whether they are at $p < .05$ or $BF > 3$. 
 In sum, the practicing experimentalist should see binary inference tools as only one part of a bigger toolkit for data analysis. This toolkit should also include estimation approaches from the previous chapter as well as the methods for quantifying precision and uncertainty that we introduced above. Further, for more complex situations, the toolkit needs to include some tools for building models. Towards this goal, the next chapter provides some initial tools for how to use models for estimation and inference about experimental effects.
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. Step away from the computer. Can you write the definition of a $p$-value and a Bayes Factor? 
 
 2. Take three of Goodman's (2008) "dirty dozen" in Table \@ref(tab:dirty-dozen) and write a description of why each is a misconception. (These can be checked against the original article, which gives a nice discussion). 
 :::
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * A fun, polemical critique of NHST: Cohen, J. (1994). The earth is round (p < .05). American Psychologist, 49, 997–1003. [https://doi.org/10.1037/0003-066X.49.12.997]()
 
 * A nice introduction to Bayesian data analysis: Kruschke, J. K., & Liddell, T. M. (2018). Bayesian data analysis for newcomers. Psychonomic bulletin & review, 25(1), 155-177. [https://doi.org/10.3758/s13423-017-1272-1]()
@@ -2084,7 +2105,7 @@ In sum, the practicing experimentalist should see binary inference tools as only
 
 # Models {#models} 
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Articulate a model-building strategy for experimental effect estimation
 * Build intuitions about how statistical tests relate to linear regression
 * Explore variations of the linear model, including generalized linear models and mixed effects models
@@ -2097,7 +2118,7 @@ In some statistics textbooks, the next step would be to present a whole host of 
 
 In this chapter, we begin to explore how to select an appropriate **statistical model** to make these estimates and obtain inference about them. A statistical model is a way of writing down a set of assumptions about how particular data are generated. Statistical models are the bread and butter tools for estimating particular **parameters** of interest -- like the magnitude of a causal effect associated with an experimental manipulation -- and making inferences about their relationship to the population parameter(s). 
 
-For example, a simple statistical model might assume that observed datapoints are generated via with the flip of a weighted coin. Then the process of estimation is to assess the most likely weight of the coin given the data. This model can then be used to make inferences about whether the coin's weight differs from some null model (a fair coin, perhaps). 
+For example, a simple statistical model might assume that observed datapoints are generated via the flip of a weighted coin. Then the process of estimation is to assess the most likely weight of the coin given the data. This model can then be used to make inferences about whether the coin's weight differs from some null model (a fair coin, perhaps). 
 
 This example sounds a lot like the kinds of simple inferential tests we talked about in the previous chapter; not very "model-y." But things get more interesting when there are multiple parameters to be estimated, as in many real-world experiments. In the tea-tasting scenario we've belabored over the past two chapters, a real experiment might involve multiple people tasting different types of tea in different orders, all with some cups randomly assigned to be milk-first or tea-first. What we'll learn to do in this chapter is to make a model of this situation that allows us to reason about the magnitude of the milk-order effect while also estimating variation due to different people, orders, and tea types. 
 
@@ -2285,14 +2306,14 @@ Y_i &= \beta_0 + \beta_1 X_i + \epsilon_i \\
 
 The term $\beta_0 + \beta_1 X_i$ is called the **linear predictor**, and it describes the expected value of an individual's tea rating, $Y_i$, given that participant's treatment group $X_i$ (the single independent variable in this model). That is, for a participant in the control group ($X_i=0$), the linear predictor is just equal to $\beta_0$, which is indeed the mean for the control group that we specified above. On the other hand, for a participant in the treatment group, the linear predictor is equal to $\beta_0 + \beta_1$, which is the mean for the treatment group that we specified. In regression jargon, $\beta_0$ and $\beta_1$ are **regression coefficients**, where $\beta_1$ represents the association of the independent variable $X$ with the outcome $Y$.
 
-The term $\epsilon_i$ is the **error term**, referring to random variation of participants' ratings around the group mean.^[Formally, we'd write $\epsilon_i \sim N(0, \sigma^2)$. The tilde means "is distributed as", and what follows is a normal distribution with mean 0 and variance $\sigma^2$.] Note that this is a very specific kind of "error"; it not to "error" due to bias, for example. Instead, you can think of the error terms as capturing the "error" that would be associated with predicting any given participant's rating based on just the linear predictor. If you predicted a control group participant's rating as $\beta_0$, that would be a good guess -- but you still expect the participant's rating to deviate somewhat from $\beta_0$ due to "error" (i.e., variability across participants beyond what is captured by their treatment groups). In our regression model, the linear predictor and error terms together say that participants' ratings scatter randomly (in fact, normally) around their group means with standard deviation $\sigma$. And that is exactly the model we posited in Chapter \@ref(estimation).
+The term $\epsilon_i$ is the **error term**, referring to random variation of participants' ratings around the group mean.^[Formally, we'd write $\epsilon_i \sim N(0, \sigma^2)$. The tilde means "is distributed as", and what follows is a normal distribution with mean 0 and variance $\sigma^2$.] Note that this is a very specific kind of "error"; it is not "error" due to bias, for example. Instead, you can think of the error terms as capturing the "error" that would be associated with predicting any given participant's rating based on just the linear predictor. If you predicted a control group participant's rating as $\beta_0$, that would be a good guess -- but you still expect the participant's rating to deviate somewhat from $\beta_0$ due to "error" (i.e., variability across participants beyond what is captured by their treatment groups). In our regression model, the linear predictor and error terms together say that participants' ratings scatter randomly (in fact, normally) around their group means with standard deviation $\sigma$. And that is exactly the model we posited in Chapter \@ref(estimation).
 
 
 <div class="figure">
 <p class="caption">(\#fig:models-ols-plot)(left) Best-fitting regression coefficients for the tea-tasting experiment. (right) Much worse coefficients for the same data. Dotted lines: Residuals.</p><img src="experimentology_files/figure-html/models-ols-plot-1.png" alt="(left) Best-fitting regression coefficients for the tea-tasting experiment. (right) Much worse coefficients for the same data. Dotted lines: Residuals." width="\linewidth"  /></div>
 Now we have the model. How do we estimate the regression coefficients $\beta_0$ and $\beta_1$? The usual method is called **ordinary least squares (OLS)**. Here's the basic idea. For any given regression coefficient estimates $\widehat{\beta}_0$ and $\widehat{\beta}_1$, we would obtain different **predicted values**, $\widehat{Y}_i = \widehat{\beta}_0 + \widehat{\beta}_1 X_i$ for each participant. Some regression coefficient estimates will yield better predictions than others. OLS estimation is designed to find the values of the regression coefficients that optimize these predictions, meaning that the predictions are as close as possible to participants' true outcomes, $Y_i$.^[Specifically, OLS minimizes squared error loss, in the sense that it will choose the regression coefficient estimates whose predictions minimize $\sum_{i=1}^n \left( Y_i - \widehat{Y}_i\right)^2$, where $n$ is the sample size. A wonderful thing about OLS is that those optimal regression coefficients (generically termed $\widehat{\mathbf{\beta}}$) turn out to have a very simple closed form: $\widehat{\mathbf{\beta}} = \left( \mathbf{X}'\mathbf{X} \right)^{-1} \mathbf{X}'\mathbf{y}$. We are using more general notation here because there could be multiple independent variables. Therefore, $\widehat{\mathbf{\beta}}$ is a vector, $\mathbf{X}$ is a matrix of independent variables for each subject, and $\mathbf{y}$ is a vector of participants' outcomes. As more good news, the standard error for $\widehat{\mathbf{\beta}}$ has a similarly simple closed form.]
 
-::: {.box .code}
+::: {.box data-box="code"}
 As it turns out, fitting an OLS regression model in R is extremely easy. The underlying call is `lm`, which stands for linear model. You can fit the model with a single call to this function with a "formula" as its argument. Here's the call:
 
 
@@ -2411,7 +2432,7 @@ Exponentiating the coefficients (i.e., $e^{\beta}$) would yield **odds ratios**,
 
 Figure \@ref(fig:models-logistic-ex) shows the way that a logistic regression model transforms a predictor ($X$) into an outcome probability that is bounded at 0 and 1. Critically, although the predictor is still linear, the logit link means that the same change in $X$ can result in a different change in the absolute probability of $Y$ depending on where you are on the $X$ scale. In this example, if you are in the middle of the predictor range, a one-unit change in $X$ results in a 0.24 change in probability (blue). At a higher value, the change is much smaller (0.02). Notice how this is different from the linear regression model above, where the same change in age always resulted in the same change in preference! 
 
-::: {.box .code}
+::: {.box data-box="code"}
 GLMs are as easy to fit in R as standard LMs. You simply need to call the `glm` function -- and to specify the link function. For our example above of a binary "liking" judgment, the call would be:
 
 
@@ -2507,8 +2528,7 @@ More generally, linear mixed effects models are very flexible, and they have bec
 <!-- ^[ How many clusters are enough for LMM to behave well? This is an active area of research, and the answer will depend on the number of observations in each cluster and the model structure. However, some empirical findings suggest that, at least for certain models, LMM can considerably underestimate standard errors even with, for example, 20 clusters each with 100 observations [@bie2021fitting]. -->
 <!-- ] -->
 
-::: {.box .depth}
-(TITLE) An alternative approach: Generalized estimating equations
+::: {.box data-box="depth" data-title="An alternative approach: Generalized estimating equations"}
 
 A second class of methods that helps resolve issues of clustering is **generalized estimating equations** (GEE). In this approach, we leave the linear predictor alone. We do not add random intercepts or slopes, nor do we assume anything about the distribution of the errors (i.e., we no longer assume that they are normal, independent, and homoskedastic). 
 
@@ -2562,7 +2582,7 @@ That said, there are many contexts in which it does make sense to depart from th
 
 
 
-::: {.box .code}
+::: {.box data-box="code"}
 If you want to follow along with this example, you'll have to load the example data and do a little bit of preprocessing (also covered in Appendix \@ref(tidyverse)):
 
 
@@ -2616,7 +2636,7 @@ Age (years)                            -0.38           [-0.75, -0.01]   -1.99   
 Experimental condition                 2.26            [1.82, 2.70]     10.07   < .001 
 Age (years) * Experimental condition   0.92            [0.42, 1.43]     3.60    < .001 
 
-::: {.box .code}
+::: {.box data-box="code"}
 Fitting a mixed effects model is also surprisingly simple. The first step is to prepare your predictors. In this case, we center the `age` predictor. 
 
 
@@ -2653,8 +2673,7 @@ In sum, this model suggests that there was a substantial difference in performan
 
 This example illustrates the "default saturated model" framework that we recommend -- the idea that a single regression model corresponding to the design of the experiment can yield an interpretable estimate of the causal effect of interest, even in the presence of several other sources of variation.
 
-::: {.box .depth}
-(TITLE) When does it makes sense to include covariates in a model?
+::: {.box data-box="depth" data-title="When does it makes sense to include covariates in a model?"}
 
 Let's come back to one piece of advice that we gave above about making a "default" model of an experiment: not including covariates. This advice can seem surprising. Many demographic factors are of interest to psychologists and other behavioral scientists, and in observational studies these factors will almost always be related to important life outcomes. So why not put them into our experimental models? After all, we did include age in our worked example above!
 
@@ -2686,7 +2705,7 @@ Not every dataset will be amenable to this approach, however. For complex experi
 
 In the last three chapters, we have spelled out a framework for data analysis that focuses on the key experimental goal: a measurement of a particular causal effect. We began with basic techniques for estimating effects and making inferences about how these effects estimated from a sample can be generalized to a population. This chapter showed how these ideas naturally give rise to the idea of making models of data, which allow estimation of effects in more complex designs. Simple regression models, which are formally identical to other inference methods in the most basic case, can be extended with the generalized linear model as well as with mixed effects models. Finally, we ended with some guidance on how to build a "default model" -- an (often pre-registered) regression model that maps onto your experimental design and provides the primary estimate of your key causal effect. 
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. Choose a paper that you have read for your research and take a look at the statistical analysis. Do they use a test-based or a model-based analyisis strategy? 
 
 2. We focused here on the linear model as a tool for building models, contrasting this perspective with the common "statistical testing" mindset. But -- here's the mind-blowing thing -- most of those statistical tests are special cases of the linear model anyway. Take a look at this extended meditation on the equivalences between tests and models: [https://lindeloev.github.io/tests-as-linear/#9_teaching_materials_and_a_course_outline](). If the paper you chose for question 1 used tests, could their tests be easily translated to models? How would the use of a model-based perspective change the results section of the paper? 
@@ -2694,7 +2713,7 @@ In the last three chapters, we have spelled out a framework for data analysis th
 3. Take a look at this cool visualization of hierarchical (mixed effect) models: [http://mfviz.com/hierarchical-models/](). In your own research, what are the most common units that group together your observations?
 :::
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * An opinionated practical guide to regression modeling and data description: Gelman, A., Hill, J., & Vehtari, A. (2020). *Regression and other stories*. Cambridge University Press. Free online at [https://avehtari.github.io/ROS-Examples/]().
 
 * A more in-depth introduction to the process of developing Bayesian models of data that allow for estimation and inference in complex datasets: McElreath, R. (2020). *Statistical rethinking: A Bayesian course with examples in R and Stan*. Chapman and Hall/CRC. Free materials available at [https://xcelab.net/rm/statistical-rethinking/]().
@@ -2716,7 +2735,7 @@ In the last three chapters, we have spelled out a framework for data analysis th
 
 # Measurement {#measurement}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Discuss the reliability and validity of psychological measures 
 * Reason about tradeoffs between different measures and measure types
 * Identify the characteristics of well-constructed survey questions
@@ -2735,8 +2754,7 @@ When we have a physical quantity of interest, we can assess how well an instrume
 
 These two concepts, reliability and validity, provide a conceptual toolkit for assessing how good a psychological measurement instrument is. 
 
-::: {.box .case_study}
-(TITLE) A reliable and valid measure of children's vocabulary
+::: {.box data-box="case_study" data-title="A reliable and valid measure of children's vocabulary"}
 
 Anyone who has worked with little children or had children of their own can attest to how variable their early language is. Some children speak clearly and produce long sentences from an early age, while others struggle; this variation appears to be linked to later school outcomes [@marchman2008]. Thus, there are many reasons why you'd want to make precise measurements of children's early language ability as a latent construct of interest.^[Of course, you can also ask if early language is a single construct, or whether it is multi-dimensional! For example, does grammar develop separately from vocabulary? It turns out the two are very closely coupled [@frank2021]. This point illustrates the general idea that, especially in psychology, measurement and theory building are intimately related -- you need data to inform your theory, but the measurement instruments you use to collect your data in turn presuppose some theory!]
 
@@ -2789,8 +2807,7 @@ The combination of reliability and validity evidence suggests that CDI are a use
 
 Reliability is a way of describing the extent to which a measure yields signal relative to noise. Intuitively, if there's less noise, then there will be more similarity between different measurements of the same quantity, illustrated in Figure \@ref(fig:measurement-brandmaier) as a tighter grouping of points on the bulls-eye. But how do we measure signal and noise? 
 
-::: {.box .depth}
-(TITLE) Early controversies over psychological measurement
+::: {.box data-box="depth" data-title="Early controversies over psychological measurement"}
 
 > "Psychology cannot attain the certainty and exactness of the physical sciences, unless it rests on a foundation of [...] measurement" [@cattel1890mental].
 
@@ -2816,7 +2833,7 @@ For example, weight was a measurable attribute because putting a bag of three ro
 Norman Campbell, one of the most prominent members of the Ferguson Committee, had recently defined *fundamental* measurement in this way [e.g. see @campbell1928account], contrasting it with *derived measurement* which was some function of fundamental measures.
 According to the physicists on the Ferguson Committee, measuring mental sensations was impossible because they could never be grounded in any *fundamental* scale with this kind of additive operation.
 It just didn't make sense to break up holistic sensations into parts the way we would weights or lengths: they didn't come in "amounts" or "quantities" that could be combined [@cattell1962relational]. 
-Even the intuitive additive logic of @donders1969speed's "method of subtraction" for measuring the speed of mental processes was viewed skeptically on the same grounds by the time of the committee (e.g. in an early textbook, @woodworth1938 claimed "we cannot break up the reaction into successive acts and obtain the time for each act.")
+Even the intuitive additive logic of @donders1969's "method of subtraction" for measuring the speed of mental processes was viewed skeptically on the same grounds by the time of the committee (e.g. in an early textbook, @woodworth1938 claimed "we cannot break up the reaction into successive acts and obtain the time for each act.")
 
 The primary target of the Ferguson Committee's investigation was the psychologist S. S. Stevens, who had claimed to measure the sensation of loudness using psychophysical instruments.
 Exiled from classical frameworks of measurement, he went about developing an alternative "operational" framework [@stevens1946], where the classical ratio scale recognized by physicists was only one of several ways of assigning numbers to things (see \@ref(tab:measurement-stevens-table) below).
@@ -2952,8 +2969,7 @@ Another method for computing the internal reliability (the **consistency** of a 
 
 
 
-::: {.box .depth}
-(TITLE) Reliability paradoxes!
+::: {.box data-box="depth" data-title="Reliability paradoxes!"}
 
 There's a major issue with calculating reliabilities using the approaches we described here: reliability will always be relative to the variation in the sample. So if a sample has less variability, reliability will decrease! 
 
@@ -3036,8 +3052,7 @@ Experimentalists sometimes have a tendency to make up ad hoc measures on the fly
 One big issue to be careful about is that researchers have been known to modify their scales and their scale scoring practices (say, omitting items from a survey or rescaling responses) after data collection. This kind of post-hoc alteration of the measurement instrument can sometimes be justified by features of the data, but it can also look a lot like $p$-hacking! If researchers modify their measurement strategy after seeing their data, this decision needs to be disclosed, and it may undermine their statistical inferences. 
 
 
-::: {.box .accident_report}
-(TITLE) Talk about flexible measurement!
+::: {.box data-box="accident_report" data-title="Talk about flexible measurement!"}
 
 The Competitive Reaction Time Task (CRTT) is a lab-based measure of aggression. Participants are told that they are playing a reaction-time game against another player and are asked to set the parameters of a noise blast that will be played to their opponent. Unfortunately, in an analysis of the literature using CRTT, @elson2014 found that different papers using the CRTT use dramatically different methods for scoring the task. Across trials, both the volume and duration of the noise blast were sometimes analyzed. Sometimes these scores were transformed (via logarithms) or thresholded. Sometimes they were combined into a single score. Elson was so worried by this flexibility, he created a website, [http://flexiblemeasures.com](), to document the variation he observed. 
 
@@ -3106,8 +3121,7 @@ Many tasks produce both accuracy and reaction time data. Often these trade off w
 
 Simple, explicit behaviors are often a good starting point. Work using these measures --  often the least ecologically valid -- can then be enriched with implicit measures or measurements of more complex behaviors.  
 
-:::{.box .depth}
-(TITLE) Survey measures
+::: {.box data-box="depth" data-title="Survey measures"}
 
 Sometimes the easiest way to elicit information from participants is simply to ask. Survey questions are an important part of experimental measurement, so we'll share a few best practices, primarily derived from @krosnick2010. 
 
@@ -3163,18 +3177,18 @@ Social psychologists spent more time worrying about issues of ecological validit
 These sociological differences between fields has led to an unfortunate divergence, where experimentalists often do not recognize the value of the conceptual tools developed to aid measurement, and hence fail to reason about the reliability and validity of their measures in ways that can help them make better inferences. The fundamental insight of the psychometric perspective is that the constructs we study as psychologists are latent, rather than directly observed. So when we attempt to measure these constructs, we need to understand the properties of our instruments and how we hypothesize that they connect to the constructs of interest. As we said in our discussion of reliability, ignorance is not bliss. Even if you fail to make explicit assumptions about how your measure functions and how it connects to your construct of interest, your adoption of defaults still constitutes a choice. Much better to think these choices through!
 
 
-<!-- ::: {.box .accident_report} -->
+<!-- ::: {.box data-box="accident_report"} -->
 <!-- failure of measurement invariance in IQ example (the use of precious stone names as vocabulary items) leading to potentially spurious conclusions (Wicherts and Dolan 2010). -->
 <!-- ::: -->
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. Let's go back to our example on the relationship between money and happiness. How many different kinds of measures of happiness can you come up with? Make a list with at least five.
 
 2. Choose one of your measures of happiness and come up with a validation strategy for it, making reference to at least three different types of validity. What data collection would this validation effort require?
 :::
 
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * A classic textbook on psychometrics that introduces the concepts of reliability and validity in a simple and readable way: Furr, R. M. (2021). *Psychometrics: an introduction*. SAGE publications.
 
 * A great primer on questionnaire design: Krosnick, J.A. (2018). Improving Question Design to Maximize Reliability and Validity. In: Vannette, D., Krosnick, J. (eds) The Palgrave Handbook of Survey Research. Palgrave Macmillan, Cham. [https://doi.org/10.1007/978-3-319-54395-6_13]()
@@ -3187,7 +3201,7 @@ These sociological differences between fields has led to an unfortunate divergen
 
 # Design {#design}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Describe key elements to designing a manipulation
 * Define randomization and counterbalancing strategies for removing confounds
 * Discuss strategies to design experiments that are appropriate to the populations of interest
@@ -3203,8 +3217,7 @@ To be useful, a measure must be a valid measure of a construct of interest. The 
 
 To preview our general take-home points from this chapter: we think that your default experiment should have one or two factors -- usually not more -- and should manipulate those factors continuously and within-participants. Although such designs are not always possible, they are typically the most likely to yield precise estimates of a particular effect that can be used to constrain future theorizing. We'll start by considering a case study in which a subtle confound led to difficulties interpreting an experimental result. 
 
-::: {.box .case_study}
-(TITLE) Automatic theory of mind? 
+::: {.box data-box="case_study" data-title="Automatic theory of mind? "}
 
 In an early version of our course, student Desmond Ong set out to replicate a thought-provoking finding: both infants and adults seemed to show evidence of tracking other agents' belief state, even when it was irrelevant to the task at hand [@kovacs2010]. In the paradigm, an animated character would watch as a self-propelled ball came in and out from behind a screen. At the end of the video, the screen would swing down and the participant had to respond whether the ball was present or absent, with their reaction time as the key dependent variable. The experimental design fully crossed two factors: whether the participant believed the ball was present or absent (P+/P-) and whether the animated agent *would have believed* the ball was present or absent (A+/A-) based on what it saw. 
 
@@ -3316,8 +3329,7 @@ Three-way interactions are hard to think about! The affect X belief X outcome in
 
 Three-way interactions are just the beginning, though. If you have three factors with two levels each, you can estimate 7 total effects of interest, as in Table \@ref(tab:design-three-way). If you have four factors with two levels each, you get 15. Four factors with three levels each gets you a horrifying 80 different effects!^[The general formula for $N$ factors with $M$ levels each is $M^N-1$.] This way lies madness, at least from the perspective of estimating and interpreting individual effects in a reasonable sample. 
 
-::: {.box .depth} 
-(TITLE) Estimation strategies for generalized factorial designs
+::: {.box data-box="depth" data-title="Estimation strategies for generalized factorial designs"}
 
 So what should you do if you really do care about four or more factors -- in the sense that you want to estimate their effects and include them in your theory? The simplest strategy is to start your research off by measuring them independently by running a series of single-factor experiments. This kind of setup is natural when there is a single reference level for each factor of interest, and such experiments can yield a basis for judging which factors are most important for your outcome and hence which should be prioritized for experiments to estimate interactions. 
 
@@ -3389,8 +3401,7 @@ The simplest way you can do a repeated measures design is by administering your 
 
 The catch is exactly analogous to the between-participants design: some measures can't be repeated without altering the response. To take an obvious example, we can't give the exact same math problem twice and get two useful measurements of mathematical ability! The general solution to this problem that is typically used is the **experimental item**. In the case of a math assessment, you create multiple problems that you believe test the same concept but have different numbers or other superficial characteristics. This practice is widespread because the use of multiple experimental items can license generalizations across a population of items in the same way that the use of multiple participants can ideally license generalizations across a population of people [@clark1973]. 
 
-::: {.box .accident_report}
-(TITLE) Stimulus-specific effects
+::: {.box data-box="accident_report" data-title="Stimulus-specific effects"}
 
 Imagine you're a psycholinguist who has the hypothesis that nouns are processed faster than verbs. You run an experiment where you pick out ten verbs and ten nouns, then measure a large sample of participants' reading time for each of these. You find strong evidence for the predicted effect and publish a paper on your claim. The only problem is that, at the same time, someone else has done exactly the same study -- with different nouns and verbs -- and published a paper making the opposite claim. The problem in this example is that each effect is driven by the specific experimental items that were chosen [@clark1973]. Out of hundreds of thousands of possible words, why these in particular? 
 
@@ -3533,8 +3544,7 @@ A **placebo** effect is a positive effect on the measure that comes as a result 
 
 <!-- In the psychological context, such one class of effects have sometimes been referred to as **Hawthorne** effects, after historical experiments in which a group of workers who were being studied at the Western Electrical Company supposedly were more productive on the basis of being studied. This story is in fact more complex than its textbook description [@rosenthal1984], but the generalization is true. The simple fact of being part of an experiment can alter behavior in the same way that receiving medical treatment can alter a response to treatment. Thus, experimenters who are interested in measuring a positive response to some treatment must be careful to provide an **active control** that removes the "key ingredient" while still maintaining the general study framework.  -->
 
-::: {.box .accident_report}
-(TITLE) Brain training?
+::: {.box data-box="accident_report" data-title="Brain training?"}
 
 Can doing challenging cognitive tasks make you smarter? In the late 2000s and early 2010s, a large industry for "brain training" emerged. Companies like Lumos Labs, CogMed, BrainHQ, and CogniFit offered games -- often modeled on cognitive psychology tasks -- that claimed to lead to broad gains in memory, attention, and problem solving. 
 
@@ -3605,14 +3615,14 @@ Start with just a single manipulation, and measure it carefully. Ideally this me
 
 How do you ensure that your manipulation is valid? A careful experimenter needs to consider possible confounds and ensure that these are controlled or randomized. They must also consider other artifacts including placebo and demand effects. Finally, they must begin thinking about the relation of their manipulation to the broader theoretical construct whose causal role they hope to test. 
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. Choose a classic study in your area of psychology. Analyze the design choices: how many factors were manipulated? How many measures were taken? Did it use a within-participants or between-participants design? Were measures repeated? Can you justify these choices with respect to tradeoffs (e.g., spill-over effects, fatigue, etc.)?
 
 2. Consider the same study. Design an alternative version that varies one of these design parameters (e.g., drops a manipulation or measure, changes within- to between-participants, etc.). What are the pros and cons of this change? Do you think your design improves on the original?
 :::
 
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * Much of this material is covered in more depth in the classic text on research methods: Rosenthal, R. & Rosnow, R. L. 2008. *Essentials of Behavioral Research: Methods and Data Analysis*. Third Edition. New York: McGraw-Hill. [http://dx.doi.org/10.34944/dspace/66]()
 :::
 
@@ -3621,7 +3631,7 @@ How do you ensure that your manipulation is valid? A careful experimenter needs 
 
 # Sampling {#sampling}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Discuss sampling theory and stratified sampling
 * Reason about the limitations of different samples, especially convenience samples
 * Consider sampling biases and how they affect your inferences
@@ -3637,8 +3647,7 @@ We've already run into generalizability in our treatment of statistical estimati
 
 The first key set of decisions in experiment planning is what population to sample from and how to sample. We'll start by talking about the basics of **sampling theory**: different ways of sampling and the generalizations they do and don't license. The second section of the chapter will then deal with **sampling biases** that can compromise our effect estimates. A final set of key decisions is about **sample size** planning. In the third part of the chapter we'll address this issue, starting with classic **power analysis** but then introduce several other ways that an experimenter can plan and justify their sample size. 
 
-::: {.box .case_study}
-(TITLE) Is everyone as bad at describing smells as I am? 
+::: {.box data-box="case_study" data-title="Is everyone as bad at describing smells as I am? "}
 
 Since Darwin, scientists have assumed that smell is a vestigial sense in humans -- one that we don’t even bother to encode in language. In English we don't even have consistent words for odors. We can say something is "stinky," "fragrant, or maybe "musty," but beyond these, all our words for smells are about the *source* of the smell, not the qualities of it. Bananas, roses, and skunks all have distinctive smells, but we don't have any vocabulary for naming what is common or uncommon about them. And when we make up ad-hoc vocabulary, it's typically quite inconsistent [@majid2014]. The same situation applies across many languages.
 
@@ -3880,7 +3889,7 @@ So how are you supposed to get an estimate of effect size? Here are a few possib
 
 For our money study, using our general expectation of a medium size effect, we can compute power for $d=.5$. In this case, we'll simply use the two-sample $t$-test introduced in Chapter \@ref(inference), for which 80% power at $\alpha = .05$ and $d=.5$ is achieved by having $N=64$ in each group.
 
-::: {.box .code}
+::: {.box data-box="code"}
 Classic power analysis in R is quite simple using the `pwr` package. The package offers a set of test-specific functions like `pwr.t.test`. For each, you supply three of the four parameters specifying effect size (`d`), number of observations (`n`), significance level (`sig.level`), and power (`power`); the function computes the fourth. For classic power analysis, we leave out `n`:
 
 
@@ -3939,8 +3948,7 @@ In sum, there are many different ways of justifying your sample size or your sto
 </tbody>
 </table>
 
-::: {.box .depth}
-(TITLE) Sample sizes for replication studies
+::: {.box data-box="depth" data-title="Sample sizes for replication studies"}
 
 Setting the sample size for a replication study has been a persistent issue in the meta-science literature. Naïvely speaking, it seems like you should be able to compute the effect size for the original study and then simply use that as the basis for a classical power analysis. 
 
@@ -3960,7 +3968,7 @@ Your goal as an experimenter is to estimate a causal effect. But the effect for 
 Questions about generalizability and sampling depend on the precise construct you are studying, and there is no mechanistic procedure for answering them. Instead, you simply have to ask yourself: how does my sampling procedure qualify the inference I want to make based on my data? Being transparent about your reasoning can be very helpful -- both to you and to readers of your work who want to contextualize the generality of your findings. 
 
 
-:::{.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. We want to understand human cognition generally, but do you think it is a more efficient research strategy to start by studying certain features of cognition (perception, for example) in WEIRD convenience populations and then later check our generalizations in non-WEIRD groups? What are the arguments against this efficiency-based strategy?
 
 2. One alternative position regarding sampling is that the most influential experiments aren’t generalizations of some number to a population; they are demonstration experiments that show that some particular effect is possible under some circumstances (think Milgram’s conformity studies, see Chapter \@ref(ethics)). On this argument, the specifics of population sampling are often secondary. Do you think this position makes sense?
@@ -3971,7 +3979,7 @@ Questions about generalizability and sampling depend on the precise construct yo
 :::
 
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * The original polemic article on the WEIRD problem: Henrich, J., Heine, S. J., & Norenzayan, A. (2010). The WEIRDest people in the world? *Behavioral and Brain Sciences,* 33(2-3), 61-83.
 
 * A very accessible introduction to power analysis from its originator: Cohen, J. (1992) A power primer. *Psychological Bulletin,* 112, 155-9. 
@@ -3984,7 +3992,7 @@ Questions about generalizability and sampling depend on the precise construct yo
 
 # Preregistration {#prereg}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 - Recognize the dangers of researcher degrees of freedom 
 - Understand the differences between exploratory and confirmatory modes of research
 - Articulate how preregistration can reduce risk of bias and increase transparency
@@ -4004,8 +4012,7 @@ Consider a simplified, hypothetical case where you have to make five analysis de
 
 In this chapter, we will find out why flexibility in the design, analysis, reporting, and interpretation of experiments, combined with data-dependent decision-making, can introduce bias, and lead to scientists fooling themselves and fooling each other. We will also learn about how **preregistration** -- the process of writing down and registering your research decisions before you observe the data -- (and other tools) can be used to protect our research from bias and provide the transparency that other scientists need to properly evaluate and interpret our work [@hardwicke2022].
 
-::: {.box .case_study}
-(TITLE) Undisclosed analytic flexibility?
+::: {.box data-box="case_study" data-title="Undisclosed analytic flexibility?"}
 
 Educational apps for children are a huge market, but relatively few randomized trials have been done to see whether or when they produce educational gains. Filling this important gap, @berkowitz2015 reported a high-quality field experiment of a free educational app, "Bedtime Math at Home," with participants randomly assigned to either math or reading conditions over the course of a full school year. Critically, along with random assignment, the study also included standardized measures of math and reading achievement. These measures allowed the authors to compute effects in grade-level equivalents, a meaningful unit from a policy perspective. The key result reported in the paper is shown in Figure \@ref(fig:prereg-berkowitz). Families who used the math app frequently showed greater gains in math than the control group. 
 
@@ -4054,8 +4061,7 @@ When a researcher navigates the garden of forking paths during data analysis, th
 
 You could think of this a bit like playing a game of "hot (🔥) or cold (☃️)" where 🔥 indicates that the choice will move the researcher closer to a desirable overall result and ☃️ indicates that the choice will move them further away. Each time the researcher reaches a decision point, they try one of the branches and get feedback on how that choice affects the results. If the feedback is 🔥 then they take that branch. If the answer is ☃️, they try a different branch. If they reach the end of a complete pathway, and the result is ☃️, maybe they even retrace their steps and try some different branches earlier in the pathway. This strategy creates a risk of bias because it systematically skews results towards researcher's preferences [@hardwicke2022].^[We say "risk of bias" rather than just "bias" because in most scientific contexts, we do not have a known ground truth to compare the results to. So in any specific situation, we do not know the extent to which data-dependent decisions have actually biased the results.]
 
-::: {.box .depth}
-(TITLE) Only human: Cognitive biases and skewed incentives
+::: {.box data-box="depth" data-title="Only human: Cognitive biases and skewed incentives"}
 
 There's a storybook image of the scientist as an objective, rational, and dispassionate arbiter of truth [@veldkamp2017]. But in reality, scientists are only human: they have egos, career ambitions, and rent to pay! So even if we do want to live up to the storybook image, its important to acknowledge that our decisions and behavior are also influenced by a range of cognitive biases and external incentives that can steer us away from that goal. Let's first look at some relevant cognitive biases that might lead scientists astray:
 
@@ -4124,8 +4130,7 @@ Preregistration does not require that you specify all research decisions in adva
 
 In addition to the benefits described above, preregistration may improve the quality of research by encouraging closer attention to study planning. We've found that the process of writing a preregistration really helps facilitate communication between collaborators, and can catch addressable problems before time and resources are wasted on a poorly designed study. Detailed advanced planning can also create opportunities for useful community feedback, particularly in the context of Registered Reports (see Depth box below), where dedicated peer reviewers will evaluate your study before it has even begun.
 
-::: {.box .depth}
-(TITLE) Preregistration and friends: A toolbox to address researcher degrees of freedom
+::: {.box data-box="depth" data-title="Preregistration and friends: A toolbox to address researcher degrees of freedom"}
 
 Several useful tools can be used to complement or extend preregistration. In general, we would recommend that these tool are combined with preregistration, rather than used as a replacement because preregistration provides transparency about the research and planning process [@hardwicke2022].
 
@@ -4171,13 +4176,13 @@ When you report your study, it is important to distinguish between what was plan
 
 We've advocated here for preregistering your study plan. This practice helps to reduce the risk of bias caused by data-dependent analysis (the "garden of forking paths" that we described) and transparently communicate the risk of bias to other scientists. Importantly, preregistration is a "[plan, not a prison](https://www.cos.io/blog/preregistration-plan-not-prison)": in most cases preregistered, confirmatory analyses coexist with exploratory analyses. Both are an important part of good research -- the key is to disclose which is which!
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. P-hack your way to scientific glory! To get a feel for how data-dependent analyses might work in practice, have a play around with this app: https://projects.fivethirtyeight.com/p-hacking/ Do you think preregistration would affect your confidence in claims made about this dataset?
 
 2. Preregister your next experiment! The best way to get started with preregistration is to have a go with your next study. Head over to https://osf.io/registries/osf/new and register your study protocol or complete one of the templates. What aspects of preregistration did you find most difficult and what benefits did it bring?
 :::
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * Nosek, B. A., Ebersole, C. R., DeHaven, A. C., & Mellor, D. T. (2018). The preregistration revolution. *Proceedings of the National Academy of Sciences*, *115*, 2600–2606. [https://doi.org/10.1073/pnas.1708274114]()
 
 * Hardwicke, T. E., & Wagenmakers, E.-J. (2022). Reducing bias, increasing transparency, and calibrating confidence with preregistration. *Nature Human Behaviour*. [https://doi.org/10.31222/osf.io/d7bcu]()
@@ -4188,7 +4193,7 @@ We've advocated here for preregistering your study plan. This practice helps to 
 
 # Data collection {#collection}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Outline key features of informed consent and participant debriefing 
 * Identify additional protections necessary for working with vulnerable populations
 * Review best practices for online and in-person data collection
@@ -4201,8 +4206,7 @@ The first section takes the perspective of a participant. We begin by reviewing 
 
 In the second section, we begin to shift perspectives, discussing the choice of online vs. in-person data collection and how to optimize the experimental experience for participants in both settings. We then end by taking the experimenter's perspective more fully, discussing how we can maximize data quality using pilot testing, manipulation checks, and attention checks, while still being cognizant of both the integrity of our statistical inferences and how these changes affect the participant's experience. 
 
-::: {.box .case_study}
-(TITLE) The rise of online data collection
+::: {.box data-box="case_study" data-title="The rise of online data collection"}
 
 Since the rise of experimental psychology laboratories in university settings during the period after World War 2 [@benjamin2000], experiments have typically been conducted by recruiting participants from what has been referred to as the "subject pool." This term denotes a group of people who can be recruited for experiments, typically students from introductory psychology courses [@sieber1989] who are required to complete a certain number of experiments as part of their course work.^[At various times, students have raised ethical concerns about these requirements, pointing out they are coercive in precisely the way that should be off limits for psychology experiments (see Chapter \@ref(ethics)). As a result, most programs now offer students an alternative option if they do not wish to participate.] The ready availability of this convenient population inevitably led to the massive over-representation of undergraduates in published psychology research, undermining the generalizability psychological research [@sears1986;@henrich2010].
 
@@ -4412,8 +4416,7 @@ We recommend that all experimenters perform -- at the very minimum -- two pilot 
 
 The first pilot, which we call your **non-naïve participant pilot**, can make use of participants who know the goals of the experiment and understand the experimental manipulation -- this could be a friend, collaborator, colleague, or family member.^[In a pinch you can even run yourself through the experiment a bunch of times (though this isn't preferable because you're likely to miss a lot of aspects of the experience that you are habituated to, especially if you've been debugging the software).] The goal of this pilot study is to ensure that your experiment is comprehensible, that participants can complete it, and that the data are logged appropriately. You must *analyze* the data from the non-naive pilot, at least to the point of checking that the relevant data about each trial is logged.
 
-::: {.box .accident_report}
-(TITLE) Data logging much?
+::: {.box data-box="accident_report" data-title="Data logging much?"}
 
 When Mike was in graduate school, his lab got a contract to test a very large group of participants in a battery of experiments, bringing them into the lab over the course of a series of intense bursts of participant testing. He got the opportunity to add an experiment to the battery, allowing him to test a much larger sample than resources would otherwise allow. He quickly coded up a new experiment as part of a series of ongoing studies and began deploying it, coming to the lab every weekend for several months to help move participants through the testing protocol. Eagerly opening up the data file to reap the reward of this hard work, he found that the condition variable was missing from the data files. Although the experimental manipulation had been deployed properly, there was no record of which condition each participant had been run in, and so the data were essentially worthless. Had he run a quick pilot (even with non-naive participants) and attempted to analyze the data, this error would have been detected, and many hours of participant and experimenter effort would not have been lost.
 
@@ -4482,8 +4485,7 @@ As an experimentalist, one of the worst feelings is to come back to your data di
 
 As well as collecting the actual data in whatever form they take (e.g., paper surveys, videos, or files on a computer), it is important to log **metadata** -- data about your data -- including relevant information like the date of data collection, the sample that was collected, the experiment version, the research assistants who were present, etc. The relevant meta-data will vary substantially from study to study -- the important part is that you keep detailed records. Figures \@ref(fig:collection-runsheet) and \@ref(fig:collection-log) give two examples from our own research. The key feature is that they provide some persistent metadata about how the experiments were conducted. 
 
-::: {.box .accident_report}
-(TITLE) Does data quality vary throughout the semester? 
+::: {.box data-box="accident_report" data-title="Does data quality vary throughout the semester? "}
 
 Every lab that collects empirical data repeatedly using the same population builds up lore about how that population varies in different contexts. Many researchers who conducted experiments with college undergraduates were taught never to run their studies at the end of the semester. Exhausted and stressed students would likely yield low-quality data, or so the argument went. Until the rise of multi-lab collaborative projects like ManyLabs (see Chapter \@ref(replication)), such beliefs were almost impossible to test.
 
@@ -4496,14 +4498,14 @@ Researchers are subject to the same cognitive illusions and biases as any human.
 
 In this chapter, we took the perspective of both the participant and the researcher. Our goal was to discuss how to achieve a good research outcome for both. On the side of the participant, we highlighted the responsibility of the experimenter to ensure a robust consent and debriefing process. We also discussed the importance of a good experimental experience in the lab and online -- ensuring that the experiment is not only conducted ethically but is also pleasant to participate in. Finally, we discussed how to address some concerns about data quality from the researcher perspective, recommending both the extensive use of non-naive and naive pilot participants and the use of comprehension and manipulation checks. 
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. "Citizen science" is a movement to have a broader base of individuals participate in research because they are interested in discoveries and want to help. In practice, citizen science projects in psychology like [Project Implicit](https://implicit.harvard.edu/implicit/), [Children Helping Science](http://lookit.mit.edu), and [TheMusicLab.org](http://themusiclab.org) have all succeeded by offering participants a compelling experience. Check one of these out, participate in a study, and make a list the features that make it fun and easy to contribute data. 
 
 2. Be a turker! Sign up for an account as an Amazon Mechanical Turk worker and complete three Human Intelligence Tasks. How did you feel about browsing the marketplace looking for work? What features of tasks attracted your interest? How hard was it to figure out how to participate in each task? And how long did it take to get paid? 
 :::
 
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * An introduction to online research: Buhrmester, M. D., Talaifar, S., & Gosling, S. D. (2018). An evaluation of Amazon’s Mechanical Turk, its rapid rise, and its effective use. Perspectives on Psychological Science, 13(2), 149-154. [https://doi.org/10.1177/1745691617706516]()
 :::
 
@@ -4516,7 +4518,7 @@ In this chapter, we took the perspective of both the participant and the researc
 <!-- knitr::include_graphics("images/management/meme.jpg") -->
 <!-- ``` -->
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Manage your research projects efficiently and transparently
 * Develop strategies for data organization
 * Optimize sharing of research products, like data and analysis code, by ensuring they are Findable, Accessible, Interoperable, Reusable (FAIR)
@@ -4559,8 +4561,7 @@ Sound project management practices and sharing of research projects are mutually
 
 In this chapter, you will learn how to manage your research project both efficiently and transparently. These goals create a virtuous cycle: if you organize your research products well, they are easier to share later, and if you assume that you will be sharing, you will be motivated to organize your work better! We begin by discussing some important principles of project management, including folder structure, file naming, organization, and version control. Then we zoom in specifically on data and discuss best practices for data sharing. We end by discussing the question of what research products to share and some of the potential ethical issues that might limit your ability to share in certain circumstances.^[This chapter -- especially the last section -- draws heavily on @klein2018, an article on research transparency that several of us contributed to.]
 
-::: {.box .case_study}
-(TITLE) ManyBabies, ManySpreadsheetFormats!
+::: {.box data-box="case_study" data-title="ManyBabies, ManySpreadsheetFormats!"}
 
 The ManyBabies project is an example of "Big Team Science" in psychology. A group of developmental psychology researchers (including some of us) were worried about many of the issues of reproducibility, replicability, and experimental methods that we've been discussing throughout this book, so they set up a large-scale collaboration to replicate key effects in developmental science. The first of these studies was ManyBabies 1 [@manybabies2020], a study of infants' preference for baby-talk (also known as Infant Directed Speech). 
 
@@ -4574,7 +4575,7 @@ All of the formatting changes that individual labs made were reasonable -- alter
 A lot of project management problems can be avoided by following a very simple file organisation system. For those researchers that "grew up" managing their files locally on their own computers and emailing colleagues versions of data files and manuscripts with names like `manuscript-FINAL-JS-rev1.xlsx`, a few aspects of this system may seem disconcerting. However, with a little practice, this new way of working will start to feel intuitive and have substantial benefits. Here are the principles:
 
 1. There should be exactly one definitive copy of each document in the project, with its name denoting what it is. For example, `fifo_manuscript.Rmd` or `fifo_manuscript.docx` is the write-up of the "fifo" project as a journal manuscript.
-2. The location of each document should be within a folder which serves to uniquely identify the document's function within the project. For example, `/analysis/experiment1/eye_tracking_preprocesssing.Rmd` is clearly the file that performs pre-processing for the analysis of eye-tracking data from Experiment 1. 
+2. The location of each document should be within a folder which serves to uniquely identify the document's function within the project. For example, `/analysis/experiment1/eye_tracking_preprocessing.Rmd` is clearly the file that performs pre-processing for the analysis of eye-tracking data from Experiment 1. 
 3. The full project should be accessible to all collaborators and archived across multiple storage devices, either via a version control platform (e.g., [github.com]()) or cloud provider (e.g., dropbox, box, google drive).
 4. The revision history of all text- and text-based documents (minimally, data, analysis code, and manuscript files) should be archived automatically. Automatic versioning is the key feature of all version control systems and is often included by cloud storage providers.
 
@@ -4713,8 +4714,7 @@ Many researchers do not create data by manually entering information into a spre
 
 That said, if your platform *does* allow you to control what comes out, you can try to use the principles of good tabular data design outlined above. For example, try to give your variables (e.g., questions in Qualtrics) sensible names! 
 
-:::{.box .accident_report}
-(TITLE) Bad variable naming!
+::: {.box data-box="accident_report" data-title="Bad variable naming!"}
 
 In our methods class, students often try to reproduce the original analyses from a published study before attempting to replicate the results in a new sample of participants. When Kengthsagn Louis looked at the code for the study she was interested in, she noticed that the variables in the analysis code were unnamed (presumably because they were output this way by the survey software). For example, one piece of Stata code looked like this!
 
@@ -4780,8 +4780,7 @@ The EU's GDPR also allows fully anonymized data sharing, with one big complicati
 
 De-identification is not always enough. As datasets get richer, **statistical reidentification risks** go up substantially such that, with a little bit of outside information, data can be matched with a unique individual. These risks are especially high with linguistic, physiological, and geospatial data, but they can be present even for simple behavioral experiments. In one influential demonstration, knowing a person's location on two occasions was often enough to identify their data uniquely in a huge database of credit card transactions [@de-montjoye2015].^[For an example closer to home, many of the contributing labs in the ManyBabies project logged the date of test for each participant. This useful and seemingly innocuous piece of information is unlikely to identify any particular participant -- but alongside a social media post about a lab visit or a dataset about travel records, it could easily reveal a participant's identity.] Thus, simply removing fields from the data is a good starting point, but if you are collecting richer data about participants' behavior you may need to consult an expert. 
 
-::: {.box .ethical_considerations}
-(TITLE) Really anonymous? 
+::: {.box data-box="ethical_considerations" data-title="Really anonymous? "}
 
 When we first began teaching Psych 251, our experimental methods course at Stanford, one of the biggest contributions of the course was simply showing students how to do experiments online. Amazon's Mechanical Turk crowdsourcing service was relatively new, and our IRB did not have a good sense of what this service really was. We proposed that we would share data from the class and received approval for this practice. Our datasets were downloaded directly from Mechanical Turk and included participants' MTurk IDs (long alphanumeric strings that seemed completely anonymous). Several experiences caused us to reconsider this practice! 
 
@@ -4805,18 +4804,17 @@ All of the hard work you put into your experiments -- not to mention the contrib
 
 <!-- TODO: Barriers to adoption of transparent practices. -->
 
-<!-- ::: {.box .accident_report} -->
-<!-- (TITLE) security practices for databases (how not to get hit by a ransomware attack) -->
+<!-- ::: {.box data-box="accident_report" data-title="Security practices for databases (how not to get hit by a ransomware attack)"} -->
 <!-- ::: -->
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. Find an Open Science Framework repository that corresponds to a published paper. What is their strategy for documenting what is shared? How easy is it to figure out where everything is and if the data and materials sharing is complete?
 
 2. Open up the US Department of Health and Human Services "safe harbor" standards [here](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html) and navigate to the section called "The De-identification Standard." Go through the list of identifiers that must be removed. Are there any on this list that you would need to conduct your own research? Can you think of any others that do not fall on this list? 
 :::
 
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * A more in-depth tutorial on various aspects of scientific openness: Klein, O., Hardwicke, T. E., Aust, F., Breuer, J., Danielsson, H., Hofelich Mohr, A., Ijzerman, H., Nilsonne, G., Vanpaemel, W., & Frank, M. C. (2018). A practical guide for transparency in psychological science. *Collabra: Psychology*, *4*, 20. [https://doi.org/10.1525/collabra.158]()
 :::
 
@@ -4827,7 +4825,7 @@ All of the hard work you put into your experiments -- not to mention the contrib
 
 # Writing {#writing}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Write clearly by being concise, using structure, and adjusting to your audience
 * Write reproducibly by interleaving writing and analysis code
 * Write responsibly by acknowledging limitations, correcting errors, and calibrating your conclusions
@@ -4966,7 +4964,7 @@ In a journal article, you typically have some flexibility in terms of how much d
 
 Here are a few more guidelines for responsible writing:
 
-* **Acknowledge limitations**. No study is perfect. Even the most rigorously designed research will have limitations, simply because doing science is hard!^[Though some limitations can be avoided, most are an inherent part of doing research rather than a failing by the researcher. A limitation of a car is that it cannot fly -- we do not blame the manufacturer for this, but we do expect them to be honest about their cars being flightless.] For example, if your sample consisted only of university students or you only used a few different stimuli, the study may have limited generalizability. Think carefully about the limitations of your study and state these limitations clearly in the discussion section.
+* **Acknowledge limitations**. No study is perfect. Even the most rigorously designed research will have limitations, simply because doing science is hard!^[Though some limitations can be avoided, most are an inherent part of doing research rather than a failing by the researcher. A limitation of a car is that it cannot fly -- we do not blame the manufacturer for this, but we do expect them to be honest about their cars being flightless.] For example, if your sample consisted only of university students or you only used a few different stimuli, the study may have limited generalizability. Think carefully about the limitations of your study, state them clearly, and consider how they impact your conclusions [@clarke2023].
 
 * **Don't overclaim**. Scientists often feel they are (and unfortunately, often are) evaluated based on the *results* of their research, rather than the *quality* of their research. Consequently, it can be tempting to make bigger and bolder claims than are really justified by the evidence. Think carefully about the limitations of your research and calibrate your conclusions to the evidence, rather than what you wish you were able to claim. Ensure that your conclusions are appropriately stated throughout the manuscript, especially the title and abstract.
 
@@ -4989,7 +4987,7 @@ A correction/retraction statement should include the following information:
 5. **Describe what you have done to address the error**. Others may learn from solutions you've implemented.
 6. **Acknowledge the person who identified the error**. Identifying errors can take a lot of work; if the person is willing to be identified, give credit where credit is due.
 
-::: {.box .accident_report}
+::: {.box data-box="accident_report"}
 In 2018, at a crucial stage of her career, Dr Julia Strand published an important study in the prestigious journal *Psychonomic Bulletin & Review*. She presented the work at conferences and received additional funding to do follow-up studies. But several months later, her team found that they could not replicate the result. 
 
 Puzzled, Julia began searching for the cause of the discrepant results. Eventually, she found the culprit -- a programming error. As she sat staring at her computer in horror, she realized that it was unlikely anyone else would ever find the bug. Hiding the error must have seemed like the easiest thing to do. 
@@ -5021,13 +5019,13 @@ Because authorship is such an important signal in academia, it's important to ag
 
 Writing a scientific article can be a rewarding endpoint for the process of doing experimental research. But writing is a craft, and writing clearly -- especially about complex and technical topics -- can require substantial practice and many drafts. Further, writing about research comes with ethical and professional responsibilities that are different than the burdens of other kinds of writing. A scientific author must work to ensure the reproducibility of their findings and report on those findings responsibly, noting limitations and weaknesses as well as strengths.  
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. Find a writing buddy and exchange feedback on a short piece of writing (the abstract of a paper in progess, a conference abstract, or even a class project proposal would be good examples). Think about how to improve each other's writing using the advice offered in this chapter.
 
 2. Identify a published research article with openly available data and see if you can reproduce an analysis in their paper by recovering the exact numerical values they report. You can find support for this exercise at the Social Science Reproduction Platform (https://www.socialsciencereproduction.org) or ReproHack (https://www.reprohack.org). Discuss with a friend what challenges you faced in this exercise and how they might be avoided in your own work.
 :::
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * Zinsser, W. (2006). *On writing well: The classic guide to writing nonfiction [7th ed]*. Harper Collins.
 
 * Gernsbacher, M. A. (2018). Writing empirical articles: Transparency, reproducibility, clarity, and memorability. *Advances in Methods and Practices in Psychological Science*, *1*, 403–14. [https://doi.org/10.1177/2515245918754485]()
@@ -5038,7 +5036,7 @@ Writing a scientific article can be a rewarding endpoint for the process of doin
 
 # Visualization {#viz}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 -   Analyze the principles behind informative visualizations
 -   Incorporate visualization into an analysis workflow
 -   Learn to make "the design plot"
@@ -5053,8 +5051,7 @@ Good visualizations aim to deliberately harness this power and put it to work at
 Yet our powerful pattern detectors can also be a liability; if we're not careful, we can easily be fooled into seeing patterns that are unreliable or even misleading.
 As psychology moves into an era of bigger data and more complex behaviors, we become increasingly reliant on **data visualization literacy** [@borner2019data] to make sense of what is going on.
 
-::: {.box .case_study}
-(TITLE) Mapping a pandemic
+::: {.box data-box="case_study" data-title="Mapping a pandemic"}
 
 <p><span class="marginnote shownote">
 <!--
@@ -5142,7 +5139,7 @@ Start with the variables you manipulate, and make sure they are clearly visible.
 Conventionally, the primary manipulation of interest (e.g. condition) goes on the x-axis, and the primary measurement of interest (e.g. responses) goes on the y-axis.
 Other critical variables of interest (e.g. secondary manipulations, demographics) are then assigned to "visual variables" (e.g. color, shape, or size).
 
-::: {.box .code}
+::: {.box data-box="code"}
 The visualization library `ggplot` (see Appendix \@ref(ggplot)) makes the mapping of variables in the data to visual data. The first part of a ggplot call is an `aesthetics` layer:
 
 
@@ -5190,7 +5187,7 @@ Figure \@ref(fig:viz-hierarchy) shows an ordering of visual variables based on h
 
 For example, we *could* start by plotting the accuracy of each age group as colors (Figure \@ref(fig:viz-prepost2)).
 
-::: {.box .code}
+::: {.box data-box="code"}
 To make this (bad) visualization, we used a `ggplot` function called `geom_tile()`.
 
 
@@ -5217,7 +5214,7 @@ For example, in @barnett2022, a heatmap was used to show a specific range of par
 
 Or as sizes/areas (Figure \@ref(fig:viz-prepost3)).
 
-::: {.box .code}
+::: {.box data-box="code"}
 To make this (bad) visualization, we mapped the rating DV to the `size` element in our `aes()` call.
 
 
@@ -5238,7 +5235,7 @@ Additionally, this way of plotting the data places equal emphasis on age and con
 An alternative is to show six bars: three on the left showing the 'experimental' phase and three on the right showing the 'control' phase.
 Maybe the age groups then are represented as different colors, as in Figure \@ref(fig:viz-prepost4).
 
-::: {.box .code}
+::: {.box data-box="code"}
 We make bar plots using the `ggplot` function `geom_bar()`.
 By default, it creates 'stacked' bar plots, where all values associated with the same x value (here, condition) get stacked up on top of one another.
 Stacked bar plots can be useful if, for example, you're plotting proportions that sum up to 1, or want to show how some big count is broken down into subcategories.
@@ -5303,7 +5300,7 @@ They represent a minimal form of uncertainty about the possible statistics that 
 Figure \@ref(fig:viz-show-data1) shows the Stiller data with error bars. 
 <!-- As such, they allow the viewer to interpret the means as *estimates*.  -->
 
-::: {.box .code}
+::: {.box data-box="code"}
 A common problem arises when we want to add error bars to a dodged bar plot.
 Naively, we'd expect we could just dodge the error bars in the same way we dodged the bars themselves:
 
@@ -5341,7 +5338,7 @@ There are many ways of showing the resulting distribution of participant-level d
 For example, a **boxplot** shows the median (a horizontal line) in the center of a box extending from the lower quartile (25%) to the upper quartile (75%).
 Lines then extend out to the biggest and smallest values (excluding outliers, which are shown as dots). Figure \@ref(fig:viz-show-data2) gives the boxplots for the Stiller data, which don't look that informative -- perhaps because of the coarseness of individual participant averages due to the small number of trials. 
 
-:::{.box .code}
+::: {.box data-box="code"}
 In `ggplot`, we can make box plots using the `geom_boxplot` command:
 
 
@@ -5361,7 +5358,7 @@ It is also common to show the raw data as jittered values with low transparency.
 In Figure \@ref(fig:viz-show-data3), we jitter the points because many participants have the same numbers (e.g. 50%) and if they overlap it is hard to see how many points there are.
 
 
-:::{.box .code}
+::: {.box data-box="code"}
 Adding the jittered points is simple using `geom_jitter`, but we are starting to have a fairly complex plot so maybe it's worth taking stock of how we get there. 
 
 To plot both *condition* means and *participant* means, we need to create two different data frames. Here `mss` is a data frame of means for each participant; `ms` is a data frame with means and confidence intervals *across* participants. For this purpose, we use the `tidyboot` package and the `tidyboot_mean` function, which gives us bootstrapped 95% confidence intervals for the means. 
@@ -5401,8 +5398,7 @@ A raincloud plot combines the raw data (the "rain") with a smoothed density (the
 
 
 
-::: {.box .depth}
-(TITLE) Visualizing uncertainty with error bars
+::: {.box data-box="depth" data-title="Visualizing uncertainty with error bars"}
 
 One common misconception is that error bars are a measure of variance *in the data*, like the standard deviation of the response variable.
 Instead, they typically represent a measure of precision extracted from the statistical model.
@@ -5464,7 +5460,7 @@ For example: consider whether the visual complexity introduced by the default gr
 Figure \@ref(fig:viz-themes) shows a slightly more "styled" version of the same plot with labels directly on the plot and a lighter-weight theme. 
 
 
-::: {.box .code}
+::: {.box data-box="code"}
 To produce the plot below, we've added a few styling elements including:
 
 * The nice and minimal `theme_few` from the `ggthemes` package.
@@ -5547,8 +5543,7 @@ Good visualizations force us to zoom out and take in the bigger picture.
 
 ### Data diagnostics
 
-::: {.box .accident_report}
-(TITLE) [Distributional] gorillas in our midst.
+::: {.box data-box="accident_report" data-title="[Distributional] gorillas in our midst."}
 
 Many data scientists don’t bother checking what their data looks like before proceeding to test specific hypotheses.
 @yanai2020 cleverly designed an artificial dataset for their students to test for such blindness.
@@ -5580,7 +5575,7 @@ Maybe our design wasn't perfectly balanced, or something went wrong with a parti
 
 So which visualizations should we start with? The best practice is to always start by making histograms of the raw data. As an example, let's consider the rich and interesting dataset shared by Blake, McAuliffe, and colleagues [-@blake2015ontogeny] in their article "Ontogeny of fairness in seven societies." This article studies the emergence of children's reasoning about fairness -- both when it benefits them and when it harms them -- across cultures.
 
-::: {.box .code}
+::: {.box data-box="code"}
 If you want to follow along with this example at home, you can load the data from our repository!
 
 
@@ -5618,7 +5613,7 @@ How might we go about the process of exploratory visualization for this dataset?
 Let's start by getting a handle on some of the basic sample characteristics.
 For example, how many participants were in each age bin (Figure \@ref(fig:viz-blake3))?
 
-::: {.box .code}
+::: {.box data-box="code"}
 Exploratory histograms are often a combination of an aggregation step and a plotting step. In the aggregation step, we make use of the convenience `count` function, which gives the number (`n`) of rows in a particular grouping. Here we `count` twice in order to get first one row per participant and then count the number of participants within each age group. 
 
 
@@ -5661,7 +5656,7 @@ Histograms are intended by `ggplot` to be for continuous data, however, and so t
 
 How many participants were included from each country (Figure \@ref(fig:viz-blake5))?
 
-::: {.box .code}
+::: {.box data-box="code"}
 Here we are going to make things even terser and use a pipe chain that *includes* the ggplot, just so we are writing only a single call to produce our plot. It's up to you whether you think this enhances the readability of your code or decreases it. We find that it's sometimes useful when you don't plan on keeping the intermediate data frame for any other use than plotting.
 
 
@@ -5684,7 +5679,7 @@ The only other trick to point out here is that we use the `fct_reorder` call to 
 
 Are ages roughly similar across each country (Figure \@ref(fig:viz-blake5))?
 
-::: {.box .code}
+::: {.box data-box="code"}
 This next plot simply combines the grouping factors of each of the last two plots, and uses `facet_wrap` to show a separate histogram by country: 
 
 
@@ -5719,7 +5714,7 @@ Now that we have a handle on the sample, let's get a sense of the dependent vari
 Before we start taking means, let's look at how the "rejection rate" variable is distributed.
 We'll aggregate at the participant level, and check the frequency of different rejection rates, overall (Figure \@ref(fig:viz-blake7)).
 
-::: {.box .code}
+::: {.box data-box="code"}
 Rejection rate is a continuous variable, so we switch to using a histogram in this case, choosing .05 as a reasonable bin width to see the distribution.
 
 
@@ -5742,7 +5737,7 @@ This kind of "zero-inflated" distribution is not uncommon in psychology, and may
 We also notice that there is clumping around certain values.
 This clumping leads us to check how many trials each participant is completing (Figure \@ref(fig:viz-blake8)).
 
-::: {.box .code}
+::: {.box data-box="code"}
 This histogram is very similar to the ones above; however, we now `count` twice, first getting the trial counts for each participant and then counting how many times each count occurs overall!
 
 
@@ -5778,7 +5773,7 @@ More generally, seeing this kind of signal in a visualization of our own data ty
 Finally, we can make a few versions of the design plot that are broken out by different variables.
 Let's start by just looking at the data from the largest site (Figure \@ref(fig:viz-blake9)).
 
-:::{.box .code}
+::: {.box data-box="code"}
 Here, we are using `geom_smooth()` to overlay regression trends over the raw data.
 `geom_smooth()` takes a number of different options corresponding to different smoothing techniques.
 Non-parametric smoothing can be a good choice for exploratory visualizations if you have a lot of data and want to make minimal assumptions about the form of the trend.
@@ -5824,7 +5819,7 @@ There appears to be an age trend that's specific to the Unequal trials, with rej
 Meanwhile, rejection rates for the Disadvantageous group also seem slightly higher than those in the Advantageous group.
 Now let's re-bin the data into two-year age groups so that individual point estimates are a bit more reliable, and add the other countries back in.^[Binning data is a trick that we often use for reducing complexity in a plot when data are noisy. It should be used with care, however, since different binning decisions can sometimes lead to different conclusions. Here we tried several binning intervals and decided that two-year age bins showed the underlying trends pretty well.]
 
-::: {.box .code}
+::: {.box data-box="code"}
 Despite the difference between the plot above and this one, the code to produce them is actually very similar. The only difference is the creation of the binned variable and a slight shift of aesthetic and faceting variables. 
 
 
@@ -5872,14 +5867,14 @@ We particularly focused on the need to make visualization part of the experiment
 Picking up the idea of a "default model" from Chapter \@ref(models), we discussed a default "design plot" that reflects the key choices made in the experimental design.
 Within this framework, we then discussed different visualizations of distribution and variability that better align our graphics with the principles of measurement and attention to raw data that we have been advocating throughout.
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. Choose a recent piece of research that you've heard about and try to sketch the "design plot" on with pencil and paper. What does and doesn't work? How does your sketch differ from the visualizations in the paper?
 
 2. The "design plot" idea that we've discussed here can run into problems when an experimental design is too complex to show on a single plot. Imagine you had data from a trial of attention deficit hyperactivity disorder (ADHD) treatment that manipulated both whether a medication was given and whether patients received therapy in a crossed design. The researchers measured two different outcomes: parent report symptom severity and teacher report symptom severity in four different time-points (baseline, 3 months, 6 months, and 9 months). How could you show the data from such an experiment in a transparent way? 
 :::
 
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 There are many good introductions to data visualization. Here are two social-science focused books whose advice we agree with and that also contain a lot of practical information and helpful R code for the same packages we use here.  
 
 * Healy, K. (2019). *Data Visualization: A Practical Introduction*. Princeton University Press. Princeton University Press. Available free online at [https://socviz.co](). 
@@ -5902,7 +5897,7 @@ For a more classical treatment, see:
 
 
 
-:::{.box .learning_goals}
+::: {.box data-box="learning_goals"}
 - Discuss the benefits of synthesizing evidence across studies
 - Conduct a simple fixed- or random-effects meta analysis
 - Reason about the role of within- and across-study biases in meta-analysis
@@ -5916,8 +5911,7 @@ To address these issues, a more systematic, quantitative review of the literatur
 
 By combining information from multiple studies, meta-analysis often provides more precise estimates of an effect size than any single study. In addition, meta-analysis also allows the researcher to look at the extent to which an effect varies across studies. If an effect does vary across studies, meta-analysis also can be used to test whether certain study characteristics systematically produce different results (e.g., whether an effect is larger in certain populations). 
 
-:::{.box .case_study}
-(TITLE) Towel reuse by hotel guests
+::: {.box data-box="case_study" data-title="Towel reuse by hotel guests"}
 
 Imagine you are staying in a hotel and you have just taken a shower. Do you throw the towels on the floor or hang them back up again? In a widely-cited study on the power of social norms, @goldstein2008room manipulated whether a sign encouraging guests to reuse towels focused environmental impacts (e.g., "help reduce water use") or social norms (e.g., "most guests re-use their towels"). Across two studies, they found that guests were significantly more likely to reuse their towels after receiving the social norm message (Study 1: odds ratio [OR] = 1.46, 95% CI [1.00, 2.16], $p = .05$; Study 2: OR = 1.35, 95% CI [1.04, 1.77], $p = .03$). 
 
@@ -6008,7 +6002,7 @@ As we've seen throughout this book, visualizing data before and after analysis h
 <div class="figure">
 <p class="caption">(\#fig:meta-forest)Forest plot for Paluck et al. meta-analysis. Studies are ordered from smallest to largest standard error.</p><img src="experimentology_files/figure-html/meta-forest-1.png" alt="Forest plot for Paluck et al. meta-analysis. Studies are ordered from smallest to largest standard error." width="\linewidth"  /></div>
 
-::: {.box .code}
+::: {.box data-box="code"}
 In this chapter, we use the wonderful `metafor` package [@viechtbauer2010]. With this package, you must first fit your meta-analytic model. But once you've fit your model `mod`, you can simply call `forest(mod)` to create a plot like the one above.
 :::
 <!-- Cohen's $d$ -- which, if you recall from Chapter \@ref(estimation), represents the standardized mean difference -- was used as the effect size index. As we show in the remainder of the chapter, the meta-analytic tools @paluck2019contact used provide several useful insights about this proposed prejudice-reduction intervention. -->
@@ -6019,7 +6013,7 @@ Many people's first instinct to synthesize evidence is to count how many studies
 
 Many qualitative literature reviews use this vote-counting approach, although often not explicitly. Despite its intuitive appeal, vote-counting can be very misleading because it characterizes evidence solely in terms of dichotomized $p$-values, while entirely ignoring effect sizes. In Chapter \@ref(replication), we saw how fetishizing statistical significance can mislead us when we consider individual studies. These problems also apply when considering multiple studies. 
 
-For example, small studies may consistently produce non-significant effects due to their limited power. But when many such studies are combined in a meta-analysis, the meta-analysis may provide strong evidence of a positive average effect. Inversely, many studies might have statistically significant effects, but if their effect sizes are small, then a meta-analysis might might indicate that the average effect size is too small to be practically meaningful. In these cases, vote-counting based on statistical significance can lead us badly astray [@borenstein2021introduction]. To avoid these pitfalls, meta-analysis combines the effect sizes estimates from each study (not just their $p$-values), weighting them in a principled way.
+For example, small studies may consistently produce non-significant effects due to their limited power. But when many such studies are combined in a meta-analysis, the meta-analysis may provide strong evidence of a positive average effect. Inversely, many studies might have statistically significant effects, but if their effect sizes are small, then a meta-analysis might indicate that the average effect size is too small to be practically meaningful. In these cases, vote-counting based on statistical significance can lead us badly astray [@borenstein2021introduction]. To avoid these pitfalls, meta-analysis combines the effect sizes estimates from each study (not just their $p$-values), weighting them in a principled way.
 
 ### Fixed-effects meta-analysis
 
@@ -6039,7 +6033,7 @@ $$\widehat{\mu} = \frac{ \sum_{i=1}^k w_i \widehat{\theta}_i}{\sum_{i=1}^k w_i}$
 
 We can use the fixed-effects formula to estimate that the overall effect size in Paluck et al.'s meta-analysis studies is a standardized mean difference of $\widehat{\mu}$ = 0.28; 95% confidence interval [0.23, 0.34]; $p < .001$. Because Cohen's $d$ is our effect size index, this estimate means that intergroup contact decreased prejudice by 0.28 standard deviations.
 
-::: {.box .code}
+::: {.box data-box="code"}
 Fitting meta-analytic models in `metafor` is quite simple. For example, for the fixed effects model above, we simply the `rma` function and specified that we wanted a fixed effects analysis. 
 
 
@@ -6073,7 +6067,7 @@ However, in random-effects meta-analysis, the inverse-variance weights now incor
 Conducting a random-effects meta-analysis of Paluck et al.'s dataset yields $\widehat{\mu}$ = 0.4; 95% confidence interval [0.2, 0.61]; $p < .001$. That is, they estimated that, *on average across studies*, intergroup contact was associated with a decrease in prejudice of 0.4 standard deviations. This meta-analytic estimate is shown as the bottom line of Figure \@ref(fig:meta-forest).
 
 
-::: {.box .code}
+::: {.box data-box="code"}
 Fitting a random effects model requires only a small change to the methods argument. (We also include the `knha` flag that adds a correction to the computation of standard errors and p-values). 
 
 
@@ -6100,8 +6094,7 @@ This meta-analysis highlights an important point:that the overall effect size  e
 <!--</div>--></span></p>
 
 
-::: {.box .depth}
-(TITLE) Single-paper meta-analysis
+::: {.box data-box="depth" data-title="Single-paper meta-analysis"}
 
 Thus far, we have described meta-analysis as a tool for summarizing results reported across multiple papers. However, some people have argued that meta-analysis should also be used to summarize the results of multiple studies reported in a single paper [@goh2016mini]. For instance, in a paper where you describe 3 different experiments on a hypothesis, you could (1) extract summary information (e.g., *M*’s and *SD*’s) from each study, (2) compute the effect size, and then (3) combine the effect sizes in a meta-analysis.
 
@@ -6141,8 +6134,7 @@ Sometimes, though, certain sources of bias cannot be eliminated through exclusio
 
 Across-study biases occur if, for example, researchers **selectively report** certain types of findings or selectively publish certain types of findings (**publication bias**). Often, these across-study biases favor statistically significant positive results, which means the meta-analysis of the available results will be inflated. For example, if researchers publish only the studies that yield statistically significant positive results and hide the studies that don't, statistically combining the published studies via meta-analysis will obviously lead to exaggerated effect size estimates. 
 
-::: {.box .accident_report}
-(TITLE) Quantifying publication bias in the social sciences
+::: {.box data-box="accident_report" data-title="Quantifying publication bias in the social sciences"}
 
 In 2014, @franco2014 and colleagues examined the population of 221 studies conducted through a funding initiative called TESS ("time-sharing experiments in the social sciences") that helps researchers run experiments on nationally-representative samples in the U.S. This sample of studies was unique in that everyone that used TESS had to register their study with the group. That meant that Franco et al. knew the whole universe of studies that had been conducted using TESS -- a key piece of information that meta-analysts almost never have available. 
 
@@ -6160,7 +6152,7 @@ Here is an example of one type of funnel plot [@sapb] for a simulated meta-analy
 
 
 
-::: {.box .code}
+::: {.box data-box="code"}
 For this plot, we use the `PublicationBias` package and the `significance_funnel` function. (An alternative function is the `metafor` function `funnel`, which results in the figure in the margins, a more "classic" funnel plot.) We use our fitted model `re.m` and feed the relevant parameters into the fucntion:
 
 
@@ -6205,8 +6197,7 @@ You may also have heard of "$p$-methods" to detect across-study biases such as $
 
 Paluck et al. used a regression-based approach to assess and correct for publication bias. This approach provided significant evidence of a relationship between the standard error and effect size (i.e., an asymmetric funnel plot). Again, this asymmetry could reflect publication bias or other sources of correlation between studies' estimates and their standard errors. Paluck et al. also used this same regression-based approach to try to correct for potential publication bias. Results from this model indicated that the bias-corrected effect size estimate was close to zero. In other words, even though all studies estimated that intergroup contact decreased prejudice, it is possible that there are unpublished studies that did not find this (or found that intergroup contact increased prejudice).
 
-::: {.box .accident_report}
-(TITLE) Garbage in, garbage out? Meta-analyzing potentially problematic research 
+::: {.box data-box="accident_report" data-title="Garbage in, garbage out? Meta-analyzing potentially problematic research "}
 
 
 Botox can help eliminate wrinkles. But some researchers have suggested that it may also help treat clinical depression when used to paralyze the muscles associated with frowning. As surprising as this may sound, a quick examination of the literature would lead many to conclude that this treatment works. Studies that randomly assign depressed patients to either receive Botox injections or saline injections do indeed find that Botox recipients exhibit decreases in depression. And when you combine all available evidence in a meta-analysis, you find that this difference is quite large: *d* = 0.83, 95% CI [0.52, 1.14]. As @coles2019does argued though, this estimated effect may be impacted by both within- and between-study bias. 
@@ -6222,7 +6213,7 @@ Taken together, Paluck and colleagues' use of meta-analysis provided several imp
 
 Overall, meta-analysis is a key technique for aggregating evidence across studies. Meta-analysis allows researchers to move beyond the bias of naive techniques like vote counting and towards a more quantitative summary of an experimental effect. Unfortunately, a meta-analysis is only as good as the literature it's based on, so the aspiring meta-analyst must be aware of both within- and between-study biases! 
 
-::: {.box .discussion_questions}
+::: {.box data-box="discussion_questions"}
 1. (A) Imagine that you read the following result in the abstract of a meta-analysis: "In 83 randomized studies of middle school children, replacing one hour of class time with mindfulness meditation significantly improved standardized test scores (standardized mean difference $\widehat{\mu} = 0.05$; 95% confidence interval: [$0.01, 0.09$]; $p<0.05$)." Why is this a problematic way to report on meta-analysis results? Suggest a better sentence to replace this one.
 
 1. (B) As you read the rest of the meta-analysis, you find that the authors conclude that "These findings demonstrate robust benefits of meditation for children, suggesting that test scores improve even when the meditation is introduced as a replacement for normal class time." You recall that the heterogeneity estimate was $\widehat{\tau} = 0.90$. Do you think that this result regarding the heterogeneity tends to support, or rather tends to undermine, the concluding sentence of the meta-analysis? Why?
@@ -6234,7 +6225,7 @@ Overall, meta-analysis is a key technique for aggregating evidence across studie
 3. Why do you think small studies receive more weight in random-effects meta-analysis than in fixed-effects meta-analysis? Can you see why this is true mathematically based on the equations given above, and can you also explain the intuition in simple language?
 :::
 
-::: {.box .readings}
+::: {.box data-box="readings"}
 * Harrer, M., Cuijpers, P., Furukawa, T., & Ebert, D. (2022). Doing Meta-Analysis with R: A Hands-On Guide. Chapman & Hall/CRC Press. Available free online at [https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/]().
 :::
 
@@ -6243,7 +6234,7 @@ Overall, meta-analysis is a key technique for aggregating evidence across studie
 
 # Conclusions {#conclusions}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Synthesize the viewpoint of this book
 * Discuss the outlook for psychology
 :::
@@ -6295,7 +6286,7 @@ Doing experiments is a craft, one that requires practice and attention. The firs
 
 # GitHub {#git}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Explain what Git and GitHub are
 * Set up Git and GitHub on your own computer 
 * Learn how to make changes to a repository on GitHub
@@ -6667,7 +6658,7 @@ Acknowledgments: Thank you to Cayce Hook, Erin Bennett and Daniel Watson for cre
 
 # R Markdown {#rmarkdown}
 
-::: {.box .learning_goals}
+::: {.box data-box="learning_goals"}
 * Explain what Markdown is and how the syntax works, 
 * Practice how to integrate code and data in R Markdown, 
 * Understand the different output formats from R Markdown and how to generate them
@@ -6686,7 +6677,7 @@ If you click on "Knit" (or hit `CTRL+SHIFT+K`) the R Markdown file will run and 
 
 We need that before we teach you more about R Markdown. But you should feel good if you get here already, because honestly, you're about 80% of the way to being able to write basic R Markdown files. It's _that_ easy.
 
-:::{.box .exercises}
+::: {.box data-box="exercises"}
 Knit the R Markdown template to Word and PDF to ensure that you can get this to work. Isn't it gratifying?
 :::
 
@@ -6783,7 +6774,7 @@ opts_chunk$set(fig.width=8, fig.height=5,
 ```
 
 
-:::{.box .exercises}
+::: {.box data-box="exercises"}
 1. Outlining using headings is a really great way to keep things organized! Try making a bunch of headings, and then recompiling your document. 
 
 2. To show off your headings from the previous exercise, add a table of contents. Go to the header of the document (the `YAML`), and add some options to the `html document` bit. You want it to look like this (indentation must to be correct):
@@ -6934,7 +6925,7 @@ Produces tabular output like this:
 </table>
 
 
-::: {.box .exercises}
+::: {.box data-box="exercises"}
 Using the `mtcars` dataset, insert a table and a graph of your choice into your R Markdown template document. If you're feeling uninspired, try `hist(mtcars$mpg)`.
 :::
 
@@ -7036,7 +7027,7 @@ When you click RStudio's *Knit* button `papaja`, `rmarkdown,` and `knitr` work t
 <!-- If `figurelist`, `tablelist`, or `footnotelist` are set to `yes` a list of figure captions, table captions, or footnotes is given following the reference section. -->
 <!-- `lineno` indicates whether lines should be continuously numbered through out the manuscript. -->
 
-::: {.box .exercises}
+::: {.box data-box="exercises"}
 Make sure you've got `papaja`, then open a new APA template file. Compile this document, and look at how awesome it is.  Try pasting in your figure and table from your other R Markdown (don't forget any libraries you need to make it compile). 
 :::
 
@@ -7198,7 +7189,7 @@ In addition to availability of TAs, another way in which your course may be diff
 
 2) **Funding from Advisors**: In some cases, students come to us with target studies that require more funding than we are able to allocate, but that they feel particularly invested in (e.g., because of how relevant the study is to their line of research). Once we rule out other ways of making the study fit our budget (e.g., dropping extra control conditions, running a subset of the study), we often ask students whether their advisor would be willing to fund the study. We have found that advisors are often willing to do this, especially if the replication could serve an important role in the development of the student's research program. Similarly, one way to reduce the burden on a limited course budget would be to encourage all students to first ask their advisors about whether they would be willing to fund part or all of the data collection for the replication. While chances are that some advisors will be unwilling or unable to do this, there should still be a meaningful reduction in the number of projects the course will need to fund. 
 
-3) **Reproduce a Replication**: The suggestions above apply if you at least have *some* amount of course funding, but what if you have *no* funding at all? While there are obvious limitations to this solution, one suggestion is to have students reproduce past public replications. For instance, our [course Github page](https://github.com/psych251), contains public repositories of all past replication projects that have been conducted in our course. Since the data for each replication project is available in these repositories, you could provide each of your students with a dataset and the original paper associated with it, and assign them to reproduce the results of the replication (Mike -- would this be okay? Feel free to adjust or delete if not). Students should then be able to follow each step of the replication project described below (e.g., writing the report, identifying the key analysis, running the analysis). This format will only work if students do not view the original final replication reports that are posted publicly for their project, so it may be necessary to be clear about this at the beginning of the course. 
+3) **Reproduce a Replication**: The suggestions above apply if you at least have *some* amount of course funding, but what if you have *no* funding at all? While there are obvious limitations to this solution, one suggestion is to have students reproduce past public replications. For instance, our [course Github page](https://github.com/psych251), contains public repositories of all past replication projects that have been conducted in our course. Since the data for each replication project is available in these repositories, you could provide each of your students with a dataset and the original paper associated with it, and assign them to reproduce the results of the replication. Students should then be able to follow each step of the replication project described below (e.g., writing the report, identifying the key analysis, running the analysis). This format will only work if students do not view the original final replication reports that are posted publicly for their project, so it may be necessary to be clear about this at the beginning of the course. 
 
 For those of you who are working with a different course format (whether in terms of student level or course resources), we hope these suggestions were useful. If you try out a new idea in your course that you found helpful, we would be thrilled if you shared them with us!
 
