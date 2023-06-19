@@ -6,7 +6,7 @@
     "dynamicImports": [
       "src/index.page.client.jsx"
     ],
-    "file": "assets/entries/entry-server-routing.21024ed5.js",
+    "file": "assets/entries/entry-server-routing.e1af8371.js",
     "imports": [
       "_chunk-7bd171af.js"
     ],
@@ -17,7 +17,7 @@
     "dynamicImports": [
       "src/index.page.client.jsx"
     ],
-    "file": "assets/entries/entry-client-routing.fdd466a5.js",
+    "file": "assets/entries/entry-client-routing.5a2f0620.js",
     "imports": [
       "_chunk-7bd171af.js"
     ],
@@ -29,7 +29,7 @@
     "src": "src/SourceSansPro-Regular.ttf"
   },
   "src/index.page.client.css": {
-    "file": "assets/static/index.page.client.5ad503ce.css",
+    "file": "assets/static/index.page.client.1718a224.css",
     "src": "src/index.page.client.css"
   },
   "src/index.page.client.jsx": {
@@ -37,9 +37,9 @@
       "assets/static/SourceSansPro-Regular.71d10a86.ttf"
     ],
     "css": [
-      "assets/static/index.page.client.5ad503ce.css"
+      "assets/static/index.page.client.1718a224.css"
     ],
-    "file": "assets/entries/src_index.page.client.79e072fd.js",
+    "file": "assets/entries/src_index.page.client.882297ec.js",
     "isDynamicEntry": true,
     "isEntry": true,
     "src": "src/index.page.client.jsx"
