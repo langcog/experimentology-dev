@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -114,8 +114,8 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Experimentology</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/langcog/experimentology" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Experimentology.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://github.com/langcog/experimentology" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Experimentology.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -354,7 +354,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#designing-experiments-to-test-theory" id="toc-designing-experiments-to-test-theory" class="nav-link" data-scroll-target="#designing-experiments-to-test-theory"><span class="header-section-number">2.3</span> Designing experiments to test theory</a></li>
   <li><a href="#formalizing-theories" id="toc-formalizing-theories" class="nav-link" data-scroll-target="#formalizing-theories"><span class="header-section-number">2.4</span> Formalizing theories</a></li>
-  <li><a href="#chapter-summary-theories" id="toc-chapter-summary-theories" class="nav-link" data-scroll-target="#chapter-summary-theories"><span class="header-section-number">2.5</span> Chapter summary: Theories</a></li>
+  <li><a href="#chapter-summary-theories" id="toc-chapter-summary-theories" class="nav-link" data-scroll-target="#chapter-summary-theories"><span class="header-section-number">2.6</span> Chapter summary: Theories</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/langcog/experimentology/blob/main/002-theories.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/langcog/experimentology/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -379,16 +379,29 @@ div.csl-indent {
 
 </header>
 
-<div class="cell caption-margin" data-hash="002-theories_cache/html/unnamed-chunk-1_eea9f82063ea32d22e318a33dff6706f">
+<div class="cell" data-hash="002-theories_cache/html/unnamed-chunk-1_f283bec843c57bdceb90114c8f46ba36">
 
 </div>
-<div class="box" data-box="learning_goals">
+<div class="callout callout-style-default callout-note callout-titled" title="learning goals">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+learning goals
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <ul>
 <li>Define theories and their components</li>
 <li>Contrast different philosophical views on scientific theories</li>
 <li>Analyze features of an experiment that can lead to strong tests of theory</li>
 <li>Discuss the role of formalization in theory development</li>
 </ul>
+</div>
+</div>
 </div>
 <p>When you do an experiment, sometimes you just want to see what happens, like a kid knocking down a tower made of blocks. And sometimes you want to know the answer to a specific applied question, like “will giving a midterm vs.&nbsp;weekly quizzes lead students in a class to perform better on the final?” But more often, our goal is to create <strong>theories</strong> that help us explain and predict new observations.</p>
 <p>What is a theory? We’ll argue here that we should think of psychological theories as sets of proposed relationships among <strong>constructs</strong>, which are variables that we think play causal roles in determining behavior. In this conception of theories, the role of causality is central: theories are guesses about the causal structure of the mind and about the causal relationships between the mind and the world. This definition doesn’t include everything that gets called a “theory” in psychology. We describe the continuum between theories and <strong>frameworks</strong> – broad sets of ideas that guide research but don’t make specific contact with particular empirical observations.</p>
@@ -409,11 +422,11 @@ div.csl-indent {
 <section id="the-relationships-between-constructs" class="level3 page-columns page-full" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="the-relationships-between-constructs"><span class="header-section-number">2.1.2</span> The relationships between constructs</h3>
 <div class="page-columns page-full"><p>Constructs gain their meaning in part via their own definitions and operationalizations, but also in part through their causal relationships to other constructs. <a href="#fig-theory-nomological-net">Figure&nbsp;<span>2.1</span></a> shows a schematic of what this kind of theory might look like – as you can see, it looks a lot like the DAGs that we introduced in the last chapter! That’s no accident. The arrows here also describe hypothesized causal links.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;Sometimes these kind of diagrams are used in the context of a statistical method called Structural Equation Modeling, where circles represent constructs and lines represent their relationships with one another. Confusingly, structural equation models are also used by many researchers to describe psychological theories. The important point for now is that they are one particular statistical formalism, not a general tool for theory building – the points we are trying to make here are more general.</p></li></div></div>
-<div class="cell page-columns page-full" data-hash="002-theories_cache/html/fig-theory-nomological-net_fbff8f86025dd901ab34b00fbfbbd513">
+<div class="cell page-columns page-full" data-hash="002-theories_cache/html/fig-theory-nomological-net_e34dd248081514b16de9566b212cc8a5">
 <div class="cell-output-display page-columns page-full">
 <div id="fig-theory-nomological-net" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
-<p><img src="images/theory/nomological-net.png" class="img-fluid figure-img"></p>
+<p><img src="images/theory/nomological-net.png" class="img-fluid figure-img" width="220"></p>
 <figcaption class="figure-caption margin-caption">Figure&nbsp;2.1: A schematic of what a theory might look like.</figcaption>
 </figure>
 </div>
@@ -429,12 +442,12 @@ div.csl-indent {
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="specific-theories-vs.-general-frameworks"><span class="header-section-number">2.1.3</span> Specific theories vs.&nbsp;general frameworks</h3>
 <p>You may be thinking, “psychology is full of theories but they don’t look that much like the ones you’re talking about!” Very few of the theories that bear that label in psychology describe causal relationships linking clearly defined and operationalized constructs. You also don’t see that many DAGs, though these are getting (slightly) more common lately <span class="citation" data-cites="rohrer2018">(<a href="#ref-rohrer2018" role="doc-biblioref">Rohrer 2018</a>)</span>.</p>
 <p>Here’s an example of something that gets called a theory yet doesn’t share the components described above. <span class="citation" data-cites="bronfenbrenner1992">Bronfenbrenner (<a href="#ref-bronfenbrenner1992" role="doc-biblioref">1992</a>)</span>’s Ecological Systems Theory (EST) is pictured in <a href="#fig-theory-bronfenbrenner">Figure&nbsp;<span>2.2</span></a>. The key thesis of this theory is that children’s development occurs in a set of nested contexts that each affect one another and in turn affect the child. This theory has been immensely influential. Yet if it’s read as a causal theory, it’s almost meaningless: nearly everything connects to everything in both directions and the constructs are not operationalized – it’s very hard to figure out what kind of predictions it makes!</p>
-<div class="cell page-columns page-full" data-hash="002-theories_cache/html/fig-theory-bronfenbrenner_d712187a6c7404e93e621d81b16a4cfe">
+<div class="cell page-columns page-full" data-hash="002-theories_cache/html/fig-theory-bronfenbrenner_68e15de27b75274b3f80e947c04e9fff">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output-display">
 <div id="fig-theory-bronfenbrenner" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="images/theory/bronfenbrenner2.png" class="img-fluid figure-img"></p>
+<p><img src="images/theory/bronfenbrenner2.png" class="img-fluid figure-img" width="222"></p>
 <figcaption class="figure-caption">Figure&nbsp;2.2: The diagram often used to represent Bronfenbrenner’s ecological systems theory. Note that circles no longer denote discrete constructs; arrows can be interpreted as causal relationships, but all constructs are assumed to be fully connected.</figcaption>
 </figure>
 </div>
@@ -442,10 +455,20 @@ div.csl-indent {
 <p>EST is not really a theory in the sense that we are advocating for in this chapter (and the same goes for many other very interesting ideas in psychology). It’s not a set of causal relationships between constructs that allow specific predictions about future observations. EST is instead a broad set of ideas about what sorts of theories are more likely to explain specific phenomena. For example, it helps remind us that a child’s behavior is likely to be influenced by a huge range of factors, such that any individual theory cannot just focus on an individual factor and hope to provide a full explanation. In this sense, EST is a <strong>framework</strong>: it guides and inspires specific theories – in the sense we’ve discussed here, namely a set of causal relationships between constructs – without being a theory itself.</p>
 <p>Frameworks are often incredibly important. Ideas like EST have inspired huge amounts of interesting research. They can also make a big difference to practice. For example, EST supports a model in social work in which children’s needs are considered not only as the expression of specific internal developmental issues but also as stemming from a set of overlapping contextual factors <span class="citation" data-cites="ungar2002">(<a href="#ref-ungar2002" role="doc-biblioref">Ungar 2002</a>)</span>. Concretely, a therapist might be more likely to examine family, peer, and school environments when analyzing a child’s situation through the lens of EST.</p>
 <p>There’s a continuum between precisely specified theories and broad frameworks. Some theories propose interconnected constructs but don’t specify the relationships between them, or don’t specify how those constructs should be operationalized. So when you read a paper that says it proposes a “theory,” it’s a good idea to to ask whether it describes specific relations between operationalized constructs. If it doesn’t that, it may be more of a framework than a theory.</p>
-<div class="box" data-box="ethical_considerations">
+<div class="callout callout-style-default callout-note callout-titled" title="ethical considerations">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+ethical considerations
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Theory development isn’t just about knowledge for knowledge’s sake – it has implications for the technologies and policies built off the theories.</p>
 <p>One case study comes from Edward Clarke’s infamous theory regarding the deleterious effects of education for women <span class="citation" data-cites="clarke1884">(<a href="#ref-clarke1884" role="doc-biblioref">Clarke 1884</a>)</span>. Clarke posited that (1) cognitive and reproductive processes relied on the same fixed pool of energy, (2) relative to men, women’s reproductive processes required more energy, and that (3) expending too much energy on cognitive tasks like education depleted women of the energy needed to maintain a healthy reproductive system. Based on case studies, Clarke suggested that education was causing women to become ill, experience fertility issues, and birth weaker offspring. He thus concluded that “boys must study and work in a boy’s way, and girls in a girl’s way” (p.&nbsp;18).</p>
 <p>Clarke’s work is a chilling example of the implication of a poorly-developed theory. In this scenario, Clarke had neither instruments that allowed him to measure his constructs or experiments to measure the causal connections between them. Instead, he merely highlighted case studies that were consistent with his idea (while simultaneously dismissing cases that were inconsistent). His ideas eventually lost favor – especially as they were subjected to more rigorous tests. But Clarke’s arguments were used to attempt to dissuade women from pursuing higher education and hindered educational policy reform.</p>
+</div>
 </div>
 </section>
 </section>
@@ -472,12 +495,12 @@ div.csl-indent {
 <section id="designing-experiments-to-test-theory" class="level2 page-columns page-full" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="designing-experiments-to-test-theory"><span class="header-section-number">2.3</span> Designing experiments to test theory</h2>
 <div class="page-columns page-full"><p>One way of looking at theories is that they let us make <em>bets</em>. If we bet on a spin of the roulette wheel in <a href="#fig-theory-roulette">Figure&nbsp;<span>2.3</span></a> that it will show us red as opposed to black, we have almost a 50% chance of winning the bet. Winning such a bet is not impressive. But if we call a particular number, the bet is riskier because we have a much smaller chance of being right. Cases where a theory has many chances to be wrong are called <strong>risky tests</strong> <span class="citation" data-cites="meehl1978">(<a href="#ref-meehl1978" role="doc-biblioref">Meehl 1978</a>)</span>.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn7"><p><sup>7</sup>&nbsp;Even if you’re not a <em>falsificationist</em> like Popper, you can still think it’s useful to try and falsify theories! Although a single observation is not always enough to overturn a theory, it’s still a great research strategy to look for those observations that are most inconsistent with the theory.</p></li></div></div>
-<div class="cell page-columns page-full" data-hash="002-theories_cache/html/fig-theory-roulette_1939435333d122700c6e9c23bbfcb216">
+<div class="cell page-columns page-full" data-hash="002-theories_cache/html/fig-theory-roulette_5e5eaacb18f36595372b66b4436efbcd">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output-display">
 <div id="fig-theory-roulette" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="images/theory/roulette2.png" class="img-fluid figure-img"></p>
+<p><img src="images/theory/roulette2.png" class="img-fluid figure-img" width="240"></p>
 <figcaption class="figure-caption">Figure&nbsp;2.3: A roulette wheel. Betting on red is not that risky, but betting all your chips on a particular value (*) is much riskier.</figcaption>
 </figure>
 </div>
@@ -493,15 +516,27 @@ div.csl-indent {
 <h2 data-number="2.4" class="anchored" data-anchor-id="formalizing-theories"><span class="header-section-number">2.4</span> Formalizing theories</h2>
 <p>Say we have a set of constructs we want to theorize about. How do we describe our ideas about the relationships between them so that we can make precise predictions that can be compared with other theories? As one writer noted, mathematics is “unreasonably effective” as a vocabulary for the sciences <span class="citation" data-cites="wigner1990">(<a href="#ref-wigner1990" role="doc-biblioref">Wigner 1990</a>)</span>. Indeed, there have been calls for greater formalization of theory in psychology for at least the last 50 years <span class="citation" data-cites="harris1976">(<a href="#ref-harris1976" role="doc-biblioref">Harris 1976</a>)</span>.</p>
 <!-- ^[A pragmatic (or cynical) researcher might wonder if the best way to create a dominant theory in psychology would be to avoid formalism and to create a verbal theory so vague as to be applicable in any circumstance so that its predictions could never be falsified.]  -->
-<div class="box page-columns page-full" data-box="depth" data-title="A universal law of generalization?">
+<div class="callout callout-style-default callout-note callout-titled page-columns page-full" title="depth">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+depth
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse page-columns page-full">
+<section id="a-universal-law-of-generalization" class="level2 callout-body-container callout-body page-columns page-full" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="a-universal-law-of-generalization"><span class="header-section-number">2.5</span> A universal law of generalization?</h2>
 <p>How do you take what you know and apply it to a new situation? One answer is that you use the same answer that has worked in similar situations. To do this kind of extrapolation, however, you need a notion of similarity. Early learning theorists tried to measure similarity by creating an association between a stimulus – say a projected circle of light of a particular size – and a reward by repeatedly presenting them together. After this association was learned, they would test generalization by showing circles of different sizes and measuring the strength of the expectation for a reward. These experiments yielded generalization curves: the more similar the stimulus, the more people and other animals would give the same response, signaling generalization.</p>
 <p><span class="citation" data-cites="shepard1987">Shepard (<a href="#ref-shepard1987" role="doc-biblioref">1987</a>)</span> was interested in unifying the results of these different experiments. The first step in this process was establishing a <strong>stimulus space</strong>. He used a procedure called “multidimensional scaling” to infer how close stimuli were to each other on the basis of how strong the generalization between them was. When he plotted the strength of the generalization by the distance between stimuli within this space (their similarity), he found an incredibly consistent pattern: generalization decreased exponentially as similarity decreased.</p>
 <p>He argued that this described a “universal law” that governed the relationship between similarity and generalization for almost any stimulus, whether it was the size of circles, the color of patches of light, or the similarity between speech sounds. Later work has even extended this same framework to highly abstract dimensions such as the relationships between numbers of different types [e.g., being even, being powers of 2, etc.; <span class="citation" data-cites="tenenbaum2000">Tenenbaum (<a href="#ref-tenenbaum2000" role="doc-biblioref">2000</a>)</span>].</p>
-<div class="cell page-columns page-full" data-boxfigure="true" data-hash="002-theories_cache/html/fig-theory-shepard_e3004635fdf07416eb115bebe76c1470">
+<div class="cell page-columns page-full" data-boxfigure="true" data-hash="002-theories_cache/html/fig-theory-shepard_8be5f54adfa770aa4c40a8fe6494d06e">
 <div class="cell-output-display page-columns page-full">
 <div id="fig-theory-shepard" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
-<p><img src="images/theory/shepard_network3.png" class="img-fluid figure-img"></p>
+<p><img src="images/theory/shepard_network3.png" class="img-fluid figure-img" width="156"></p>
 <figcaption class="figure-caption margin-caption">Figure&nbsp;2.4: The causal theory of similarity and generalization posited by Shepard (1987).</figcaption>
 </figure>
 </div>
@@ -509,6 +544,8 @@ div.csl-indent {
 </div>
 <p>The pattern shown in Shepard’s work is an example of <strong>inductive theory building</strong>. In the vocabulary we’re developing, Shepard ran (or obtained the data from) randomized experiments in which the manipulation was stimulus dimension (e.g., circle size) and the measure was generalization strength. Then the theory that Shepard proposed was that manipulations of stimulus dimension acted to change the perceived similarity between the stimuli. His theory thus linked two constructs: stimulus similarity and generalization strength (<a href="#fig-theory-shepard">Figure&nbsp;<span>2.4</span></a>). Critically the causal relationship he described was not just a qualitative relationship but instead a specific mathematical form.</p>
 <p>Shepard wrote in the conclusion of his 1987 paper, “Possibly, behind the diverse behaviors of humans and animals, as behind the various motions of planets and stars, we may discern the operation of universal laws.” While Shepard’s dream is an ambitious one, it defines an ideal for psychological theorizing.</p>
+</section>
+</div>
 </div>
 <p>There is no one approach that will be right for theorizing across all areas of psychology <span class="citation" data-cites="oberauer2019 smaldino2020">(<a href="#ref-oberauer2019" role="doc-biblioref">Oberauer and Lewandowsky 2019</a>; <a href="#ref-smaldino2020" role="doc-biblioref">Smaldino 2020</a>)</span>. Mathematical theories like <span class="citation" data-cites="shepard1987">Shepard (<a href="#ref-shepard1987" role="doc-biblioref">1987</a>)</span> (see Depth box) have long been one tool that allows for precise statements of particular relationships.</p>
 <div class="page-columns page-full"><p>Computational or formal artifacts are not themselves psychological theories, but they can be used to create psychological theories via the mapping of constructs onto entities in the model and the use of the principles of the formalism to instantiate psychological hypotheses or assumptions <span class="citation" data-cites="guest2021">(<a href="#ref-guest2021" role="doc-biblioref">Guest and Martin 2021</a>)</span>.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> Yet stating such clear and general laws feels out of reach in many cases. If we had more Shepard-style theorists or theories, perhaps we’d be in a better place. Or perhaps such “universal laws” are simply out of reach for most of human behavior.</p><div class="no-row-height column-margin column-container"><li id="fn10"><p><sup>10</sup>&nbsp;This book won’t go into more details about routes to building computational theories, but if you are interested, we encourage you to explore these frameworks as a way to deepen your theoretical contributions and to sharpen your experimental choices.</p></li></div></div>
@@ -519,21 +556,47 @@ div.csl-indent {
 <p>One of the strengths of modern cognitive science is that it provides a very rich set of tools for expressing more complex statistical models and linking them to data. For example, the modern Bayesian cognitive modeling tradition grew out of work like Shepard’s; in these models, a system of equations defines a probability distribution that can be used to estimate parameters, predict new data, or make other inferences <span class="citation" data-cites="probmods2">(<a href="#ref-probmods2" role="doc-biblioref">Goodman, Tenenbaum, and Contributors 2016</a>)</span>. And neural network models – which are now fueling innovations in artificial intelligence – have a long history of being used as substantive models of human psychology <span class="citation" data-cites="elman1996">(<a href="#ref-elman1996" role="doc-biblioref">Elman, Bates, and Johnson 1996</a>)</span>.</p>
 <div class="page-columns page-full"><p>In our discussion, we’ve presented theories as static entities that are presented, tested, confirmed, and falsified. That’s a simplification that doesn’t take into account the ways that theories – especially when instantiated as formal models – can be flexibly adjusted to accommodate new data <span class="citation" data-cites="navarro2019">(<a href="#ref-navarro2019" role="doc-biblioref">Navarro 2019</a>)</span>. Most modern computational theories are more like a combination of core principles, auxiliary assumptions, and supporting empirical assumptions. The best theories are always being enlarged and refined in response to new data.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn12"><p><sup>12</sup>&nbsp;In the thinking of the philosopher Imre Lakatos, a “productive” research program is one where the core principles are gradually supplemented with a limited set of additional assumptions to explain a growing base of observations. In contrast, a “degenerate” research program is one in which you are constantly making ad-hoc tweaks to the theory to explain each new datapoint <span class="citation" data-cites="lakatos1976">(<a href="#ref-lakatos1976" role="doc-biblioref">Lakatos 1976</a>)</span>.</p></li></div></div>
 </section>
-<section id="chapter-summary-theories" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="chapter-summary-theories"><span class="header-section-number">2.5</span> Chapter summary: Theories</h2>
+<section id="chapter-summary-theories" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="chapter-summary-theories"><span class="header-section-number">2.6</span> Chapter summary: Theories</h2>
 <p>In this chapter, we characterized psychological theories as a set of causal relationships between latent constructs. The role of experiments is to measure these causal relationships and to adjudicate between theories by identifying cases where different theories make different predictions about particular relationships.</p>
-<div class="box" data-box="discussion_questions">
+<div class="callout callout-style-default callout-note callout-titled" title="discussion questions">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+discussion questions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li>Identify an influential theory in your field or sub-field. Can you draw the “nomological network” for it? What are the key constructs and how are they measured? Are the links between constructs just directional links or is there additional information about what type of relationship exists? Or does our description of a theory in this chapter not fit your example?</li>
 <li>Can you think of an experiment that falsified a theory in your area of psychology? To what extent is falsification possible for the kinds of theories that you are interested in studying?</li>
 </ol>
 </div>
-<div class="box" data-box="readings">
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="readings">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+readings
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <ul>
 <li><p>A fabulous introduction to issues in the philosophy of science can be found in: Godfrey-Smith, P. (2009). Theory and reality. University of Chicago Press.</p></li>
 <li><p>Bayesian modeling has been very influential in cognitive science and neuroscience. A good introduction in cognitive science comes from: Lee, M. D. &amp; Wagenmakers, E. J. (2013). <em>Bayesian Cognitive Modeling: A Practical Course</em>. Cambridge University Press. Much of the book is available free online at <a href="https://faculty.sites.uci.edu/mdlee/bgm/" class="uri">https://faculty.sites.uci.edu/mdlee/bgm/</a>.</p></li>
 <li><p>A recent introduction to Bayesian modeling with a neuroscience focus: Ma, W. J., Kording, K. P., &amp; Goldreich, D. (2022). <em>Bayesian models of perception and action: An introduction</em>. MIT Press. Free online at <a href="https://www.cns.nyu.edu/malab/bayesianbook.html" class="uri">https://www.cns.nyu.edu/malab/bayesianbook.html</a>.</p></li>
 </ul>
+</div>
+</div>
 </div>
 
 
