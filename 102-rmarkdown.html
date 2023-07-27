@@ -419,9 +419,6 @@ div.csl-indent {
 
 </header>
 
-<div class="cell" data-hash="102-rmarkdown_cache/html/unnamed-chunk-1_71096af02dee488fde6a178e72ad0125">
-
-</div>
 <div class="callout callout-style-default callout-note callout-titled" title="learning goals">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -491,9 +488,6 @@ exercises
 <h3 data-number="C.2.3" class="anchored" data-anchor-id="code-chunks"><span class="header-section-number">C.2.3</span> Code chunks</h3>
 <p>In the section above we introduced you to running code inside text, but often you need to take several steps in order to get to the result you need. And you don’t want to do data cleaning in the text! This is why there are code chunks. A simple example is a code chunk loading packages.</p>
 <p>First, insert a code chunk by going to <code>Code-&gt;Insert code chunk</code> or by pressing <code>CTRL+ALT+I</code>. Inside this code chunk you can then type for example, <code>library(ggplot2)</code> and create an object <code>x</code>.</p>
-<div class="cell" data-hash="102-rmarkdown_cache/html/rmarkdown-chunk_90c0914be471aff6079a094e0e16b39e">
-
-</div>
 <p>If you do not want to have the contents of the code chunk to be put into your document, you include <code>echo=FALSE</code> at the start of the code chunk. We can now use the contents from the above code chunk to print results (e.g., <span class="math inline">\(x=2\)</span>).</p>
 <p>These code chunks can contain whatever you need, including tables, and figures (which we will go into more later). Note that all code chunks regard the location of the R Markdown as the working directory, so when you try to read in data use the relative path in.</p>
 </section>
@@ -592,21 +586,35 @@ exercises
 <p>Produces tabular output like this:</p>
 <div class="cell" data-hash="102-rmarkdown_cache/html/rmarkdown-kable2_58cb59aa6db8cad97d82d7fc09d43128">
 <div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">mpg</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">cyl</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">disp</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">hp</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">drat</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">wt</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">qsec</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">vs</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">am</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">gear</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">carb</th>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">mpg</th>
+<th style="text-align: right;">cyl</th>
+<th style="text-align: right;">disp</th>
+<th style="text-align: right;">hp</th>
+<th style="text-align: right;">drat</th>
+<th style="text-align: right;">wt</th>
+<th style="text-align: right;">qsec</th>
+<th style="text-align: right;">vs</th>
+<th style="text-align: right;">am</th>
+<th style="text-align: right;">gear</th>
+<th style="text-align: right;">carb</th>
 </tr>
 </thead>
 <tbody>
@@ -696,8 +704,6 @@ exercises
 </tr>
 </tbody>
 </table>
-
-
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="exercises">
@@ -727,14 +733,14 @@ exercises
 <p>produces this output:</p>
 <div class="cell" data-hash="102-rmarkdown_cache/html/rmarkdown-broom2_95f1d4f4615c4a0b4ec405515de3f2d5">
 <div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value</th>
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
 </tr>
 </thead>
 <tbody>
@@ -761,8 +767,6 @@ exercises
 </tr>
 </tbody>
 </table>
-
-
 </div>
 </div>
 <p>Cleaning these tables up for publication can take some work. For example, we’d need to rename a bunch of fields to make this table have the labels we wanted (e.g., to turn <code>hp</code> into <code>Horsepower</code>).</p>

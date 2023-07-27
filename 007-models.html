@@ -388,13 +388,13 @@ div.csl-indent {
   <li><a href="#modeling-random-variation-in-clusters" id="toc-modeling-random-variation-in-clusters" class="nav-link" data-scroll-target="#modeling-random-variation-in-clusters"><span class="header-section-number">7.3.1</span> Modeling random variation in clusters</a></li>
   <li><a href="#random-slopes-and-the-challenges-of-mixed-effects-models" id="toc-random-slopes-and-the-challenges-of-mixed-effects-models" class="nav-link" data-scroll-target="#random-slopes-and-the-challenges-of-mixed-effects-models"><span class="header-section-number">7.3.2</span> Random slopes and the challenges of mixed effects models</a></li>
   </ul></li>
-  <li><a href="#how-do-you-use-models-to-analyze-data" id="toc-how-do-you-use-models-to-analyze-data" class="nav-link" data-scroll-target="#how-do-you-use-models-to-analyze-data"><span class="header-section-number">7.5</span> How do you use models to analyze data?</a>
+  <li><a href="#how-do-you-use-models-to-analyze-data" id="toc-how-do-you-use-models-to-analyze-data" class="nav-link" data-scroll-target="#how-do-you-use-models-to-analyze-data"><span class="header-section-number">7.4</span> How do you use models to analyze data?</a>
   <ul class="collapse">
-  <li><a href="#modeling-rules-of-thumb" id="toc-modeling-rules-of-thumb" class="nav-link" data-scroll-target="#modeling-rules-of-thumb"><span class="header-section-number">7.5.1</span> Modeling rules of thumb</a></li>
-  <li><a href="#a-worked-example" id="toc-a-worked-example" class="nav-link" data-scroll-target="#a-worked-example"><span class="header-section-number">7.5.2</span> A worked example</a></li>
-  <li><a href="#robustness-checks-and-the-multiverse" id="toc-robustness-checks-and-the-multiverse" class="nav-link" data-scroll-target="#robustness-checks-and-the-multiverse"><span class="header-section-number">7.6.1</span> Robustness checks and the multiverse</a></li>
+  <li><a href="#modeling-rules-of-thumb" id="toc-modeling-rules-of-thumb" class="nav-link" data-scroll-target="#modeling-rules-of-thumb"><span class="header-section-number">7.4.1</span> Modeling rules of thumb</a></li>
+  <li><a href="#a-worked-example" id="toc-a-worked-example" class="nav-link" data-scroll-target="#a-worked-example"><span class="header-section-number">7.4.2</span> A worked example</a></li>
+  <li><a href="#robustness-checks-and-the-multiverse" id="toc-robustness-checks-and-the-multiverse" class="nav-link" data-scroll-target="#robustness-checks-and-the-multiverse"><span class="header-section-number">7.4.3</span> Robustness checks and the multiverse</a></li>
   </ul></li>
-  <li><a href="#chapter-summary-models" id="toc-chapter-summary-models" class="nav-link" data-scroll-target="#chapter-summary-models"><span class="header-section-number">7.7</span> Chapter summary: Models</a></li>
+  <li><a href="#chapter-summary-models" id="toc-chapter-summary-models" class="nav-link" data-scroll-target="#chapter-summary-models"><span class="header-section-number">7.5</span> Chapter summary: Models</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/langcog/experimentology/blob/main/007-models.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/langcog/experimentology/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -419,9 +419,6 @@ div.csl-indent {
 
 </header>
 
-<div class="cell" data-hash="007-models_cache/html/unnamed-chunk-1_379471f20c39385291efe440c93c5d86">
-
-</div>
 <div class="callout callout-style-default callout-note callout-titled" title="learning goals">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -455,23 +452,20 @@ learning goals
 <div class="page-columns page-full"><p>There are many types of statistical models, but this chapter will focus primarily on regression, a broad and extremely flexible class of models. A regression model relates a dependent variable to one or more independent variables. Dependent variables are sometimes called <strong>outcome variables</strong>, and independent variables are sometimes called <strong>predictor variables</strong>, <strong>covariates</strong>, or <strong>features</strong>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> We will see that many common statistical estimators (like the sample mean) and methods of inference (like the <span class="math inline">\(t\)</span>-test) are actually simple regression models. Understanding this point will help you see many statistical methods as special cases of the same underlying framework, rather than as unrelated, <em>ad hoc</em> tests.</p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;The reverse is not true – not every predictor or covariate is an independent variable! One of the tricky things about relating regression models to causal hypotheses is that, just because something is on the right side of a regression equation, that doesn’t mean it’s a causal manipulation. And of course, just because you’ve got an estimate of some predictor in a regression, that doesn’t mean the estimate tells you about the magnitude of the <em>causal</em> effect. It could, but it also might not!</p></li></div></div>
 <section id="regression-for-estimating-a-simple-treatment-effect" class="level3 page-columns page-full" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="regression-for-estimating-a-simple-treatment-effect"><span class="header-section-number">7.1.1</span> Regression for estimating a simple treatment effect</h3>
-<div class="cell" data-hash="007-models_cache/html/models-helper_1852708ffde86a42da1aee0589dcfdc5">
-
-</div>
 <div class="page-columns page-full"><p>Let’s start with one of these special cases, namely estimating a treatment effect, <span class="math inline">\(\beta\)</span>, in a two-group design. In <a href="005-estimation.html"><span>Chapter&nbsp;5</span></a>, we solved this exact challenge for the tea-tasting experiment. We applied a classical model in which the milk-first ratings are assumed to be normally distributed with mean <span class="math inline">\(\theta_{\text{&lt;}} = \theta_{\text{T}} + \beta\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn4"><p><sup>4</sup>&nbsp;Here’s a quick reminder that “model” here is a way of saying “set of assumptions about the data generating procedure.” So saying that some equation is a “model” is the same as saying that we think this is where the data came from. We can “turn the crank” – generate data through the process that’s specified in those equations, e.g., pulling numbers from a normal distribution with mean <span class="math inline">\(\theta_{\text{M}}\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>. In essence, we’re committing to the idea that this process will give us data that are substantively similar to the ones we have already.</p></li></div></div>
 <div class="page-columns page-full"><p>Let’s now write that model as a regression model, that is, as a model that predicts each participant’s tea rating, <span class="math inline">\(Y_i\)</span>, given that participant’s treatment assignment, <span class="math inline">\(X_i\)</span>. <span class="math inline">\(X_i=0\)</span> represents the control (milk-first) group and <span class="math inline">\(X_i=1\)</span> represents the treatment (tea-first) group.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Here, <span class="math inline">\(Y_i\)</span> is the dependent variable, and <span class="math inline">\(X_i\)</span> is the independent variable. The subscripts <span class="math inline">\(i\)</span> index the participants. To make this concrete, you can see some sample tea-tasting data (the first six observations from each condition) below (<a href="#tbl-models-datatable">Table&nbsp;<span>7.1</span></a>), with the index <span class="math inline">\(i\)</span>, the condition and its predictor <span class="math inline">\(X_i\)</span>, and the rating <span class="math inline">\(Y\)</span>.</p><div class="no-row-height column-margin column-container"><li id="fn5"><p><sup>5</sup>&nbsp;Using 0 and 1 is known as <strong>dummy coding</strong>, and allows us to interpret the parameter as the difference of the treatment group (tea-first) from the baseline (milk-first). There are many other ways to code categorical variables, with other interpretations. As a practical tip, be careful to check how your variables are coded before reporting anything!</p></li></div></div>
 <div class="cell page-columns page-full" data-hash="007-models_cache/html/tbl-models-datatable_c502310965890dcb3d9b330ef5ace496">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output-display">
 <div id="tbl-models-datatable" class="anchored">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <caption>Table&nbsp;7.1: Example tea tasting data.</caption>
 <thead>
 <tr class="header">
-<th style="text-align: right;" data-quarto-table-cell-role="th">id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">condition</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">X</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">rating (Y)</th>
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">condition</th>
+<th style="text-align: right;">X</th>
+<th style="text-align: right;">rating (Y)</th>
 </tr>
 </thead>
 <tbody>
@@ -550,8 +544,6 @@ learning goals
 </tbody>
 </table>
 </div>
-
-
 </div></div></div>
 <div class="page-columns page-full"><p>Let’s write this model more formally as a <strong>linear regression of Y on X</strong>. Conventionally, regression models are written with “<span class="math inline">\(\beta\)</span>’’ symbols for all parameters, so we’ll now use <span class="math inline">\(\beta_0 = \theta_M\)</span> for the mean in the milk-first group and <span class="math inline">\(\beta_1 = \theta_T - \theta_M\)</span> as the average difference between the tea-first and milk-first groups.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn6"><p><sup>6</sup>&nbsp;This <span class="math inline">\(\beta\)</span> is a generalization of the one were using to denote the causal effect above and in the previous two chapters.</p></li></div></div>
 <p><span class="math display">\[
@@ -560,12 +552,12 @@ Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
 <p>The term <span class="math inline">\(\beta_0 + \beta_1 X_i\)</span> is called the <strong>linear predictor</strong>, and it describes the expected value of an individual’s tea rating, <span class="math inline">\(Y_i\)</span>, given that participant’s treatment group <span class="math inline">\(X_i\)</span> (the single independent variable in this model). That is, for a participant in the control group (<span class="math inline">\(X_i=0\)</span>), the linear predictor is just equal to <span class="math inline">\(\beta_0\)</span>, which is indeed the mean for the control group that we specified above. On the other hand, for a participant in the treatment group, the linear predictor is equal to <span class="math inline">\(\beta_0 + \beta_1\)</span>, which is the mean for the treatment group that we specified. In regression jargon, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are <strong>regression coefficients</strong>, where <span class="math inline">\(\beta_1\)</span> represents the association of the independent variable <span class="math inline">\(X\)</span> with the outcome <span class="math inline">\(Y\)</span>.</p>
 <div class="page-columns page-full"><p>The term <span class="math inline">\(\epsilon_i\)</span> is the <strong>error term</strong>, referring to random variation of participants’ ratings around the group mean.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> Note that this is a very specific kind of “error”; it does not include “error” due to bias, for example. Instead, you can think of the error terms as capturing the “error” that would be associated with predicting any given participant’s rating based on just the linear predictor. If you predicted a control group participant’s rating as <span class="math inline">\(\beta_0\)</span>, that would be a good guess – but you still expect the participant’s rating to deviate somewhat from <span class="math inline">\(\beta_0\)</span> (i.e., due to variability across participants beyond what is captured by their treatment groups). In our regression model, the linear predictor and error terms together say that participants’ ratings scatter randomly (in fact, normally) around their group means with standard deviation <span class="math inline">\(\sigma\)</span>. And that is exactly the same model we posited in <a href="005-estimation.html"><span>Chapter&nbsp;5</span></a>.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn7"><p><sup>7</sup>&nbsp;Formally, we’d write <span class="math inline">\(\epsilon_i \sim \mathcal{N}(0, \sigma^2)\)</span>. The tilde means “is distributed as”, and what follows is a normal distribution with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>.</p></li><li id="fn8"><p><sup>8</sup>&nbsp;You may be wondering why so much effort was put into building boutique solutions for these special cases when a unified framework was available the whole time. A partial answer is that the classical infrastructure of statistics was developed before computers were widespread, and these special cases were chosen because they were easy to work with “analytically” (meaning to work out all the math with pen-and-paper, using values from big numerical tables). Now that we have computers with more flexible algorithms, the model-based perspective is more practical and accessible than it used to be.</p></li></div></div>
 <!-- [MM: In this figure, the LHS ggtitle and beta labels are cut off in the web version of book. Also maybe use subscripts on betas for consistency.] -->
-<div class="cell page-columns page-full" data-hash="007-models_cache/html/fig-models-ols-plot_cb0c518f2658a4923ae9fbf390cd93a7">
-<div class="cell-output-display page-columns page-full">
-<div id="fig-models-ols-plot" class="quarto-figure quarto-figure-center anchored page-columns page-full">
-<figure class="figure page-columns page-full">
+<div class="cell" data-hash="007-models_cache/html/fig-models-ols-plot_cb0c518f2658a4923ae9fbf390cd93a7">
+<div class="cell-output-display">
+<div id="fig-models-ols-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 <p><img src="007-models_files/figure-html/fig-models-ols-plot-1.png" class="img-fluid figure-img" width="2550"></p>
-<figcaption class="figure-caption margin-caption">Figure&nbsp;7.1: (left) Best-fitting regression coefficients for the tea-tasting experiment. (right) Much worse coefficients for the same data. Dotted lines: residuals. Circles: data points for individual participants.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;7.1: (left) Best-fitting regression coefficients for the tea-tasting experiment. (right) Much worse coefficients for the same data. Dotted lines: residuals. Circles: data points for individual participants.</figcaption>
 </figure>
 </div>
 </div>
@@ -666,12 +658,12 @@ g( E[Y_i] ) = \beta_0 + \sum_{j=1}^p \beta_j X_{ij}
 \text{logit}( E[Y_{it}] ) = \log \left( \frac{ E[Y_i] }{1 - E[Y_i] } \right) = \beta_0 + \sum_{j=1}^p \beta_j X_{ij}
 \]</span></p>
 <p>Exponentiating the coefficients (i.e., <span class="math inline">\(e^{\beta}\)</span>) would yield <strong>odds ratios</strong>, which are the <em>multiplicative</em> increase in the odds of <span class="math inline">\(Y_i=1\)</span> that is associated with a one-unit increase in the relevant predictor variable.</p>
-<div class="cell page-columns page-full" data-hash="007-models_cache/html/fig-models-logistic-ex_2c88845dda25d6ddc0afb81a4a6a2d3b">
-<div class="cell-output-display page-columns page-full">
-<div id="fig-models-logistic-ex" class="quarto-figure quarto-figure-center anchored page-columns page-full">
-<figure class="figure page-columns page-full">
+<div class="cell" data-hash="007-models_cache/html/fig-models-logistic-ex_2c88845dda25d6ddc0afb81a4a6a2d3b">
+<div class="cell-output-display">
+<div id="fig-models-logistic-ex" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 <p><img src="007-models_files/figure-html/fig-models-logistic-ex-1.png" class="img-fluid figure-img" width="1950"></p>
-<figcaption class="figure-caption margin-caption">Figure&nbsp;7.2: An example of how logistic regression transforms a change in the mean-centered predictor X into a change in the expected outcome Y. The same absolute change in X is associated in a large difference in the probability of the outcome when X is near its mean (blue) vs.&nbsp;a small change in the outcome when X is large (red) or small.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;7.2: An example of how logistic regression transforms a change in the mean-centered predictor X into a change in the expected outcome Y. The same absolute change in X is associated in a large difference in the probability of the outcome when X is near its mean (blue) vs.&nbsp;a small change in the outcome when X is large (red) or small.</figcaption>
 </figure>
 </div>
 </div>
@@ -702,9 +694,6 @@ code
 <section id="linear-mixed-effects-models" class="level2 page-columns page-full" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="linear-mixed-effects-models"><span class="header-section-number">7.3</span> Linear mixed effects models</h2>
 <p>Experimental data often contain multiple measurements for each participant (so-called <strong>repeated measures</strong>). In addition, these measurements are often based on a sample of stimulus items (which then each have multiple measures as well). This clustering is problematic for OLS models, because the error terms for each datapoint are not independent.</p>
-<div class="cell" data-hash="007-models_cache/html/models-tea-ols_1b56a43cb62a8691148b1159a95691ac">
-
-</div>
 <!-- [MM: Not sure how to change this, but should use $\widehat{\beta}_{1}$ for consistency] -->
 <p>Non-independence of datapoints may seem at first glance like a small issue, but it can present a deep problem for making inferences. Take the tea-tasting data we looked at above, where we had 24 observations in each condition. If we fit an OLS model, we observe a highly significant tea-first effect. Here is the estimate and confidence interval for that coefficient: <span class="math inline">\(b = -2.42\)</span>, 95% CI <span class="math inline">\([-3.50, -1.33]\)</span>. Based on what we talked about in the previous chapter, it seems like we’d be licensed in rejecting the null hypothesis that this effect is due to sampling variation and interpret this instead as evidence for a generalizable difference in tea preference in our sampled population.</p>
 <div class="page-columns page-full"><p>But suppose we told you that all of those 48 total observations (24 in each condition) were from one individual named George. That would change the picture considerably. Now we’d have no idea whether the big effect we observed reflected a difference in the population, but we would have a very good sense of what George’s preference is!<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a> The confidence intervals and p-values from our OLS model would be wrong now because all of the error terms would be highly correlated – they would all reflect George’s preferences.</p><div class="no-row-height column-margin column-container"><li id="fn17"><p><sup>17</sup>&nbsp;We discuss the strengths and weaknesses of repeated-measures designs like this in <a href="009-design.html"><span>Chapter&nbsp;9</span></a> and the statistical tradeoffs of having many people with a small number of observations per person vs.&nbsp;a small number of people with many observations per person in <a href="010-sampling.html"><span>Chapter&nbsp;10</span></a>.</p></li></div></div>
@@ -783,8 +772,8 @@ depth
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<section id="an-alternative-approach-generalized-estimating-equations" class="level2 callout-body-container callout-body" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="an-alternative-approach-generalized-estimating-equations"><span class="header-section-number">7.4</span> An alternative approach: Generalized estimating equations</h2>
+<section id="an-alternative-approach-generalized-estimating-equations" class="level2 unnumbered callout-body-container callout-body">
+<h2 class="unnumbered anchored" data-anchor-id="an-alternative-approach-generalized-estimating-equations">An alternative approach: Generalized estimating equations</h2>
 <p>A second class of methods that helps resolve issues of clustering is <strong>generalized estimating equations</strong> (GEE). In this approach, we leave the linear predictor alone. We do not add random intercepts or slopes, nor do we assume anything about the distribution of the errors (i.e., we no longer assume that they are normal, independent, and homoskedastic).</p>
 <p>In GEE, we instead provide the model with an initial “guess” about how we think the errors might be related to one another; for example, in a repeated-measures experiment, we might guess that the errors are exchangeable, meaning that they are correlated to the same degree within each participant but are uncorrelated across participants. Instead of <em>assuming</em> that our guess is correct, as do linear mixed models (LMM), GEE estimates the correlation structure of the errors empirically, using our guess as a starting point, and it uses this correlation structure to arrive at point estimates and inference for the regression coefficients. Remarkably, as the number of clusters and observations become very large, GEE will <em>always</em> provide unbiased point estimates and valid inference, <em>even if</em> our guess about the correlation structure was bad. Additionally, with simple finite-sample corrections <span class="citation" data-cites="mancl2001covariance">(<a href="#ref-mancl2001covariance" role="doc-biblioref">Mancl and DeRouen 2001</a>)</span>, GEE seems to provide valid inference at smaller numbers of clusters than does LMM.</p>
 <p>The price paid for these nice safeguards against model misspecification is that, in principle, GEE will typically have less statistical power than LMM <em>if</em> the LMM is in fact correctly specified, but the difference may be surprisingly slight in practice <span class="citation" data-cites="bie2021fitting">(<a href="#ref-bie2021fitting" role="doc-biblioref">Bie et al. 2021</a>)</span>. For these reasons, some of this book’s authors actually favor GEE with finite-sample corrections over LMM as the default model for clustered data, though they are much less common in psychology. <!-- In general, we tend to favor LMM over GEE only when the number of observations and clusters are quite large, and when careful diagnostics also indicate that distributional assumptions are fulfilled. --></p>
@@ -793,12 +782,12 @@ depth
 </div>
 </section>
 </section>
-<section id="how-do-you-use-models-to-analyze-data" class="level2 page-columns page-full" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="how-do-you-use-models-to-analyze-data"><span class="header-section-number">7.5</span> How do you use models to analyze data?</h2>
+<section id="how-do-you-use-models-to-analyze-data" class="level2 page-columns page-full" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="how-do-you-use-models-to-analyze-data"><span class="header-section-number">7.4</span> How do you use models to analyze data?</h2>
 <p>In the prior parts of this chapter, we’ve described a suite of regression-based techniques – standard OLS, the generalized linear model, and linear mixed effects models – that can be used to model the data resulting from randomized experiments (as well as many other kinds of data). The advantage of regression models over the simpler estimation and inference methods we described in the prior two chapters is that these models can more effectively take into account a range of different kinds of variation including covariates, multiple manipulations, and clustered structure. Further, when used appropriately to analyze a well-designed randomized experiment, regression models can give an unbiased estimate of a causal effect of interest, our main goal in doing experiments.</p>
 <p>But – practically speaking – how should go you about building a model for your experiment? What covariates should you include and what should you leave out? There are many ways to use models to explore datasets, but in this section we will try to sketch a default approach for the use of models to estimate causal effects in experiments in the most straightforward way. Think of this as a starting point. We’ll begin this section by giving a set of rules of thumb, then discuss a worked example. Our final subsections will deal with the issues of when you should include covariates in your model and how to check if your result is robust across multiple different model specifications.</p>
-<section id="modeling-rules-of-thumb" class="level3 page-columns page-full" data-number="7.5.1">
-<h3 data-number="7.5.1" class="anchored" data-anchor-id="modeling-rules-of-thumb"><span class="header-section-number">7.5.1</span> Modeling rules of thumb</h3>
+<section id="modeling-rules-of-thumb" class="level3 page-columns page-full" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="modeling-rules-of-thumb"><span class="header-section-number">7.4.1</span> Modeling rules of thumb</h3>
 <div class="page-columns page-full"><p>Our approach to statistical modeling is to start with a “default model” that is known in the literature as a <strong>saturated model</strong>. The saturated model of an experiment includes the full design of the experiment – all main effects and interactions – and nothing else. If you are manipulating a variable, include it in your model. If you are manipulating two, include them both and their interaction. If your design includes repeated measurements for participants, include a random effect of participant; if it includes experimental items for which repeated measurements are made, include random effect of stimulus.<a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn25"><p><sup>25</sup>&nbsp;As discussed above, you can also include the “maximal” random effect structure <span class="citation" data-cites="barr2013">(<a href="#ref-barr2013" role="doc-biblioref">Barr et al. 2013</a>)</span>, which involves random slopes as well as intercepts – but recognize that you cannot always fit such models.</p></li></div></div>
 <div class="page-columns page-full"><p>Don’t include lots of other stuff in your default model. You are doing a randomized experiment, and the strength of randomized experiments is that you don’t have to worry about confounding based on the population (see <a href="001-experiments.html"><span>Chapter&nbsp;1</span></a>). So don’t put a lot of covariates in your default model – usually don’t put in any!<a href="#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn26"><p><sup>26</sup>&nbsp;One corollary to having this kind of default perspective on data analysis: When you see an analysis that deviates substantially from the default, these deviations should provoke some questions. If someone drops a manipulation from their analysis, adds a covariate or two, or fails to control for some clustering in the data, did they deviate because of different norms in their sub-field, or was there some other rationale? This line of reasoning sometimes leads to questions about the extent to which particular analytic decisions are post-hoc and driven by the data (in other words, <span class="math inline">\(p\)</span>-hacked). For an example, see the case study in <a href="011-prereg.html"><span>Chapter&nbsp;11</span></a>.</p></li></div></div>
 <p>This default saturated model then represents a simple summary of your experimental results. Its coefficients can be interpreted as estimates of the effects of interest, and it can be used as the basis for inferences about the relation of the experimental effect to the population using either frequentist or Bayesian tools.</p>
@@ -822,21 +811,18 @@ depth
 </ol>
 <p>That said, there are some contexts in which it does make sense to depart from the default saturated model. For example, there may be insufficient statistical power to estimate multiple interaction terms, or covariates might be included in the model to help handle certain forms of missing data. The default model simply represents a very good starting point.</p>
 </section>
-<section id="a-worked-example" class="level3 page-columns page-full" data-number="7.5.2">
-<h3 data-number="7.5.2" class="anchored"><span class="header-section-number">7.5.2</span> A worked example</h3>
+<section id="a-worked-example" class="level3 page-columns page-full" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored"><span class="header-section-number">7.4.2</span> A worked example</h3>
 <div class="cell page-columns page-full" data-hash="007-models_cache/html/fig-models-sgf-stim_39d0ff43835a5875e981e40b9f516cfc">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output-display">
 <div id="fig-models-sgf-stim" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="images/models/sgf.png" class="img-fluid figure-img" width="113"></p>
+<p><img src="images/models/sgf.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Figure&nbsp;7.4: Example stimulus materials from Stiller, Goodman, and Frank (2015).</figcaption>
 </figure>
 </div>
 </div></div></div>
-<div class="cell" data-hash="007-models_cache/html/models-sgf-data_3980b97b3db61f569585a915391c118b">
-
-</div>
 <p>All this advice may seem abstract, so let’s put it into practice on a simple example. For a change, let’s look at an experiment that’s not about tea tasting. Here we’ll consider data from an experiment testing preschool children’s language comprehension <span class="citation" data-cites="stiller2015">(<a href="#ref-stiller2015" role="doc-biblioref">Stiller, Goodman, and Frank 2015</a>)</span>. In this experiment, 2–5 year old children saw displays like the one in <a href="#fig-models-sgf-stim">Figure&nbsp;<span>7.4</span></a>. In the experimental condition, a puppet might say, for example, “My friend has glasses! Which one is my friend?” The goal was to measure how many children made the “pragmatic inference” that the puppet’s friend was the face with glasses and <em>no</em> hat.</p>
 <p>To estimate the effect, participants were randomly assigned to either the experimental condition or to a control condition in which the puppet had eaten too much peanut butter and couldn’t talk, but they still had to guess which face was his friend. There were also three other types of experimental stimuli (houses, beds, and plates of pasta). Data from this experiment consisted of 588 total observations from 147 children, with all four stimuli presented to each child. The primary hypothesis of this experiment was that that preschool children could make pragmatic inferences by correctly inferring which of the three faces (for example) the puppet was describing.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="code">
@@ -863,12 +849,12 @@ code
 <p>All this advice may seem abstract, so let’s put it into practice on a simple example. For a change, let’s look at an experiment that’s not about tea tasting. Here we’ll consider data from an experiment testing preschool children’s language comprehension , <a href="103-tidyverse.html">we also use these data in&nbsp;<span>D</span></a>. In this experiment, 2–5 year old children saw displays like the one in <a href="#fig-models-sgf-stim">Figure&nbsp;<span>7.4</span></a>. In the experimental condition, a puppet might say, for example, “My friend has glasses! Which one is my friend?” The goal was to measure how many children made the “pragmatic inference” that the puppet’s friend was the face with glasses and <em>no</em> hat.</p>
 <p>To estimate the effect, participants were randomly assigned to either the experimental condition or to a control condition in which the puppet had eaten too much peanut butter and couldn’t talk, but they still had to guess which face was his friend. There were also three other types of experimental stimuli (houses, beds, and plates of pasta). Data from this experiment consisted of 588 total observations from 147 children, with all four stimuli presented to each child. The primary hypothesis of this experiment was that that preschool children could make pragmatic inferences by correctly inferring which of the three faces (for example) the puppet was describing.</p>
 <div class="page-columns page-full"><p>This experimental design looks a lot like some versions of our tea-tasting experiment. We have one primary condition manipulation (the puppet provides information versus does not), presented between-participants so that some participants are in the experimental condition and others are in the control condition. Our measurements are repeated within participants across different experimental stimuli. Finally, we have one important, pre-planned covariate: children’s age. Experimental data are plotted in <a href="#fig-models-sgf-plot">Figure&nbsp;<span>7.5</span></a>.<a href="#fn28" class="footnote-ref" id="fnref28" role="doc-noteref"><sup>28</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn28"><p><sup>28</sup>&nbsp;Our sampling plan for this experiment was actually <strong>stratified</strong> across age, meaning that we intentionally recruited the same number of participants for each one-year age group – because we anticipated that age was highly correlated with children’s ability to succeed in this task. We’ll describe this kind of sampling in more detail in <a href="010-sampling.html"><span>Chapter&nbsp;10</span></a>.</p></li></div></div>
-<div class="cell page-columns page-full" data-hash="007-models_cache/html/fig-models-sgf-plot_979716ebe9628e57faa0468bf721f99f">
-<div class="cell-output-display page-columns page-full">
-<div id="fig-models-sgf-plot" class="quarto-figure quarto-figure-center anchored page-columns page-full">
-<figure class="figure page-columns page-full">
+<div class="cell" data-hash="007-models_cache/html/fig-models-sgf-plot_979716ebe9628e57faa0468bf721f99f">
+<div class="cell-output-display">
+<div id="fig-models-sgf-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 <p><img src="007-models_files/figure-html/fig-models-sgf-plot-1.png" class="img-fluid figure-img" width="1950"></p>
-<figcaption class="figure-caption margin-caption">Figure&nbsp;7.5: Data for <span class="citation" data-cites="stiller2015">Stiller, Goodman, and Frank (<a href="#ref-stiller2015" role="doc-biblioref">2015</a>)</span>. Each point shows a single participant’s proportion correct trials (out of 4 experimental stimuli) plotted by age group, jittered slightly to avoid overplotting. Larger points and associated confidence intervals show mean and 95% confidence intervals for each condition.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;7.5: Data for <span class="citation" data-cites="stiller2015">Stiller, Goodman, and Frank (<a href="#ref-stiller2015" role="doc-biblioref">2015</a>)</span>. Each point shows a single participant’s proportion correct trials (out of 4 experimental stimuli) plotted by age group, jittered slightly to avoid overplotting. Larger points and associated confidence intervals show mean and 95% confidence intervals for each condition.</figcaption>
 </figure>
 </div>
 </div>
@@ -888,27 +874,26 @@ code
 <li><span class="math inline">\(\gamma_i\)</span> is the random intercept for participant <span class="math inline">\(i\)</span>, capturing individual variation in the odds of success across trials.</li>
 <li><span class="math inline">\(\gamma_t\)</span> is the random intercept for stimulus <span class="math inline">\(t\)</span>, capturing variation in the odds of success across the four different stimuli.</li>
 </ul>
-<div class="no-row-height column-margin column-container"><li id="fn31"><p><sup>31</sup>&nbsp;We have <strong>centered</strong> our age predictor in this example so that all estimates from our model are for the average age of our participants. Centering is a good practice for modeling continuous predictors because it increases the interpretability of other parts of the model. For example, because age is centered in this model, the intercept <span class="math inline">\(\beta_0\)</span> can be interpreted as the predicted odds of a correct trial for a participant in the control condition at the average age.</p></li></div><div class="cell" data-hash="007-models_cache/html/models-sgf-model_1a76eb13fbe6d6a43a68d2a46b47a108">
-
-</div>
-<div class="cell page-columns page-full" data-hash="007-models_cache/html/tbl-models-sgf-model-print_35758b69677d5f385216d627dbc6f25a">
-<div class="cell-output-display page-columns page-full">
-
-(#tab:tbl-models-sgf-model-print)
-
-<div data-custom-style="Table Caption">
-**
-</div>
-<div id="tbl-models-sgf-model-print" class="anchored page-columns page-full">
+<div class="no-row-height column-margin column-container"><li id="fn31"><p><sup>31</sup>&nbsp;We have <strong>centered</strong> our age predictor in this example so that all estimates from our model are for the average age of our participants. Centering is a good practice for modeling continuous predictors because it increases the interpretability of other parts of the model. For example, because age is centered in this model, the intercept <span class="math inline">\(\beta_0\)</span> can be interpreted as the predicted odds of a correct trial for a participant in the control condition at the average age.</p></li></div><div class="cell" data-hash="007-models_cache/html/tbl-models-sgf-model-print_480c54189e4ef410be66bbd8d01ba417">
+<div class="cell-output-display">
+<div class="kable-table">
+<div id="tbl-models-sgf-model-print" class="anchored">
 <table class="table table-sm table-striped small">
-
+<caption>Table&nbsp;7.2: Estimated effects for our generalized linear mixed effects model on data from Stiller (2015).</caption>
+<colgroup>
+<col style="width: 40%">
+<col style="width: 12%">
+<col style="width: 21%">
+<col style="width: 14%">
+<col style="width: 11%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Term</th>
-<th style="text-align: left;"><span class="math inline">\(\hat{\beta}\)</span></th>
-<th style="text-align: left;">95% CI</th>
-<th style="text-align: left;"><span class="math inline">\(z\)</span></th>
-<th style="text-align: left;"><span class="math inline">\(p\)</span></th>
+<th style="text-align: left;">term</th>
+<th style="text-align: left;">estimate</th>
+<th style="text-align: left;">conf.int</th>
+<th style="text-align: left;">statistic</th>
+<th style="text-align: left;">p.value</th>
 </tr>
 </thead>
 <tbody>
@@ -942,7 +927,8 @@ code
 </tr>
 </tbody>
 </table>
-<div class="quarto-table-caption margin-caption">Table&nbsp;7.2: Estimated effects for our generalized linear mixed effects model on data from Stiller et al. (2015).</div></div>
+</div>
+</div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="code">
@@ -981,7 +967,7 @@ code
 </ul>
 <p>In sum, this model suggests that there was a substantial difference in performance between experimental and control conditions, in turn supporting the hypothesis that children in the sampled age group can perform pragmatic inferences above chance.</p>
 <p>This example illustrates the “default saturated model” framework that we recommend – the idea that a single regression model corresponding to the design of the experiment can yield an interpretable estimate of the causal effect of interest, even in the presence of other sources of variation.</p>
-<div class="callout callout-style-default callout-note callout-titled page-columns page-full" title="depth">
+<div class="callout callout-style-default callout-note callout-titled" title="depth">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -991,22 +977,18 @@ depth
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse page-columns page-full">
-<section id="when-does-it-makes-sense-to-include-covariates-in-a-model" class="level2 callout-body-container callout-body page-columns page-full" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="when-does-it-makes-sense-to-include-covariates-in-a-model"><span class="header-section-number">7.6</span> When does it makes sense to include covariates in a model?</h2>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<section id="when-does-it-makes-sense-to-include-covariates-in-a-model" class="level2 unnumbered callout-body-container callout-body">
+<h2 class="unnumbered anchored" data-anchor-id="when-does-it-makes-sense-to-include-covariates-in-a-model">When does it makes sense to include covariates in a model?</h2>
 <p>Let’s come back to one piece of advice that we gave above about making a “default” model of an experiment: not including covariates. This advice can seem surprising. Many demographic factors are of interest to psychologists and other behavioral scientists, and in observational studies these factors will almost always be related to important life outcomes. So why not put them into our experimental models? After all, we did include age in our worked example above!</p>
 <p>Well, if you have one or at most a small handful of covariates that you believe are meaningfully related to the outcome, you <em>can</em> plan in advance to put them in your model. If you think that your effect is likely to be <strong>moderated</strong> a specific demographic characteristic – as we did with age in our developmental example above – then this inclusion can be quite useful.</p>
 <p>Further, including covariates can increase the precision of your estimates by reducing “noise” in your outcome, if you hypothesize that they interact. What’s surprising though is how <em>little</em> this adjustment does to increase your overall precision unless the correlation between covariate and outcome is very strong.</p>
 <p><a href="#fig-models-precision">Figure&nbsp;<span>7.6</span></a> shows the relationship between estimation error and the inclusion of covariates via a simple simulation. Only when the correlation between covariate and outcome (e.g., age and tea rating is greater than <span class="math inline">\(r=0.6\)</span> to <span class="math inline">\(r=0.8\)</span> does this adjustment really help.</p>
-<div class="cell page-columns page-full" data-boxfigure="true" data-hash="007-models_cache/html/fig-models-precision_ecf0fa1e71b0aeae41ec3a9770e8356e">
-<div class="cell-output-display page-columns page-full">
-<div id="fig-models-precision" class="quarto-figure quarto-figure-center anchored page-columns page-full">
-<figure class="figure page-columns page-full">
-<p><img src="007-models_files/figure-html/fig-models-precision-1.png" class="img-fluid figure-img" width="1800"></p>
-<figcaption class="figure-caption margin-caption">Figure&nbsp;7.6: Decreases in estimation error due to adjusting for covariates, plotted by the N participants in each group and the correlation between the covariate and the outcome.</figcaption>
+<div id="fig-models-precision" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="007-models_files/figure-html/models-precision-1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;7.6: Decreases in estimation error due to adjusting for covariates, plotted by the N participants in each group and the correlation between the covariate and the outcome.</figcaption>
 </figure>
-</div>
-</div>
 </div>
 <p>That said, there are quite a few reasons not to include covariates – motivating our recommendation to skip them in your default model unless you have very strong theory-based expectations for either (A) a correlation with the outcome or (B) a strong moderation relationship.</p>
 <p>The first is simply because we don’t need to. Because randomization cuts causal links, our experimental estimate is an unbiased estimate of the causal effect of interest (at least for large samples). We are guaranteed that, in the limit of many different experiments, even though people with different ages will be in the different tea tasting conditions, this source of variation will be averaged out. Actually, including unnecessary covariates into models (slightly) decreases the probability that the model can detect a true effect (that is, it decreases statistical precision and power). Just by chance covariates can “soak up” variation in the outcome, leaving less to be accounted for by the true effect!</p>
@@ -1017,16 +999,16 @@ depth
 </div>
 </div>
 </section>
-<section id="robustness-checks-and-the-multiverse" class="level3 page-columns page-full" data-number="7.6.1">
-<h3 data-number="7.6.1" class="anchored" data-anchor-id="robustness-checks-and-the-multiverse"><span class="header-section-number">7.6.1</span> Robustness checks and the multiverse</h3>
+<section id="robustness-checks-and-the-multiverse" class="level3 page-columns page-full" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="robustness-checks-and-the-multiverse"><span class="header-section-number">7.4.3</span> Robustness checks and the multiverse</h3>
 <div class="page-columns page-full"><p>Using the NHST statistical testing approach that has been common in the psychology literature, even a simple two factor experimental design affords a host of different <span class="math inline">\(t\)</span>-tests and ANOVAs,<a href="#fn33" class="footnote-ref" id="fnref33" role="doc-noteref"><sup>33</sup></a> offering many opportunities for <span class="math inline">\(p\)</span>-hacking and selective reporting. We’ve been advocating here instead for a “default model” approach in which you pre-plan and pre-register a single regression model that captures the planned features of your experimental design including manipulations and sources of clustering. This approach can help you to navigate some of the complexity of data analysis by having a standard approach that you take in almost every case.</p><div class="no-row-height column-margin column-container"><li id="fn33"><p><sup>33</sup>&nbsp;Although we don’t cover this point here, ANOVAs are also a special case of regression.</p></li></div></div>
 <p>Not every dataset will be amenable to this approach, however. For complex experimental designs or unusual measures, sometimes it can be hard to figure out how to specify or fit the default saturated model. And especially in these cases, the choice of model can make a big difference to the magnitude of the reported effect. To quantify variability in effect size due to model choice, “Many Analysts” projects have asked a set of teams to approach a dataset using different analysis methods. The consistent result from these projects has been that there is substantial variability in outcomes depending on what approach is taken <span class="citation" data-cites="silberzahn2018 botvinik-nezer2020">(<a href="#ref-silberzahn2018" role="doc-biblioref">Silberzahn et al. 2018</a>; <a href="#ref-botvinik-nezer2020" role="doc-biblioref">Botvinik-Nezer et al. 2020</a>)</span>.</p>
 <p><strong>Robustness analysis</strong> (also sometimes called “sensitivity analysis” or “multiverse analysis”, which sounds cooler) is a technique for addressing the possibility that an individual analysis over- or under-estimates a particular effect by chance <span class="citation" data-cites="steegen2016">(<a href="#ref-steegen2016" role="doc-biblioref">Steegen et al. 2016</a>)</span>. The general idea is that analysts explore a space of different possible analyses. In its simplest form, alternative model specifications can be reported in a supplement; more sophisticated versions of the idea call for averaging estimates across a range of possible specifications and reporting this average as the primary effect estimate.</p>
 <p>The details of this kind of analysis will vary depending on what you are worried about your model being sensitive to. One analyst might be concerned about the effects of adding different covariates; another might be using a Bayesian framework and be concerned about sensitivity to particular prior values. If you get similar results across many different specifications, you can sleep better at night. The primary principle to take home is a bit of humility about our models. Any given model is likely wrong in some of its details. Investigating the sensitivity of your estimates to the details of your model specification is a good idea.</p>
 </section>
 </section>
-<section id="chapter-summary-models" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="chapter-summary-models"><span class="header-section-number">7.7</span> Chapter summary: Models</h2>
+<section id="chapter-summary-models" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="chapter-summary-models"><span class="header-section-number">7.5</span> Chapter summary: Models</h2>
 <p>In the last three chapters, we have spelled out a framework for data analysis that focuses on our key experimental goal: a measurement of a particular causal effect. We began with basic techniques for estimating effects and making inferences about how these effects estimated from a sample can be generalized to a population. This chapter showed how these ideas naturally give rise to the idea of making models of data, which allow estimation of effects in more complex designs. Simple regression models, which are formally identical to other inference methods in the most basic case, can be extended with the generalized linear model as well as with mixed effects models. Finally, we ended with some guidance on how to build a “default model” – an (often pre-registered) regression model that maps onto your experimental design and provides the primary estimate of your key causal effect.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="discussion questions">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
